@@ -1,65 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`player play first scene on start 1`] = `
+exports[`player play book introduction if no actions 1`] = `
 Array [
-  Object {
-    "content": Array [
-      Object {
-        "content": "Choose your story",
-        "type": "text",
-      },
-    ],
-    "level": 1,
-    "type": "heading",
-  },
-  Object {
-    "content": Array [
-      Object {
-        "content": "This is a test adventure",
-        "type": "text",
-      },
-      Object {
-        "content": ", welcome",
-        "type": "text",
-      },
-      Object {
-        "content": ".",
-        "type": "text",
-      },
-    ],
-    "type": "paragraph",
-  },
+  Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "Choose your story",
+          "type": "text",
+        },
+      ],
+      "level": 1,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "This is a test adventure",
+          "type": "text",
+        },
+        Object {
+          "content": ", welcome",
+          "type": "text",
+        },
+        Object {
+          "content": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  Array [],
 ]
 `;
 
-exports[`player play only introduction if no actions 1`] = `
+exports[`player play second level 2 scene on start 1`] = `
 Array [
-  Object {
-    "content": Array [
-      Object {
-        "content": "Choose your story",
-        "type": "text",
-      },
-    ],
-    "level": 1,
-    "type": "heading",
-  },
-  Object {
-    "content": Array [
-      Object {
-        "content": "This is a test adventure",
-        "type": "text",
-      },
-      Object {
-        "content": ", welcome",
-        "type": "text",
-      },
-      Object {
-        "content": ".",
-        "type": "text",
-      },
-    ],
-    "type": "paragraph",
-  },
+  Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "Choose your story",
+          "type": "text",
+        },
+      ],
+      "level": 1,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "This is a test adventure",
+          "type": "text",
+        },
+        Object {
+          "content": ", welcome",
+          "type": "text",
+        },
+        Object {
+          "content": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "The space ship",
+          "type": "text",
+        },
+      ],
+      "level": 2,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "You are the brave pilot of this ship",
+          "type": "text",
+        },
+        Object {
+          "content": ".
+The trip is long and boring",
+          "type": "text",
+        },
+        Object {
+          "content": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "Are you going to ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "get food",
+              "type": "text",
+            },
+          ],
+          "target": "/cantina",
+          "title": undefined,
+          "type": "link",
+        },
+        Object {
+          "content": " or to ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "get a rest",
+              "type": "text",
+            },
+          ],
+          "target": "/bedroom",
+          "title": undefined,
+          "type": "link",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
 ]
 `;

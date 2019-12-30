@@ -1,14 +1,16 @@
 import * as R from 'ramda'
 
-const player = (source, moves = [], story = []) =>
-  R.pipe(
-    R.splitWhen(
-      R.where({
-        type: R.equals('heading'),
-        level: R.equals(2),
-      })
-    ),
-    R.head
-  )(source)
+const player = (book, moves = []) => {
+  const [firstScene, ...scenes] = book
+  return [
+    firstScene,
+    moves.reduce((acc, { type }) => {
+      switch (type) {
+        case 'start':
+          return R.head(scenes)
+      }
+    }, []),
+  ]
+}
 
 export default player
