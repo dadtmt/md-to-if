@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`findScene find a scene 1`] = `Array []`;
+
 exports[`player play book introduction if no actions 1`] = `
 Array [
   Array [
@@ -26,6 +28,105 @@ Array [
         Object {
           "content": ".",
           "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+]
+`;
+
+exports[`player play cantina scene on cantina target 1`] = `
+Array [
+  Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "Choose your story",
+          "type": "text",
+        },
+      ],
+      "level": 1,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "This is a test adventure",
+          "type": "text",
+        },
+        Object {
+          "content": ", welcome",
+          "type": "text",
+        },
+        Object {
+          "content": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "The space ship",
+          "type": "text",
+        },
+      ],
+      "level": 2,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "You are the brave pilot of this ship",
+          "type": "text",
+        },
+        Object {
+          "content": ".
+The trip is long and boring",
+          "type": "text",
+        },
+        Object {
+          "content": ".",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "Are you going to ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "get food",
+              "type": "text",
+            },
+          ],
+          "target": "/cantina",
+          "title": undefined,
+          "type": "link",
+        },
+        Object {
+          "content": " or to ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "get a rest",
+              "type": "text",
+            },
+          ],
+          "target": "/bedroom",
+          "title": undefined,
+          "type": "link",
         },
       ],
       "type": "paragraph",
