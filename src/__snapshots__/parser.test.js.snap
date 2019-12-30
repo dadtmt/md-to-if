@@ -13,9 +13,21 @@ Array [
     "type": "heading",
   },
   Object {
-    "content": "This is a test adventure, welcome.",
-    "lang": undefined,
-    "type": "codeBlock",
+    "content": Array [
+      Object {
+        "content": "This is a test adventure",
+        "type": "text",
+      },
+      Object {
+        "content": ", welcome",
+        "type": "text",
+      },
+      Object {
+        "content": ".",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
   Object {
     "content": Array [
@@ -28,15 +40,57 @@ Array [
     "type": "heading",
   },
   Object {
-    "content": "You are the brave pilot of this ship.
-The trip is long and boring.",
-    "lang": undefined,
-    "type": "codeBlock",
+    "content": Array [
+      Object {
+        "content": "You are the brave pilot of this ship",
+        "type": "text",
+      },
+      Object {
+        "content": ".
+The trip is long and boring",
+        "type": "text",
+      },
+      Object {
+        "content": ".",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
   Object {
-    "content": "Are you going to [pee](/space-toilet) or to [get a rest](/bedroom)",
-    "lang": undefined,
-    "type": "codeBlock",
+    "content": Array [
+      Object {
+        "content": "Are you going to ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "pee",
+            "type": "text",
+          },
+        ],
+        "target": "/space-toilet",
+        "title": undefined,
+        "type": "link",
+      },
+      Object {
+        "content": " or to ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "get a rest",
+            "type": "text",
+          },
+        ],
+        "target": "/bedroom",
+        "title": undefined,
+        "type": "link",
+      },
+    ],
+    "type": "paragraph",
   },
 ]
 `;
