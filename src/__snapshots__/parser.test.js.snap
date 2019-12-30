@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parser parse markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": "Choose your story",
+        "type": "text",
+      },
+    ],
+    "level": 1,
+    "type": "heading",
+  },
+  Object {
+    "content": "This is a test adventure, welcome.",
+    "lang": undefined,
+    "type": "codeBlock",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "The space ship",
+        "type": "text",
+      },
+    ],
+    "level": 2,
+    "type": "heading",
+  },
+  Object {
+    "content": "You are the brave pilot of this ship.
+The trip is long and boring.",
+    "lang": undefined,
+    "type": "codeBlock",
+  },
+  Object {
+    "content": "Are you going to [pee](/space-toilet) or to [get a rest](/bedroom)",
+    "lang": undefined,
+    "type": "codeBlock",
+  },
+]
+`;

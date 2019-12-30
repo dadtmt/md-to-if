@@ -48,6 +48,7 @@
     ]
   },
   "dependencies": {
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "simple-markdown": "^0.7.1"
   }
 }
