@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`player play only introduction if no actions 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": "Choose your story",
+        "type": "text",
+      },
+    ],
+    "level": 1,
+    "type": "heading",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "This is a test adventure",
+        "type": "text",
+      },
+      Object {
+        "content": ", welcome",
+        "type": "text",
+      },
+      Object {
+        "content": ".",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
