@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-const player = R.curry((source, moves = []) =>
+const player = (source, moves = [], story = []) =>
   R.pipe(
     R.splitWhen(
       R.where({
@@ -10,6 +10,5 @@ const player = R.curry((source, moves = []) =>
     ),
     R.head
   )(source)
-)
 
 export default player
