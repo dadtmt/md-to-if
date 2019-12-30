@@ -7,4 +7,10 @@ This is a test adventure, welcome.
 You are the brave pilot of this ship.
 The trip is long and boring.
 
-Are you going to [pee](/space-toilet) or to [get a rest](/bedroom)`
+Are you going to [get food](/cantina) or to [get a rest](/bedroom)
+
+## Cantina
+
+The cantina is full with your crew having a good time
+
+`

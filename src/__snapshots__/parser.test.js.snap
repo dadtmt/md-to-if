@@ -66,11 +66,11 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": "pee",
+            "content": "get food",
             "type": "text",
           },
         ],
-        "target": "/space-toilet",
+        "target": "/cantina",
         "title": undefined,
         "type": "link",
       },
@@ -88,6 +88,25 @@ The trip is long and boring",
         "target": "/bedroom",
         "title": undefined,
         "type": "link",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "Cantina",
+        "type": "text",
+      },
+    ],
+    "level": 2,
+    "type": "heading",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "The cantina is full with your crew having a good time",
+        "type": "text",
       },
     ],
     "type": "paragraph",
