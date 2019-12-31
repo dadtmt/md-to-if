@@ -1,16 +1,23 @@
 import parser from './parser'
-import book, { splitByScene } from './book'
+import book, { splitByScene, getSceneName } from './book'
 import adventure from './adventure.md.js'
 
+const lastSceneMd = `## Final landing
+
+congrats you made it!!!
+    `
+
+describe('getSceneName', () => {
+  it('get scene name', () => {
+    const scene = parser(lastSceneMd)
+    expect(getSceneName(scene)).toMatchSnapshot()
+  })
+})
 describe('splitByScene', () => {
   it('split the first scene', () => {
     expect(splitByScene(parser(adventure))).toMatchSnapshot()
   })
   it('split the last scene', () => {
-    const lastSceneMd = `## Final landing
-
-congrats you made it!!!
-    `
     expect(splitByScene(parser(lastSceneMd))).toMatchSnapshot()
   })
 })

@@ -1,4 +1,13 @@
 import * as R from 'ramda'
+import { snakeCase } from 'change-case'
+
+export const getSceneName = R.pipe(
+  R.head,
+  R.prop('content'),
+  R.head,
+  R.prop('content'),
+  snakeCase
+)
 
 export const splitByScene = R.converge(R.prepend, [
   R.head,

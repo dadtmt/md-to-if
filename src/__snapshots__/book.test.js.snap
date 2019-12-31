@@ -120,6 +120,8 @@ The trip is long and boring",
 ]
 `;
 
+exports[`getSceneName get scene name 1`] = `"final_landing"`;
+
 exports[`splitByScene split the first scene 1`] = `
 Array [
   Object {
