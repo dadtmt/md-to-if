@@ -10,9 +10,16 @@ congrats you made it!!!
 describe('getSceneName', () => {
   it('get scene name', () => {
     const scene = parser(lastSceneMd)
-    expect(getSceneName(scene)).toMatchSnapshot()
+    expect(getSceneName(scene)).toBe('final_landing')
+  })
+  it('get unamed if first element is not heading', () => {
+    const scene = parser(`
+    
+    `)
+    expect(getSceneName(scene)).toBe('unnamed')
   })
 })
+
 describe('splitByScene', () => {
   it('split the first scene', () => {
     expect(splitByScene(parser(adventure))).toMatchSnapshot()

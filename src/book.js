@@ -3,9 +3,9 @@ import { snakeCase } from 'change-case'
 
 export const getSceneName = R.pipe(
   R.head,
-  R.prop('content'),
+  R.propOr([], 'content'),
   R.head,
-  R.prop('content'),
+  R.propOr('unnamed', 'content'),
   snakeCase
 )
 
