@@ -11,6 +11,10 @@ const moveToCantina = {
   type: 'anchor',
   target: '/cantina',
 }
+const moveToSpaceShip = {
+  type: 'anchor',
+  target: '/the_space_ship',
+}
 
 describe('player', () => {
   it('play book introduction if no actions', () => {
@@ -33,13 +37,17 @@ describe('findScene', () => {
 })
 
 describe('matchTarget', () => {
-  it('match cantina scene', () => {
-    const cantinaScene = { content: adventureBook[2], name: 'cantina' }
+  it('move to cantina match cantina scene', () => {
+    const cantinaScene = adventureBook[2]
     expect(matchTarget(moveToCantina)(cantinaScene)).toBe(true)
   })
-  it('does not match cantina scene', () => {
-    const cantinaScene = { content: adventureBook[1], name: 'the-space-ship' }
-    expect(matchTarget(moveToCantina)(cantinaScene)).toBe(false)
+  it('move to cantina does not match spaceship scene', () => {
+    const spaceShipScene = adventureBook[1]
+    expect(matchTarget(moveToCantina)(spaceShipScene)).toBe(false)
+  })
+  it('move to spaceship match spaceship scene', () => {
+    const spaceShipScene = adventureBook[1]
+    expect(matchTarget(moveToSpaceShip)(spaceShipScene)).toBe(true)
   })
 })
 
