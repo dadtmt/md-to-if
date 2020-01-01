@@ -1,6 +1,9 @@
 import parser from './parser'
-import book, { splitByScene, getSceneName } from './book'
+import { splitByScene, getSceneName } from './book'
 import adventure from './adventure.md.js'
+import { book } from '.'
+
+console.log(book)
 
 const lastSceneMd = `## Final landing
 

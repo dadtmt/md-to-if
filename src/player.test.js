@@ -1,7 +1,8 @@
 import parser from './parser'
-import player, { findScene, getTarget, matchTarget } from './player'
+import { findScene, getTarget, matchTarget } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
+import { player } from '.'
 
 const adventureBook = book(parser(adventure))
 const startMove = {

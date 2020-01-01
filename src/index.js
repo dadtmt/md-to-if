@@ -1,5 +1,7 @@
-import * as R from 'ramda'
+import parser from './parser'
+import book from './book'
+import player from './player'
 
-const hello = R.curry((firstName, lastName) => `Hello ${firstName} ${lastName}`)
-
-export default hello
+exports.book = book
+exports.parser = parser
+exports.player = player

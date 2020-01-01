@@ -1,4 +1,4 @@
-import parser from './parser'
+import { parser } from '.'
 import adventure from './adventure.md.js'
 
 describe('parser', () => {
