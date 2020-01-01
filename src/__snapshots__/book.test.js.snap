@@ -2,156 +2,168 @@
 
 exports[`book sort by scene 1`] = `
 Array [
-  Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": "Choose your story",
-          "type": "text",
-        },
-      ],
-      "level": 1,
-      "type": "heading",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": "This is a test adventure",
-          "type": "text",
-        },
-        Object {
-          "content": ", welcome",
-          "type": "text",
-        },
-        Object {
-          "content": ".",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": "The space ship",
-          "type": "text",
-        },
-      ],
-      "level": 2,
-      "type": "heading",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": "You are the brave pilot of this ship",
-          "type": "text",
-        },
-        Object {
-          "content": ".
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Choose your story",
+            "type": "text",
+          },
+        ],
+        "level": 1,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "This is a test adventure",
+            "type": "text",
+          },
+          Object {
+            "content": ", welcome",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "name": "choose_your_story",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
 The trip is long and boring",
-          "type": "text",
-        },
-        Object {
-          "content": ".",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": "Are you going to ",
-          "type": "text",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "content": "get food",
-              "type": "text",
-            },
-          ],
-          "target": "/cantina",
-          "title": undefined,
-          "type": "link",
-        },
-        Object {
-          "content": " or to ",
-          "type": "text",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "content": "get a rest",
-              "type": "text",
-            },
-          ],
-          "target": "/bedroom",
-          "title": undefined,
-          "type": "link",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": "Cantina",
-          "type": "text",
-        },
-      ],
-      "level": 2,
-      "type": "heading",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": "The cantina is full with your crew having a good time",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "name": "the_space_ship",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "name": "cantina",
+  },
 ]
 `;
 
 exports[`splitByScene split the first scene 1`] = `
-Array [
-  Object {
+Object {
+  "scene": Object {
     "content": Array [
       Object {
-        "content": "Choose your story",
-        "type": "text",
+        "content": Array [
+          Object {
+            "content": "Choose your story",
+            "type": "text",
+          },
+        ],
+        "level": 1,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "This is a test adventure",
+            "type": "text",
+          },
+          Object {
+            "content": ", welcome",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
       },
     ],
-    "level": 1,
-    "type": "heading",
+    "name": "choose_your_story",
   },
-  Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": "This is a test adventure",
-          "type": "text",
-        },
-        Object {
-          "content": ", welcome",
-          "type": "text",
-        },
-        Object {
-          "content": ".",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  Array [
+  "sourceLeft": Array [
     Object {
       "content": Array [
         Object {
@@ -235,44 +247,47 @@ The trip is long and boring",
       "type": "paragraph",
     },
   ],
-]
+}
 `;
 
 exports[`splitByScene split the last scene 1`] = `
-Array [
-  Object {
+Object {
+  "scene": Object {
     "content": Array [
       Object {
-        "content": "Final landing",
-        "type": "text",
+        "content": Array [
+          Object {
+            "content": "Final landing",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "congrats you made it",
+            "type": "text",
+          },
+          Object {
+            "content": "!",
+            "type": "text",
+          },
+          Object {
+            "content": "!",
+            "type": "text",
+          },
+          Object {
+            "content": "!",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
       },
     ],
-    "level": 2,
-    "type": "heading",
+    "name": "final_landing",
   },
-  Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": "congrats you made it",
-          "type": "text",
-        },
-        Object {
-          "content": "!",
-          "type": "text",
-        },
-        Object {
-          "content": "!",
-          "type": "text",
-        },
-        Object {
-          "content": "!",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  Array [],
-]
+  "sourceLeft": Array [],
+}
 `;

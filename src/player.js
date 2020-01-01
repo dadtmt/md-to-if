@@ -5,7 +5,7 @@ export const getTarget = R.pipe(R.prop('target'), R.tail)
 export const matchTarget = move => R.propEq('name', getTarget(move))
 
 // To do : write a getSceneName
-export const findScene = move => R.filter(matchTarget(move))
+export const findScene = move => R.find(matchTarget(move))
 
 const player = (book, moves = []) => {
   const [firstScene, ...scenes] = book
