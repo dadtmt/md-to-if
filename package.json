@@ -1,26 +1,25 @@
 {
-  "name": "js-exercises-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "md-to-if",
+  "version": "0.0.1",
+  "description": "An attempt to write a Markdown to Interactive Fiction parser",
+  "main": "player.js",
   "scripts": {
     "build": "npx babel src -d build",
     "lint": "npx eslint 'src/**/*.js'",
     "lintandfix": "npx eslint --fix 'src/**/*.js'",
     "precommit": "lint-staged && npm test",
-    "start": "nodemon --exec ./node_modules/@babel/node/bin/babel-node.js src/index",
     "test": "jest --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WildCodeSchool/js-exercises-boilerplate.git"
+    "url": "git+https://github.com/dadtmt/md-to-if.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WildCodeSchool/js-exercises-boilerplate/issues"
+    "url": "https://github.com/dadtmt/md-to-if/issues"
   },
-  "homepage": "https://github.com/WildCodeSchool/js-exercises-boilerplate#readme",
+  "homepage": "https://github.com/dadtmt/md-to-if#readme",
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
