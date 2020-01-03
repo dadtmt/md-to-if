@@ -6,21 +6,27 @@ export const matchTarget = move => R.propEq('name', getTarget(move))
 
 export const findScene = move => R.find(matchTarget(move))
 
+const start = scenes => [R.propEq('type', 'start'), () => [R.head(scenes)]]
+
+const goto = (scenes, story) => [
+  R.propEq('type', 'anchor'),
+  move => [...story, findScene(move)(scenes)],
+]
+
+const playMoves = (moves, scenes, story = []) => {
+  const move = R.head(moves)
+  return move
+    ? playMoves(
+        R.tail(moves),
+        scenes,
+        R.cond([start(scenes), goto(scenes, story)])(move)
+      )
+    : story
+}
+
 const player = (book, moves = []) => {
-  const [firstScene, ...scenes] = book
-  return [
-    firstScene,
-    ...moves.reduce((acc, move) => {
-      switch (move.type) {
-        case 'start':
-          return [R.head(scenes)]
-        case 'anchor':
-          return [...acc, findScene(move)(book)]
-        default:
-          return acc
-      }
-    }, []),
-  ]
+  const [introduction, ...scenes] = book
+  return [introduction, ...playMoves(moves, scenes)]
 }
 
 export default player
