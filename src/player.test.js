@@ -1,5 +1,5 @@
 import parser from './parser'
-import player, { findScene, getTarget, matchTarget } from './player'
+import player, { gotoScene, getTarget, matchTarget } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
 
@@ -28,11 +28,15 @@ describe('player', () => {
     const moves = [startMove, moveToCantina]
     expect(player(adventureBook, moves)).toMatchSnapshot()
   })
+  it('increment cantina scene played on second cantina move', () => {
+    const moves = [startMove, moveToCantina, moveToCantina]
+    expect(player(adventureBook, moves)).toMatchSnapshot()
+  })
 })
 
-describe('findScene', () => {
-  it('find a scene', () => {
-    expect(findScene(moveToCantina)(adventureBook)).toMatchSnapshot()
+describe('gotoScene', () => {
+  it('goto scene', () => {
+    expect(gotoScene(moveToCantina, [])(adventureBook)).toMatchSnapshot()
   })
 })
 

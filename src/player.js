@@ -4,13 +4,13 @@ export const getTarget = R.pipe(R.prop('target'), R.tail)
 
 export const matchTarget = move => R.propEq('name', getTarget(move))
 
-export const findScene = move => R.find(matchTarget(move))
+export const gotoScene = move => R.find(matchTarget(move))
 
 const start = scenes => [R.propEq('type', 'start'), () => [R.head(scenes)]]
 
 const goto = (scenes, story) => [
   R.propEq('type', 'anchor'),
-  move => [...story, findScene(move)(scenes)],
+  move => [...story, gotoScene(move)(scenes)],
 ]
 
 const playMoves = (moves, scenes, story = []) => {
