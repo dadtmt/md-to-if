@@ -1,5 +1,10 @@
 import parser from './parser'
-import player, { gotoScene, getTarget, matchTarget } from './player'
+import player, {
+  gotoScene,
+  getTarget,
+  matchTarget,
+  incPlayedScene,
+} from './player'
 import adventure from './adventure.md.js'
 import book from './book'
 
@@ -58,5 +63,15 @@ describe('matchTarget', () => {
 describe('getTarget', () => {
   it('get move target', () => {
     expect(getTarget(moveToCantina)).toBe('cantina')
+  })
+})
+
+describe('incPlayedScene', () => {
+  const scene = {
+    name: 'cantina',
+    state: { played: {} },
+  }
+  it('set played.sceneName to one if not present in state', () => {
+    expect(incPlayedScene(scene)).toMatchSnapshot()
   })
 })

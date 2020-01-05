@@ -6,11 +6,25 @@ export const matchTarget = move => R.propEq('name', getTarget(move))
 
 export const gotoScene = move => R.find(matchTarget(move))
 
-const start = scenes => [R.propEq('type', 'start'), () => [R.head(scenes)]]
+export const incPlayedScene = R.identity
+
+const start = scenes => [
+  R.propEq('type', 'start'),
+  () => [{ ...R.head(scenes), played: {} }],
+]
 
 const goto = (scenes, story) => [
   R.propEq('type', 'anchor'),
-  move => [...story, gotoScene(move)(scenes)],
+  move => [
+    ...story,
+    {
+      ...gotoScene(move)(scenes),
+      state: {
+        ...R.pipe(R.last, R.prop('state'))(story),
+        played: { cantina: 1 },
+      },
+    },
+  ],
 ]
 
 const playMoves = (moves, scenes, story = []) => {
