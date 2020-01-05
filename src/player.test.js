@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 import parser from './parser'
 import player, { gotoScene, getTarget, matchTarget } from './player'
 import adventure from './adventure.md.js'
