@@ -1,5 +1,7 @@
+import * as R from 'ramda'
 import parser from './parser'
 import player, {
+  start,
   gotoScene,
   getTarget,
   matchTarget,
@@ -9,6 +11,7 @@ import adventure from './adventure.md.js'
 import book from './book'
 
 const adventureBook = book(parser(adventure))
+const [introduction, ...scenes] = adventureBook
 const startMove = {
   type: 'start',
 }
@@ -25,7 +28,7 @@ describe('player', () => {
   it('play book introduction if no actions', () => {
     expect(player(adventureBook)).toMatchSnapshot()
   })
-  it('play second level 2 scene on start', () => {
+  it('play first scene on start move and add state.played with first_scene: 1', () => {
     const moves = [startMove]
     expect(player(adventureBook, moves)).toMatchSnapshot()
   })

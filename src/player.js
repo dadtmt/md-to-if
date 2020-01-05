@@ -10,7 +10,14 @@ export const incPlayedScene = R.identity
 
 const start = scenes => [
   R.propEq('type', 'start'),
-  () => [{ ...R.head(scenes), played: {} }],
+  () => {
+    const [scene] = scenes
+    const { name } = scene
+    const state = {
+      played: { [name]: 1 },
+    }
+    return [{ ...scene, state }]
+  },
 ]
 
 const goto = (scenes, story) => [

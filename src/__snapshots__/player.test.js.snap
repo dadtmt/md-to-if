@@ -137,7 +137,11 @@ The trip is long and boring",
       },
     ],
     "name": "the_space_ship",
-    "played": Object {},
+    "state": Object {
+      "played": Object {
+        "the_space_ship": 1,
+      },
+    },
   },
   Object {
     "content": Array [
@@ -338,7 +342,11 @@ The trip is long and boring",
       },
     ],
     "name": "the_space_ship",
-    "played": Object {},
+    "state": Object {
+      "played": Object {
+        "the_space_ship": 1,
+      },
+    },
   },
   Object {
     "content": Array [
@@ -372,7 +380,7 @@ The trip is long and boring",
 ]
 `;
 
-exports[`player play second level 2 scene on start 1`] = `
+exports[`player play first scene on start move and add state.played with first_scene: 1 1`] = `
 Array [
   Object {
     "content": Array [
@@ -473,7 +481,11 @@ The trip is long and boring",
       },
     ],
     "name": "the_space_ship",
-    "played": Object {},
+    "state": Object {
+      "played": Object {
+        "the_space_ship": 1,
+      },
+    },
   },
 ]
 `;
