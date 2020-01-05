@@ -6,7 +6,9 @@ export const matchTarget = move => R.propEq('name', getTarget(move))
 
 export const gotoScene = move => R.find(matchTarget(move))
 
-export const incPlayedScene = R.identity
+const playedSceneCountLens = name => R.lensPath(['played', name])
+const incrementPlayedScene = name =>
+  R.over(playedSceneCountLens(name), R.pipe(R.inc, R.defaultTo(1)))
 
 const start = scenes => [
   R.propEq('type', 'start'),
@@ -22,16 +24,19 @@ const start = scenes => [
 
 const goto = (scenes, story) => [
   R.propEq('type', 'anchor'),
-  move => [
-    ...story,
-    {
-      ...gotoScene(move)(scenes),
-      state: {
-        ...R.pipe(R.last, R.prop('state'))(story),
-        played: { cantina: 1 },
+  move => {
+    const lastState = R.pipe(R.last, R.prop('state'))(story)
+    const scene = gotoScene(move)(scenes)
+    const { name } = scene
+
+    return [
+      ...story,
+      {
+        ...scene,
+        state: incrementPlayedScene(name)(lastState),
       },
-    },
-  ],
+    ]
+  },
 ]
 
 const playMoves = (moves, scenes, story = []) => {

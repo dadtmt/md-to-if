@@ -1,17 +1,10 @@
 import * as R from 'ramda'
 import parser from './parser'
-import player, {
-  start,
-  gotoScene,
-  getTarget,
-  matchTarget,
-  incPlayedScene,
-} from './player'
+import player, { gotoScene, getTarget, matchTarget } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
 
 const adventureBook = book(parser(adventure))
-const [introduction, ...scenes] = adventureBook
 const startMove = {
   type: 'start',
 }
@@ -40,6 +33,10 @@ describe('player', () => {
     const moves = [startMove, moveToCantina, moveToCantina]
     expect(player(adventureBook, moves)).toMatchSnapshot()
   })
+  it('increment the spaceship scene played spaceship move', () => {
+    const moves = [startMove, moveToCantina, moveToCantina, moveToSpaceShip]
+    expect(player(adventureBook, moves)).toMatchSnapshot()
+  })
 })
 
 describe('gotoScene', () => {
@@ -66,15 +63,5 @@ describe('matchTarget', () => {
 describe('getTarget', () => {
   it('get move target', () => {
     expect(getTarget(moveToCantina)).toBe('cantina')
-  })
-})
-
-describe('incPlayedScene', () => {
-  const scene = {
-    name: 'cantina',
-    state: { played: {} },
-  }
-  it('set played.sceneName to one if not present in state', () => {
-    expect(incPlayedScene(scene)).toMatchSnapshot()
   })
 })
