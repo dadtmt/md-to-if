@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`matchBraces match braces 1`] = `
+Array [
+  "{ show value }",
+  " show value ",
+]
+`;
+
 exports[`parser parse markdown 1`] = `
 Array [
   Object {
@@ -105,7 +112,55 @@ The trip is long and boring",
   Object {
     "content": Array [
       Object {
+        "content": " show playedCount ",
+        "type": "text",
+      },
+    ],
+    "type": "dynamic",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": " time you come here",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
         "content": "The cantina is full with your crew having a good time",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "They are singing ",
+        "type": "text",
+      },
+      Object {
+        "content": "'oh my captain",
+        "type": "text",
+      },
+      Object {
+        "content": "' for the ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " show playedCount ",
+            "type": "text",
+          },
+        ],
+        "type": "dynamic",
+      },
+      Object {
+        "content": " times",
         "type": "text",
       },
     ],

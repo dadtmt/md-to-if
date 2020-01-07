@@ -11,6 +11,10 @@ Are you going to [get food](/cantina) or to [get a rest](/bedroom)
 
 ## Cantina
 
+{ show playedCount } time you come here
+
 The cantina is full with your crew having a good time
+
+They are singing 'oh my captain' for the { show playedCount } times
 
 `

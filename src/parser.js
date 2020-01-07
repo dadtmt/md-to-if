@@ -1,5 +1,16 @@
 import SimpleMarkdown from 'simple-markdown'
 
-const parser = SimpleMarkdown.parserFor(SimpleMarkdown.defaultRules)
+export const matchBraces = source => /^\{(.*?)\}/.exec(source)
+
+const dynamic = {
+  order: 0,
+  match: matchBraces,
+  parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
+}
+
+const parser = SimpleMarkdown.parserFor({
+  ...SimpleMarkdown.defaultRules,
+  dynamic,
+})
 
 export default parser
