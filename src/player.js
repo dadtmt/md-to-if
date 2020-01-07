@@ -10,6 +10,8 @@ const playedSceneCountLens = name => R.lensPath(['played', name])
 const incrementPlayedScene = name =>
   R.over(playedSceneCountLens(name), R.pipe(R.inc, R.defaultTo(1)))
 
+const addToStory = story => scene => [...story, scene]
+
 const start = scenes => [
   R.propEq('type', 'start'),
   () => {
@@ -18,7 +20,7 @@ const start = scenes => [
     const state = {
       played: { [name]: 1 },
     }
-    return [{ ...scene, state }]
+    return { ...scene, state }
   },
 ]
 
@@ -29,13 +31,10 @@ const goto = (scenes, story) => [
     const scene = gotoScene(move)(scenes)
     const { name } = scene
 
-    return [
-      ...story,
-      {
-        ...scene,
-        state: incrementPlayedScene(name)(lastState),
-      },
-    ]
+    return {
+      ...scene,
+      state: incrementPlayedScene(name)(lastState),
+    }
   },
 ]
 
@@ -45,7 +44,10 @@ const playMoves = (moves, scenes, story = []) => {
     ? playMoves(
         R.tail(moves),
         scenes,
-        R.cond([start(scenes), goto(scenes, story)])(move)
+        R.pipe(
+          R.cond([start(scenes), goto(scenes, story)]),
+          addToStory(story)
+        )(move)
       )
     : story
 }
