@@ -195,13 +195,8 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": Array [
-          Object {
-            "content": " show playedCount ",
-            "type": "text",
-          },
-        ],
-        "type": "dynamic",
+        "content": 1,
+        "type": "text",
       },
       Object {
         "content": Array [
@@ -273,13 +268,8 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": Array [
-          Object {
-            "content": " show playedCount ",
-            "type": "text",
-          },
-        ],
-        "type": "dynamic",
+        "content": 2,
+        "type": "text",
       },
       Object {
         "content": Array [
@@ -461,13 +451,8 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": Array [
-          Object {
-            "content": " show playedCount ",
-            "type": "text",
-          },
-        ],
-        "type": "dynamic",
+        "content": 1,
+        "type": "text",
       },
       Object {
         "content": Array [
@@ -539,13 +524,8 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": Array [
-          Object {
-            "content": " show playedCount ",
-            "type": "text",
-          },
-        ],
-        "type": "dynamic",
+        "content": 2,
+        "type": "text",
       },
       Object {
         "content": Array [
@@ -838,13 +818,8 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": Array [
-          Object {
-            "content": " show playedCount ",
-            "type": "text",
-          },
-        ],
-        "type": "dynamic",
+        "content": 1,
+        "type": "text",
       },
       Object {
         "content": Array [

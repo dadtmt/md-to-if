@@ -12,6 +12,17 @@ const incrementPlayedScene = name =>
 
 const addToStory = story => scene => [...story, scene]
 
+const playContent = ({ content, name, state, ...rest }) => ({
+  content: R.map(({ type, content, ...rest }) => ({
+    content: type === 'dynamic' ? state.played[name] : content,
+    type: type === 'dynamic' ? 'text' : type,
+    ...rest,
+  }))(content),
+  name,
+  state,
+  ...rest,
+})
+
 const start = scenes => [
   R.propEq('type', 'start'),
   () => {
@@ -46,6 +57,7 @@ const playMoves = (moves, scenes, story = []) => {
         scenes,
         R.pipe(
           R.cond([start(scenes), goto(scenes, story)]),
+          playContent,
           addToStory(story)
         )(move)
       )
