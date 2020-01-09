@@ -177,6 +177,7 @@ The trip is long and boring",
     ],
     "name": "the_space_ship",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "the_space_ship": 1,
       },
@@ -249,6 +250,7 @@ The trip is long and boring",
     ],
     "name": "cantina",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 1,
         "the_space_ship": 1,
@@ -268,7 +270,7 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": 2,
+        "content": 1,
         "type": "text",
       },
       Object {
@@ -322,6 +324,7 @@ The trip is long and boring",
     ],
     "name": "cantina",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 2,
         "the_space_ship": 1,
@@ -433,6 +436,7 @@ The trip is long and boring",
     ],
     "name": "the_space_ship",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "the_space_ship": 1,
       },
@@ -505,6 +509,7 @@ The trip is long and boring",
     ],
     "name": "cantina",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 1,
         "the_space_ship": 1,
@@ -524,7 +529,7 @@ The trip is long and boring",
         "type": "heading",
       },
       Object {
-        "content": 2,
+        "content": 1,
         "type": "text",
       },
       Object {
@@ -578,6 +583,7 @@ The trip is long and boring",
     ],
     "name": "cantina",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 2,
         "the_space_ship": 1,
@@ -652,6 +658,7 @@ The trip is long and boring",
     ],
     "name": "the_space_ship",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 2,
         "the_space_ship": 2,
@@ -800,6 +807,7 @@ The trip is long and boring",
     ],
     "name": "the_space_ship",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "the_space_ship": 1,
       },
@@ -872,6 +880,7 @@ The trip is long and boring",
     ],
     "name": "cantina",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "cantina": 1,
         "the_space_ship": 1,
@@ -983,6 +992,7 @@ The trip is long and boring",
     ],
     "name": "the_space_ship",
     "state": Object {
+      "currentSceneName": "the_space_ship",
       "played": Object {
         "the_space_ship": 1,
       },

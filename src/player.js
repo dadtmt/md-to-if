@@ -12,34 +12,35 @@ const incrementPlayedScene = name =>
 
 const addToStory = story => scene => [...story, scene]
 
-const handleDynamicInstruction = (name, state) => ([instruction, arg]) => {
+const handleDynamicInstruction = ({ played, currentSceneName }) => ([
+  instruction,
+  arg,
+]) => {
   switch (instruction) {
     case 'show':
-      return arg === 'playedCount' ? state.played[name] : ''
+      return arg === 'playedCount' ? played[currentSceneName] : ''
     default:
       return ''
   }
 }
 
-const getDynamicContent = (name, state) =>
+const getDynamicContent = state =>
   R.pipe(
     R.head,
     R.prop('content'),
     R.trim,
     R.split(' '),
-    handleDynamicInstruction(name, state)
+    handleDynamicInstruction(state)
   )
 
-const playContent = ({ content, name, state, ...rest }) => ({
-  content: R.map(({ type, content, ...rest }) => ({
-    content:
-      type === 'dynamic' ? getDynamicContent(name, state)(content) : content,
+const playContent = ({ content, state, ...restOfScene }) => ({
+  content: R.map(({ type, content, ...restOfContent }) => ({
+    content: type === 'dynamic' ? getDynamicContent(state)(content) : content,
     type: type === 'dynamic' ? 'text' : type,
-    ...rest,
+    ...restOfContent,
   }))(content),
-  name,
   state,
-  ...rest,
+  ...restOfScene,
 })
 
 const start = scenes => [
@@ -48,6 +49,7 @@ const start = scenes => [
     const [scene] = scenes
     const { name } = scene
     const state = {
+      currentSceneName: name,
       played: { [name]: 1 },
     }
     return { ...scene, state }
