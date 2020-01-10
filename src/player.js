@@ -45,6 +45,7 @@ const playContent = scene => {
         })
       )
     ),
+    state: R.identity,
   })(scene)
 }
 
