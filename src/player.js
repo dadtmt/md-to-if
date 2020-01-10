@@ -33,15 +33,20 @@ const getDynamicContent = state =>
     handleDynamicInstruction(state)
   )
 
-const playContent = ({ content, state, ...restOfScene }) => ({
-  content: R.map(({ type, content, ...restOfContent }) => ({
-    content: type === 'dynamic' ? getDynamicContent(state)(content) : content,
-    type: type === 'dynamic' ? 'text' : type,
-    ...restOfContent,
-  }))(content),
-  state,
-  ...restOfScene,
-})
+const playContent = scene => {
+  const { state } = scene
+  return R.evolve({
+    content: R.map(
+      R.when(
+        R.propEq('type', 'dynamic'),
+        R.evolve({
+          content: getDynamicContent(state),
+          type: R.always('text'),
+        })
+      )
+    ),
+  })(scene)
+}
 
 const start = scenes => [
   R.propEq('type', 'start'),
