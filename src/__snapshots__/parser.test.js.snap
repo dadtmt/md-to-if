@@ -7,6 +7,13 @@ Array [
 ]
 `;
 
+exports[`matchSetter match setter marks 1`] = `
+Array [
+  "<! name value !>",
+  " name value ",
+]
+`;
+
 exports[`parser parse markdown 1`] = `
 Array [
   Object {
@@ -162,6 +169,24 @@ The trip is long and boring",
       Object {
         "content": " times",
         "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "You pick up a sandwich an put it in your bag ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " bag sandwich 1 ",
+            "type": "text",
+          },
+        ],
+        "type": "setter",
       },
     ],
     "type": "paragraph",

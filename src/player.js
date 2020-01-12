@@ -34,7 +34,7 @@ const getDynamicContent = state =>
   )
 
 const playContent = scene => {
-  const { state } = scene
+  const { content, state } = scene
   return R.evolve({
     content: R.map(
       R.when(
@@ -45,7 +45,7 @@ const playContent = scene => {
         })
       )
     ),
-    state: R.identity,
+    state: (content => R.identity)(content),
   })(scene)
 }
 

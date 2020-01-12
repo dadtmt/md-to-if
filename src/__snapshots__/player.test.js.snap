@@ -70,6 +70,24 @@ Object {
       ],
       "type": "paragraph",
     },
+    Object {
+      "content": Array [
+        Object {
+          "content": "You pick up a sandwich an put it in your bag ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": " bag sandwich 1 ",
+              "type": "text",
+            },
+          ],
+          "type": "setter",
+        },
+      ],
+      "type": "paragraph",
+    },
   ],
   "name": "cantina",
 }
@@ -247,6 +265,24 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "name": "cantina",
     "state": Object {
@@ -317,6 +353,24 @@ The trip is long and boring",
           Object {
             "content": " times",
             "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
           },
         ],
         "type": "paragraph",
@@ -506,6 +560,24 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "name": "cantina",
     "state": Object {
@@ -576,6 +648,24 @@ The trip is long and boring",
           Object {
             "content": " times",
             "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
           },
         ],
         "type": "paragraph",
@@ -873,6 +963,24 @@ The trip is long and boring",
           Object {
             "content": " times",
             "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
           },
         ],
         "type": "paragraph",
