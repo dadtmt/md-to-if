@@ -8,8 +8,10 @@ export const gotoScene = move => R.find(matchTarget(move))
 
 const playedSceneCountLens = name => R.lensPath(['played', name])
 const incrementPlayedScene = name =>
-  R.over(playedSceneCountLens(name), R.pipe(R.inc, R.defaultTo(1)))
-
+  R.pipe(
+    R.assoc('currentSceneName', name),
+    R.over(playedSceneCountLens(name), R.pipe(R.inc, R.defaultTo(1)))
+  )
 const addToStory = story => scene => [...story, scene]
 
 const handleDynamicInstruction = ({ played, currentSceneName }) => ([
@@ -33,20 +35,51 @@ const getDynamicContent = state =>
     handleDynamicInstruction(state)
   )
 
+const recursiveDynamic = (
+  { content, state },
+  dynamicContent = { content: [] }
+) => {
+  if (Array.isArray(content)) {
+    if (content.length < 1) return { content: dynamicContent }
+    const [headContent, ...restOfContent] = content
+
+    const newContent = recursiveDynamic({
+      content: headContent,
+      state,
+    })
+    return recursiveDynamic(
+      {
+        content: restOfContent,
+        state,
+      },
+      {
+        content: [...dynamicContent.content, newContent],
+      }
+    )
+  } else {
+    const newContent = R.when(
+      R.propEq('type', 'dynamic'),
+      R.evolve({
+        content: getDynamicContent(state),
+        type: R.always('text'),
+      })
+    )(content)
+    return {
+      ...newContent,
+      content: Array.isArray(newContent.content)
+        ? recursiveDynamic({
+            content: newContent.content,
+            state,
+          })
+        : newContent,
+    }
+  }
+}
+
 const playContent = scene => {
-  const { content, state } = scene
-  return R.evolve({
-    content: R.map(
-      R.when(
-        R.propEq('type', 'dynamic'),
-        R.evolve({
-          content: getDynamicContent(state),
-          type: R.always('text'),
-        })
-      )
-    ),
-    state: (content => R.identity)(content),
-  })(scene)
+  const { content, state, ...restOfScene } = scene
+  const dynamicContent = recursiveDynamic({ content, state })
+  return { ...dynamicContent, state, ...restOfScene }
 }
 
 const start = scenes => [
