@@ -35,6 +35,33 @@ const getDynamicContent = state =>
     handleDynamicInstruction(state)
   )
 
+const parseArrayContent = ([content, state], newContentAndState = []) => {
+  const [headChildContent, ...restOfChildContent] = content.content
+
+  if (headChildContent) {
+    const [parsedHeadChildContent, parsedState] = parseDynamicContentWithState(
+      state
+    )(headChildContent)
+    const [newContent, newState] =
+      newContentAndState.length > 0
+        ? newContentAndState
+        : [{ content: [] }, state]
+    const result = [
+      {
+        ...content,
+        content: [...newContent.content, parsedHeadChildContent],
+      },
+      parsedState,
+    ]
+    return parseArrayContent(
+      [{ ...content, content: restOfChildContent }, newState],
+      result
+    )
+  }
+
+  return newContentAndState
+}
+
 export const parseDynamicContentWithState = state =>
   R.pipe(
     R.when(
@@ -45,7 +72,8 @@ export const parseDynamicContentWithState = state =>
       })
     ),
     R.of,
-    R.append(state)
+    R.append(state),
+    R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
 
 const recursiveDynamic = (
