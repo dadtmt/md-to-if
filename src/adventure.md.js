@@ -17,6 +17,6 @@ The cantina is full with your crew having a good time
 
 They are singing 'oh my captain' for the { show playedCount } times
 
-You pick up a sandwich an put it in your bag <! bag sandwich 1 !>
+You pick up a sandwich an put it in your bag { set bag sandwich 1 }
 
 `

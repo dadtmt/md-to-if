@@ -10,16 +10,9 @@ const dynamic = {
   parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
 }
 
-const setter = {
-  order: 0,
-  match: matchSetter,
-  parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
-}
-
 const parser = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
   dynamic,
-  setter,
 })
 
 export default parser

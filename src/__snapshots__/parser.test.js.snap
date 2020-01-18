@@ -7,13 +7,6 @@ Array [
 ]
 `;
 
-exports[`matchSetter match setter marks 1`] = `
-Array [
-  "<! name value !>",
-  " name value ",
-]
-`;
-
 exports[`parser parse markdown 1`] = `
 Array [
   Object {
@@ -182,11 +175,11 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": " bag sandwich 1 ",
+            "content": " set bag sandwich 1 ",
             "type": "text",
           },
         ],
-        "type": "setter",
+        "type": "dynamic",
       },
     ],
     "type": "paragraph",
