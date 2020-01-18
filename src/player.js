@@ -14,7 +14,7 @@ const incrementPlayedScene = name =>
   )
 const addToStory = story => scene => [...story, scene]
 
-const handleDynamicInstruction = ({ played, currentSceneName }) => ([
+const applyDynamicInstructionsToContent = ({ played, currentSceneName }) => ([
   instruction,
   arg,
 ]) => {
@@ -26,13 +26,46 @@ const handleDynamicInstruction = ({ played, currentSceneName }) => ([
   }
 }
 
-const getDynamicContent = state =>
+const applyDynamicInstructionsToState = ([instruction, ...args]) =>
+  R.always({
+    played: {
+      currentSceneName: 3,
+    },
+    currentSceneName: 'currentSceneName',
+    container: { prop: 'value' },
+  })
+
+const parseInstructions = R.pipe(
+  R.tap(console.log),
+  R.head,
+  R.prop('content'),
+  R.trim,
+  R.split(' ')
+)
+
+export const getDynamicContentAndState = state => content =>
   R.pipe(
-    R.head,
-    R.prop('content'),
-    R.trim,
-    R.split(' '),
-    handleDynamicInstruction(state)
+    R.evolve({
+      content: R.pipe(
+        parseInstructions,
+        applyDynamicInstructionsToContent(state)
+      ),
+      type: R.always('text'),
+    }),
+    R.of,
+    R.append(
+      applyDynamicInstructionsToState(parseInstructions(content.content))(state)
+    )
+  )(content)
+
+export const parseDynamicContentWithState = state =>
+  R.pipe(
+    R.ifElse(
+      R.propEq('type', 'dynamic'),
+      getDynamicContentAndState(state),
+      R.pipe(R.of, R.append(state))
+    ),
+    R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
 
 const parseArrayContent = ([content, state], parsedContentAndState = []) => {
@@ -63,20 +96,6 @@ const parseArrayContent = ([content, state], parsedContentAndState = []) => {
 
   return parsedContentAndState
 }
-
-export const parseDynamicContentWithState = state =>
-  R.pipe(
-    R.when(
-      R.propEq('type', 'dynamic'),
-      R.evolve({
-        content: getDynamicContent(state),
-        type: R.always('text'),
-      })
-    ),
-    R.of,
-    R.append(state),
-    R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
-  )
 
 const parseDynamicSceneContentWithState = (
   { sceneContent, state },

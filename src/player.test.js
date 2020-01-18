@@ -4,6 +4,7 @@ import player, {
   getTarget,
   matchTarget,
   parseDynamicContentWithState,
+  getDynamicContentAndState,
 } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
@@ -121,6 +122,42 @@ describe('parseDynamicContentWithState', () => {
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
+  it('returns [emty text content node, state with property setted] for instruction show playedCount', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' set container prop value',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '',
+        type: 'text',
+      },
+      {
+        played: {
+          currentSceneName: 3,
+        },
+        currentSceneName,
+        container: { prop: 'value' },
+      },
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
   it('parses a list of content', () => {
     const currentSceneName = 'currentSceneName'
 
@@ -167,5 +204,106 @@ describe('parseDynamicContentWithState', () => {
     const expected = [expectedContent, state]
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+})
+
+describe('getDynamicContentAndState', () => {
+  it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' show playedCount ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '3',
+        type: 'text',
+      },
+      state,
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
+
+  it('returns [empty text node, state] for instruction show playedCount', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' show playedCount ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '3',
+        type: 'text',
+      },
+      state,
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
+
+  it.only('returns [empty text content node, state with property setted] for instruction show playedCount', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' set container prop value',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '',
+        type: 'text',
+      },
+      {
+        played: {
+          currentSceneName: 3,
+        },
+        currentSceneName,
+        container: { prop: 'value' },
+      },
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
   })
 })
