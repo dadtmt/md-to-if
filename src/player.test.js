@@ -1,5 +1,10 @@
 import parser from './parser'
-import player, { gotoScene, getTarget, matchTarget } from './player'
+import player, {
+  gotoScene,
+  getTarget,
+  matchTarget,
+  parseDynamicContentWithState,
+} from './player'
 import adventure from './adventure.md.js'
 import book from './book'
 
@@ -62,5 +67,38 @@ describe('matchTarget', () => {
 describe('getTarget', () => {
   it('get move target', () => {
     expect(getTarget(moveToCantina)).toBe('cantina')
+  })
+})
+
+describe('parseDynamicContentWithState', () => {
+  it.only('returns [output current scene played count from state, state] for instruction show playedCount', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' show playedCount ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '3',
+        type: 'text',
+      },
+      state,
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
 })

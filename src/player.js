@@ -20,7 +20,7 @@ const handleDynamicInstruction = ({ played, currentSceneName }) => ([
 ]) => {
   switch (instruction) {
     case 'show':
-      return arg === 'playedCount' ? played[currentSceneName] : ''
+      return arg === 'playedCount' ? played[currentSceneName].toString() : ''
     default:
       return ''
   }
@@ -33,6 +33,19 @@ const getDynamicContent = state =>
     R.trim,
     R.split(' '),
     handleDynamicInstruction(state)
+  )
+
+export const parseDynamicContentWithState = state =>
+  R.when(
+    R.propEq('type', 'dynamic'),
+    R.pipe(
+      R.evolve({
+        content: getDynamicContent(state),
+        type: R.always('text'),
+      }),
+      R.of,
+      R.append(state)
+    )
   )
 
 const recursiveDynamic = (
