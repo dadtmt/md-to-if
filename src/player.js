@@ -35,31 +35,33 @@ const getDynamicContent = state =>
     handleDynamicInstruction(state)
   )
 
-const parseArrayContent = ([content, state], newContentAndState = []) => {
+const parseArrayContent = ([content, state], parsedContentAndState = []) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
   if (headChildContent) {
-    const [parsedHeadChildContent, parsedState] = parseDynamicContentWithState(
-      state
-    )(headChildContent)
-    const [newContent, newState] =
-      newContentAndState.length > 0
-        ? newContentAndState
+    const [parsedContent, parsedState] =
+      parsedContentAndState.length > 0
+        ? parsedContentAndState
         : [{ content: [] }, state]
+    const [
+      parsedHeadChildContent,
+      newParsedState,
+    ] = parseDynamicContentWithState(parsedState)(headChildContent)
+
     const result = [
       {
         ...content,
-        content: [...newContent.content, parsedHeadChildContent],
+        content: [...parsedContent.content, parsedHeadChildContent],
       },
-      parsedState,
+      newParsedState,
     ]
     return parseArrayContent(
-      [{ ...content, content: restOfChildContent }, newState],
+      [{ ...content, content: restOfChildContent }, newParsedState],
       result
     )
   }
 
-  return newContentAndState
+  return parsedContentAndState
 }
 
 export const parseDynamicContentWithState = state =>
@@ -76,51 +78,37 @@ export const parseDynamicContentWithState = state =>
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
 
-const recursiveDynamic = (
-  { content, state },
-  dynamicContent = { content: [] }
+const parseDynamicSceneContentWithState = (
+  { sceneContent, state },
+  parsedContentAndState = [[]]
 ) => {
-  if (Array.isArray(content)) {
-    if (content.length < 1) return { content: dynamicContent }
-    const [headContent, ...restOfContent] = content
-
-    const newContent = recursiveDynamic({
-      content: headContent,
-      state,
-    })
-    return recursiveDynamic(
-      {
-        content: restOfContent,
-        state,
-      },
-      {
-        content: [...dynamicContent.content, newContent],
-      }
+  const [headContent, ...restOfContent] = sceneContent
+  if (headContent) {
+    const [parsedContent, parsedState] = parsedContentAndState
+    const stateToParse = parsedState || state
+    const [parsedHeadContent, newParsedSate] = parseDynamicContentWithState(
+      stateToParse
+    )(headContent)
+    return parseDynamicSceneContentWithState(
+      { sceneContent: restOfContent, state: stateToParse },
+      [[...parsedContent, parsedHeadContent], newParsedSate]
     )
-  } else {
-    const newContent = R.when(
-      R.propEq('type', 'dynamic'),
-      R.evolve({
-        content: getDynamicContent(state),
-        type: R.always('text'),
-      })
-    )(content)
-    return {
-      ...newContent,
-      content: Array.isArray(newContent.content)
-        ? recursiveDynamic({
-            content: newContent.content,
-            state,
-          })
-        : newContent,
-    }
   }
+  return parsedContentAndState
 }
 
-const playContent = scene => {
-  const { content, state, ...restOfScene } = scene
-  const dynamicContent = recursiveDynamic({ content, state })
-  return { ...dynamicContent, state, ...restOfScene }
+const playSceneContent = scene => {
+  const { sceneContent, state, ...restOfScene } = scene
+
+  const [parsedSceneContent, parsedState] = parseDynamicSceneContentWithState({
+    sceneContent,
+    state,
+  })
+  return {
+    sceneContent: parsedSceneContent,
+    state: parsedState,
+    ...restOfScene,
+  }
 }
 
 const start = scenes => [
@@ -158,7 +146,7 @@ const playMoves = (moves, scenes, story = []) => {
         scenes,
         R.pipe(
           R.cond([start(scenes), goto(scenes, story)]),
-          playContent,
+          playSceneContent,
           addToStory(story)
         )(move)
       )

@@ -2,7 +2,8 @@
 
 exports[`gotoScene goto scene 1`] = `
 Object {
-  "content": Array [
+  "name": "cantina",
+  "sceneContent": Array [
     Object {
       "content": Array [
         Object {
@@ -89,14 +90,14 @@ Object {
       "type": "paragraph",
     },
   ],
-  "name": "cantina",
 }
 `;
 
 exports[`player increment cantina scene played on second cantina move 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -125,121 +126,74 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The space ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You are the brave pilot of this ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".
-The trip is long and boring",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Are you going to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get food",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/cantina",
-                  "title": undefined,
-                  "type": "link",
-                },
-                Object {
-                  "content": Object {
-                    "content": " or to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get a rest",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/bedroom",
-                  "title": undefined,
-                  "type": "link",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-      ],
-    },
     "name": "the_space_ship",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
+The trip is long and boring",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "the_space_ship",
       "played": Object {
@@ -248,143 +202,84 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Cantina",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": 1,
+    "name": "cantina",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
             "type": "text",
           },
-          "type": "text",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": " time you come here",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": "1",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " time you come here",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The cantina is full with your crew having a good time",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "They are singing ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "'oh my captain",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "' for the ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": 1,
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": " times",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "They are singing ",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You pick up a sandwich an put it in your bag ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": " bag sandwich 1 ",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "type": "setter",
-                },
-              ],
-            },
+          Object {
+            "content": "'oh my captain",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-      ],
-    },
-    "name": "cantina",
+          Object {
+            "content": "' for the ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " times",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "cantina",
       "played": Object {
@@ -394,143 +289,84 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Cantina",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": 2,
+    "name": "cantina",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
             "type": "text",
           },
-          "type": "text",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": " time you come here",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": "2",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " time you come here",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The cantina is full with your crew having a good time",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "They are singing ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "'oh my captain",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "' for the ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": 2,
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": " times",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "They are singing ",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You pick up a sandwich an put it in your bag ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": " bag sandwich 1 ",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "type": "setter",
-                },
-              ],
-            },
+          Object {
+            "content": "'oh my captain",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-      ],
-    },
-    "name": "cantina",
+          Object {
+            "content": "' for the ",
+            "type": "text",
+          },
+          Object {
+            "content": "2",
+            "type": "text",
+          },
+          Object {
+            "content": " times",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "cantina",
       "played": Object {
@@ -545,7 +381,8 @@ The trip is long and boring",
 exports[`player increment the spaceship scene played spaceship move 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -574,121 +411,74 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The space ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You are the brave pilot of this ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".
-The trip is long and boring",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Are you going to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get food",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/cantina",
-                  "title": undefined,
-                  "type": "link",
-                },
-                Object {
-                  "content": Object {
-                    "content": " or to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get a rest",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/bedroom",
-                  "title": undefined,
-                  "type": "link",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-      ],
-    },
     "name": "the_space_ship",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
+The trip is long and boring",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "the_space_ship",
       "played": Object {
@@ -697,143 +487,84 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Cantina",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": 1,
+    "name": "cantina",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
             "type": "text",
           },
-          "type": "text",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": " time you come here",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": "1",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " time you come here",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The cantina is full with your crew having a good time",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "They are singing ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "'oh my captain",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "' for the ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": 1,
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": " times",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "They are singing ",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You pick up a sandwich an put it in your bag ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": " bag sandwich 1 ",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "type": "setter",
-                },
-              ],
-            },
+          Object {
+            "content": "'oh my captain",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-      ],
-    },
-    "name": "cantina",
+          Object {
+            "content": "' for the ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " times",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "cantina",
       "played": Object {
@@ -843,143 +574,84 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Cantina",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": 2,
+    "name": "cantina",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
             "type": "text",
           },
-          "type": "text",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": " time you come here",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": "2",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " time you come here",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The cantina is full with your crew having a good time",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "They are singing ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "'oh my captain",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "' for the ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": 2,
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": " times",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "They are singing ",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You pick up a sandwich an put it in your bag ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": " bag sandwich 1 ",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "type": "setter",
-                },
-              ],
-            },
+          Object {
+            "content": "'oh my captain",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-      ],
-    },
-    "name": "cantina",
+          Object {
+            "content": "' for the ",
+            "type": "text",
+          },
+          Object {
+            "content": "2",
+            "type": "text",
+          },
+          Object {
+            "content": " times",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "cantina",
       "played": Object {
@@ -989,118 +661,72 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The space ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You are the brave pilot of this ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".
-The trip is long and boring",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Are you going to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get food",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/cantina",
-                  "title": undefined,
-                  "type": "link",
-                },
-                Object {
-                  "content": Object {
-                    "content": " or to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get a rest",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/bedroom",
-                  "title": undefined,
-                  "type": "link",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-      ],
-    },
     "name": "the_space_ship",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
+The trip is long and boring",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "the_space_ship",
       "played": Object {
@@ -1115,7 +741,8 @@ The trip is long and boring",
 exports[`player play book introduction if no actions 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -1144,7 +771,6 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
 ]
 `;
@@ -1152,7 +778,8 @@ Array [
 exports[`player play cantina scene on cantina target 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -1181,121 +808,74 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The space ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You are the brave pilot of this ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".
-The trip is long and boring",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Are you going to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get food",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/cantina",
-                  "title": undefined,
-                  "type": "link",
-                },
-                Object {
-                  "content": Object {
-                    "content": " or to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get a rest",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/bedroom",
-                  "title": undefined,
-                  "type": "link",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-      ],
-    },
     "name": "the_space_ship",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
+The trip is long and boring",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "the_space_ship",
       "played": Object {
@@ -1304,143 +884,84 @@ The trip is long and boring",
     },
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Cantina",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": 1,
+    "name": "cantina",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Cantina",
             "type": "text",
           },
-          "type": "text",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": " time you come here",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": "1",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " time you come here",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The cantina is full with your crew having a good time",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The cantina is full with your crew having a good time",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "They are singing ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "'oh my captain",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": "' for the ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": 1,
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": " times",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "They are singing ",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You pick up a sandwich an put it in your bag ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": " bag sandwich 1 ",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "type": "setter",
-                },
-              ],
-            },
+          Object {
+            "content": "'oh my captain",
+            "type": "text",
           },
-          "type": "paragraph",
-        },
-      ],
-    },
-    "name": "cantina",
+          Object {
+            "content": "' for the ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " times",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You pick up a sandwich an put it in your bag ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " bag sandwich 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "setter",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "cantina",
       "played": Object {
@@ -1455,7 +976,8 @@ The trip is long and boring",
 exports[`player play first scene on start move and add state.played with first_scene: 1 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -1484,121 +1006,74 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   Object {
-    "content": Object {
-      "content": Array [
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "The space ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "level": 2,
-          "type": "heading",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "You are the brave pilot of this ship",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".
-The trip is long and boring",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": ".",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-        Object {
-          "content": Object {
-            "content": Object {
-              "content": Array [
-                Object {
-                  "content": Object {
-                    "content": "Are you going to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get food",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/cantina",
-                  "title": undefined,
-                  "type": "link",
-                },
-                Object {
-                  "content": Object {
-                    "content": " or to ",
-                    "type": "text",
-                  },
-                  "type": "text",
-                },
-                Object {
-                  "content": Object {
-                    "content": Object {
-                      "content": Array [
-                        Object {
-                          "content": Object {
-                            "content": "get a rest",
-                            "type": "text",
-                          },
-                          "type": "text",
-                        },
-                      ],
-                    },
-                  },
-                  "target": "/bedroom",
-                  "title": undefined,
-                  "type": "link",
-                },
-              ],
-            },
-          },
-          "type": "paragraph",
-        },
-      ],
-    },
     "name": "the_space_ship",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "The space ship",
+            "type": "text",
+          },
+        ],
+        "level": 2,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You are the brave pilot of this ship",
+            "type": "text",
+          },
+          Object {
+            "content": ".
+The trip is long and boring",
+            "type": "text",
+          },
+          Object {
+            "content": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Are you going to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get food",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina",
+            "title": undefined,
+            "type": "link",
+          },
+          Object {
+            "content": " or to ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "get a rest",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom",
+            "title": undefined,
+            "type": "link",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
     "state": Object {
       "currentSceneName": "the_space_ship",
       "played": Object {

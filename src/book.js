@@ -25,7 +25,7 @@ export const splitByScene = R.pipe(
   ({ heading, content, sourceLeft }) => ({
     scene: {
       name: getSceneName(heading),
-      content: [heading, ...content],
+      sceneContent: [heading, ...content],
     },
     sourceLeft,
   })

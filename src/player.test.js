@@ -4,7 +4,6 @@ import player, {
   getTarget,
   matchTarget,
   parseDynamicContentWithState,
-  hasDynamicChildContent,
 } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
@@ -72,7 +71,7 @@ describe('getTarget', () => {
 })
 
 describe('parseDynamicContentWithState', () => {
-  it.only('returns [unmodified content, unmodified state] for a not dynamic content', () => {
+  it('returns [unmodified content, unmodified state] for a not dynamic content', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
@@ -92,7 +91,7 @@ describe('parseDynamicContentWithState', () => {
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
 
-  it.only('returns [output current scene played count from state, state] for instruction show playedCount', () => {
+  it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
@@ -122,7 +121,7 @@ describe('parseDynamicContentWithState', () => {
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
-  it.only('parses a list of content', () => {
+  it('parses a list of content', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {

@@ -3,7 +3,8 @@
 exports[`book sort by scene 1`] = `
 Array [
   Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -32,10 +33,10 @@ Array [
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   Object {
-    "content": Array [
+    "name": "the_space_ship",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -100,10 +101,10 @@ The trip is long and boring",
         "type": "paragraph",
       },
     ],
-    "name": "the_space_ship",
   },
   Object {
-    "content": Array [
+    "name": "cantina",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -190,7 +191,6 @@ The trip is long and boring",
         "type": "paragraph",
       },
     ],
-    "name": "cantina",
   },
 ]
 `;
@@ -198,7 +198,8 @@ The trip is long and boring",
 exports[`splitByScene split the first scene 1`] = `
 Object {
   "scene": Object {
-    "content": Array [
+    "name": "choose_your_story",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -227,7 +228,6 @@ Object {
         "type": "paragraph",
       },
     ],
-    "name": "choose_your_story",
   },
   "sourceLeft": Array [
     Object {
@@ -385,7 +385,8 @@ The trip is long and boring",
 exports[`splitByScene split the last scene 1`] = `
 Object {
   "scene": Object {
-    "content": Array [
+    "name": "final_landing",
+    "sceneContent": Array [
       Object {
         "content": Array [
           Object {
@@ -418,7 +419,6 @@ Object {
         "type": "paragraph",
       },
     ],
-    "name": "final_landing",
   },
   "sourceLeft": Array [],
 }
