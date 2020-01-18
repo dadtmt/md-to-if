@@ -71,6 +71,26 @@ describe('getTarget', () => {
 })
 
 describe('parseDynamicContentWithState', () => {
+  it.only('returns [unmodified content, unmodified state] for a not dynamic content', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: 'some text',
+      type: 'text',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3,
+      },
+      currentSceneName,
+    }
+
+    const expected = [content, state]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+
   it.only('returns [output current scene played count from state, state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 

@@ -36,16 +36,16 @@ const getDynamicContent = state =>
   )
 
 export const parseDynamicContentWithState = state =>
-  R.when(
-    R.propEq('type', 'dynamic'),
-    R.pipe(
+  R.pipe(
+    R.when(
+      R.propEq('type', 'dynamic'),
       R.evolve({
         content: getDynamicContent(state),
         type: R.always('text'),
-      }),
-      R.of,
-      R.append(state)
-    )
+      })
+    ),
+    R.of,
+    R.append(state)
   )
 
 const recursiveDynamic = (
