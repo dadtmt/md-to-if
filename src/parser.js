@@ -1,8 +1,10 @@
 import SimpleMarkdown from 'simple-markdown'
 
-export const matchBraces = source => /^\{(.*?)\}/.exec(source)
+export const matchBraces = source => /^\{([\s\S]*?)\}/.exec(source)
 
-export const matchSetter = source => /^<!(.*?)!>/.exec(source)
+export const matchBracketPipe = source => /^\[([\s\S]*?)\|/.exec(source)
+
+export const matchPipeBracket = source => /^\|([\s\S]*?)\]/.exec(source)
 
 const dynamic = {
   order: 0,
@@ -10,9 +12,23 @@ const dynamic = {
   parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
 }
 
+const trueCaseContent = {
+  order: 0.1,
+  match: matchBracketPipe,
+  parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
+}
+
+const falseCaseContent = {
+  order: 0.2,
+  match: matchPipeBracket,
+  parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
+}
+
 const parser = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
   dynamic,
+  trueCaseContent,
+  falseCaseContent,
 })
 
 export default parser

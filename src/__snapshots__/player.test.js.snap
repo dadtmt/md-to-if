@@ -111,6 +111,54 @@ Object {
       ],
       "type": "paragraph",
     },
+    Object {
+      "content": Array [
+        Object {
+          "content": " test playedCount equals 1 ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": " This is your first time here
+    Will you come back ",
+              "type": "text",
+            },
+            Object {
+              "content": "? ",
+              "type": "text",
+            },
+          ],
+          "type": "trueCaseContent",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": " Should not you go somewhere else ",
+              "type": "text",
+            },
+            Object {
+              "content": "?
+or what ",
+              "type": "text",
+            },
+            Object {
+              "content": "? ",
+              "type": "text",
+            },
+          ],
+          "type": "falseCaseContent",
+        },
+        Object {
+          "content": " ",
+          "type": "text",
+        },
+      ],
+      "type": "dynamic",
+    },
+    Object {
+      "type": "newline",
+    },
   ],
 }
 `;
@@ -313,6 +361,13 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "type": "newline",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -414,6 +469,13 @@ The trip is long and boring",
           },
         ],
         "type": "paragraph",
+      },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "type": "newline",
       },
     ],
     "state": Object {
@@ -628,6 +690,13 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "type": "newline",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -729,6 +798,13 @@ The trip is long and boring",
           },
         ],
         "type": "paragraph",
+      },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "type": "newline",
       },
     ],
     "state": Object {
@@ -1057,6 +1133,13 @@ The trip is long and boring",
           },
         ],
         "type": "paragraph",
+      },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "type": "newline",
       },
     ],
     "state": Object {

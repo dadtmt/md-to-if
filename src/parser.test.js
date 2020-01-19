@@ -1,4 +1,8 @@
-import parser, { matchBraces } from './parser'
+import parser, {
+  matchBraces,
+  matchBracketPipe,
+  matchPipeBracket,
+} from './parser'
 import adventure from './adventure.md.js'
 
 describe('matchBraces', () => {
@@ -8,6 +12,22 @@ bla
 bla
 bla later some {show other} bla`
     expect(matchBraces(source)).toMatchSnapshot()
+  })
+})
+
+describe('matchBracketPipe', () => {
+  it('match bracket and a pipe', () => {
+    const source = '[ condition true | condition false ] }'
+
+    expect(matchBracketPipe(source)).toMatchSnapshot()
+  })
+})
+
+describe('matchPipeBracket', () => {
+  it('match bracket and a pipe', () => {
+    const source = '| condition false ] }'
+
+    expect(matchPipeBracket(source)).toMatchSnapshot()
   })
 })
 
