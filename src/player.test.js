@@ -270,7 +270,7 @@ describe('getDynamicContentAndState', () => {
     expect(getDynamicContentAndState(state)(content)).toEqual(expected)
   })
 
-  it.only('returns [empty text content node, state with property setted] for instruction show playedCount', () => {
+  it('returns [empty text content node, state with property setted] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {

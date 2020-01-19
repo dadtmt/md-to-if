@@ -26,17 +26,19 @@ const applyDynamicInstructionsToContent = ({ played, currentSceneName }) => ([
   }
 }
 
-const applyDynamicInstructionsToState = ([instruction, ...args]) =>
-  R.always({
-    played: {
-      currentSceneName: 3,
-    },
-    currentSceneName: 'currentSceneName',
-    container: { prop: 'value' },
-  })
+const setValue = args => R.assocPath(R.dropLast(1, args), R.last(args))
+
+const applyDynamicInstructionsToState = ([instruction, ...args]) => state => {
+  switch (instruction) {
+    case 'set': {
+      return setValue(args)(state)
+    }
+    default:
+      return state
+  }
+}
 
 const parseInstructions = R.pipe(
-  R.tap(console.log),
   R.head,
   R.prop('content'),
   R.trim,
