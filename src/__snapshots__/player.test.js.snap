@@ -89,6 +89,28 @@ Object {
       ],
       "type": "paragraph",
     },
+    Object {
+      "content": Array [
+        Object {
+          "content": "You have ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": " show bag sandwich ",
+              "type": "text",
+            },
+          ],
+          "type": "dynamic",
+        },
+        Object {
+          "content": " with you",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
   ],
 }
 `;
@@ -274,6 +296,23 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " with you",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -354,6 +393,23 @@ The trip is long and boring",
           },
           Object {
             "content": "",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " with you",
             "type": "text",
           },
         ],
@@ -555,6 +611,23 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " with you",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -635,6 +708,23 @@ The trip is long and boring",
           },
           Object {
             "content": "",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " with you",
             "type": "text",
           },
         ],
@@ -946,6 +1036,23 @@ The trip is long and boring",
           },
           Object {
             "content": "",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have ",
+            "type": "text",
+          },
+          Object {
+            "content": "1",
+            "type": "text",
+          },
+          Object {
+            "content": " with you",
             "type": "text",
           },
         ],

@@ -14,13 +14,19 @@ const incrementPlayedScene = name =>
   )
 const addToStory = story => scene => [...story, scene]
 
-const applyDynamicInstructionsToContent = ({ played, currentSceneName }) => ([
-  instruction,
-  arg,
-]) => {
+const applyDynamicInstructionsToContent = ({
+  played,
+  currentSceneName,
+  ...restOfState
+}) => ([instruction, ...args]) => {
   switch (instruction) {
-    case 'show':
-      return arg === 'playedCount' ? played[currentSceneName].toString() : ''
+    case 'show': {
+      if (args[0] === 'playedCount') {
+        return played[currentSceneName].toString()
+      } else {
+        return R.path(args)(restOfState)
+      }
+    }
     default:
       return ''
   }

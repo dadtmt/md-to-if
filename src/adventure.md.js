@@ -19,4 +19,6 @@ They are singing 'oh my captain' for the { show playedCount } times
 
 You pick up a sandwich an put it in your bag { set bag sandwich 1 }
 
+You have { show bag sandwich } with you
+
 `
