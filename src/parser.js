@@ -13,13 +13,13 @@ const dynamic = {
 }
 
 const trueCaseContent = {
-  order: 0.1,
+  order: 0,
   match: matchBracketPipe,
   parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
 }
 
 const falseCaseContent = {
-  order: 0.2,
+  order: 0,
   match: matchPipeBracket,
   parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
 }

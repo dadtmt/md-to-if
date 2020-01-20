@@ -21,8 +21,9 @@ You pick up a sandwich an put it in your bag { set bag sandwich 1 }
 
 You have { show bag sandwich } with you
 
-{ test playedCount equals 1 [ This is your first time here
+{ test playedCount equals 1 } [ This is your first time here
     Will you come back ? || Should not you go somewhere else ?
-or what ? ] }
+or what ? ] 
+
 
 `

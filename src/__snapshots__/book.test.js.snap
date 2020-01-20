@@ -218,6 +218,15 @@ The trip is long and boring",
             "content": " test playedCount equals 1 ",
             "type": "text",
           },
+        ],
+        "type": "dynamic",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " ",
+            "type": "text",
+          },
           Object {
             "content": Array [
               Object {
@@ -255,10 +264,7 @@ or what ",
             "type": "text",
           },
         ],
-        "type": "dynamic",
-      },
-      Object {
-        "type": "newline",
+        "type": "paragraph",
       },
     ],
   },
@@ -476,6 +482,15 @@ The trip is long and boring",
           "content": " test playedCount equals 1 ",
           "type": "text",
         },
+      ],
+      "type": "dynamic",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": " ",
+          "type": "text",
+        },
         Object {
           "content": Array [
             Object {
@@ -513,10 +528,7 @@ or what ",
           "type": "text",
         },
       ],
-      "type": "dynamic",
-    },
-    Object {
-      "type": "newline",
+      "type": "paragraph",
     },
   ],
 }
