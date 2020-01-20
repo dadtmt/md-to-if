@@ -344,4 +344,35 @@ describe('getDynamicContentAndState', () => {
 
     expect(getDynamicContentAndState(state)(content)).toEqual(expected)
   })
+
+  it('returns [empty content, state with testResult: true] for instruction test playedCount equals 1 true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' test playedCount equals 1 ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '',
+        type: 'text',
+      },
+      { ...state, testResult: true },
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
 })
