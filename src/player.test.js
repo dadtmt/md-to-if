@@ -345,7 +345,7 @@ describe('getDynamicContentAndState', () => {
     expect(getDynamicContentAndState(state)(content)).toEqual(expected)
   })
 
-  it('returns [empty content, state with testResult: true] for instruction test playedCount equals 1 true ', () => {
+  it('returns [empty text node content, state with testResult: true] for instruction test playedCount equals 1 true ', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
@@ -371,6 +371,68 @@ describe('getDynamicContentAndState', () => {
         type: 'text',
       },
       { ...state, testResult: true },
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
+
+  it('returns [empty text node content, state with testResult: false] for instruction test playedCount equals 2 false ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' test playedCount equals 2 ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '',
+        type: 'text',
+      },
+      { ...state, testResult: false },
+    ]
+
+    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
+
+  it('returns [empty text node content, state with illegal operator text result] for instruction test playedCount some 2 false ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' test playedCount some 2 ',
+          type: 'text',
+        },
+      ],
+      type: 'dynamic',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: '',
+        type: 'text',
+      },
+      { ...state, testResult: 'illegal-operator' },
     ]
 
     expect(getDynamicContentAndState(state)(content)).toEqual(expected)
