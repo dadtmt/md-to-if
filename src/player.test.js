@@ -159,7 +159,7 @@ describe('parseDynamicContentWithState', () => {
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
-  it('returns [true case content, state without text result] for state testResult true ', () => {
+  it('parsing trueCaseContent returns [true case content to merged, state without text result] for state testResult true ', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
@@ -185,6 +185,43 @@ describe('parseDynamicContentWithState', () => {
         content: [
           {
             content: ' true case content ',
+            type: 'text',
+          },
+        ],
+        type: 'trueCaseContent',
+        contentToMerge: true,
+      },
+      { played: state.played, currentSceneName },
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+  it('parsing trueCaseContent returns [empty node text content to merged, unmodified state] for state testResult false ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' true case content ',
+          type: 'text',
+        },
+      ],
+      type: 'trueCaseContent',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+      testResult: false,
+    }
+
+    const expected = [
+      {
+        content: [
+          {
+            content: '',
             type: 'text',
           },
         ],

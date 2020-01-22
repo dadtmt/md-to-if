@@ -104,9 +104,23 @@ export const getDynamicContentAndState = state => content =>
     )
   )(content)
 
+const getTestResult = ({ testResult }) => content =>
+  testResult
+    ? content
+    : {
+        ...content,
+        content: [
+          {
+            content: '',
+            type: 'text',
+          },
+        ],
+      }
+
 const getCaseContent = state =>
   R.pipe(
     R.assoc('contentToMerge', true),
+    getTestResult(state),
     R.of,
     R.append(R.dissoc('testResult', state))
   )

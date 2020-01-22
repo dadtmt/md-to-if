@@ -524,12 +524,7 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": " This is your first time here
-    Will you come back ",
-            "type": "text",
-          },
-          Object {
-            "content": "? ",
+            "content": "",
             "type": "text",
           },
           Object {
@@ -927,12 +922,7 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": " This is your first time here
-    Will you come back ",
-            "type": "text",
-          },
-          Object {
-            "content": "? ",
+            "content": "",
             "type": "text",
           },
           Object {
