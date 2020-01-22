@@ -378,18 +378,13 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " This is your first time here
+            "content": " This is your first time here
     Will you come back ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
+            "type": "text",
+          },
+          Object {
+            "content": "? ",
+            "type": "text",
           },
           Object {
             "content": Array [
@@ -426,7 +421,6 @@ or what ",
         "cantina": 1,
         "the_space_ship": 1,
       },
-      "testResult": true,
     },
   },
   Object {
@@ -530,18 +524,13 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " This is your first time here
+            "content": " This is your first time here
     Will you come back ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
+            "type": "text",
+          },
+          Object {
+            "content": "? ",
+            "type": "text",
           },
           Object {
             "content": Array [
@@ -578,7 +567,6 @@ or what ",
         "cantina": 2,
         "the_space_ship": 1,
       },
-      "testResult": false,
     },
   },
 ]
@@ -793,18 +781,13 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " This is your first time here
+            "content": " This is your first time here
     Will you come back ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
+            "type": "text",
+          },
+          Object {
+            "content": "? ",
+            "type": "text",
           },
           Object {
             "content": Array [
@@ -841,7 +824,6 @@ or what ",
         "cantina": 1,
         "the_space_ship": 1,
       },
-      "testResult": true,
     },
   },
   Object {
@@ -945,18 +927,13 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " This is your first time here
+            "content": " This is your first time here
     Will you come back ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
+            "type": "text",
+          },
+          Object {
+            "content": "? ",
+            "type": "text",
           },
           Object {
             "content": Array [
@@ -993,7 +970,6 @@ or what ",
         "cantina": 2,
         "the_space_ship": 1,
       },
-      "testResult": false,
     },
   },
   Object {
@@ -1072,7 +1048,6 @@ The trip is long and boring",
         "cantina": 2,
         "the_space_ship": 2,
       },
-      "testResult": false,
     },
   },
 ]
@@ -1324,18 +1299,13 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " This is your first time here
+            "content": " This is your first time here
     Will you come back ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
+            "type": "text",
+          },
+          Object {
+            "content": "? ",
+            "type": "text",
           },
           Object {
             "content": Array [
@@ -1372,7 +1342,6 @@ or what ",
         "cantina": 1,
         "the_space_ship": 1,
       },
-      "testResult": true,
     },
   },
 ]

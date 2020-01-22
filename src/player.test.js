@@ -5,6 +5,7 @@ import player, {
   matchTarget,
   parseDynamicContentWithState,
   getDynamicContentAndState,
+  mergeContent,
 } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
@@ -154,6 +155,43 @@ describe('parseDynamicContentWithState', () => {
         currentSceneName,
         container: { prop: 'value' },
       },
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+  it('returns [true case content, state without text result] for state testResult true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' true case content ',
+          type: 'text',
+        },
+      ],
+      type: 'trueCaseContent',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+      testResult: true,
+    }
+
+    const expected = [
+      {
+        content: [
+          {
+            content: ' true case content ',
+            type: 'text',
+          },
+        ],
+        type: 'trueCaseContent',
+        contentToMerge: true,
+      },
+      { played: state.played, currentSceneName },
     ]
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
@@ -436,5 +474,30 @@ describe('getDynamicContentAndState', () => {
     ]
 
     expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+  })
+})
+
+describe('mergeContent', () => {
+  it('append the new content node', () => {
+    const parsedContent = [{ content: 'previous content', type: 'text' }]
+    const currentContent = { content: 'current content', type: 'text' }
+    const expected = [...parsedContent, currentContent]
+    expect(mergeContent(parsedContent)(currentContent)).toEqual(expected)
+  })
+  it('merge child content if contentToMerge is true', () => {
+    const parsedContent = [{ content: 'previous content', type: 'text' }]
+    const currentContent = {
+      content: [
+        { content: 'current content', type: 'text' },
+        { content: 'second current content', type: 'text' },
+      ],
+      contentToMerge: true,
+    }
+    const expected = [
+      ...parsedContent,
+      { content: 'current content', type: 'text' },
+      { content: 'second current content', type: 'text' },
+    ]
+    expect(mergeContent(parsedContent)(currentContent)).toEqual(expected)
   })
 })

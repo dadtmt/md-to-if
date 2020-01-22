@@ -104,14 +104,31 @@ export const getDynamicContentAndState = state => content =>
     )
   )(content)
 
+const getCaseContent = state =>
+  R.pipe(
+    R.assoc('contentToMerge', true),
+    R.of,
+    R.append(R.dissoc('testResult', state))
+  )
+
+// modify this to handle true or false content
 export const parseDynamicContentWithState = state =>
   R.pipe(
-    R.ifElse(
-      R.propEq('type', 'dynamic'),
-      getDynamicContentAndState(state),
-      R.pipe(R.of, R.append(state))
-    ),
+    R.cond([
+      [R.propEq('type', 'dynamic'), getDynamicContentAndState(state)],
+      [R.propEq('type', 'trueCaseContent'), getCaseContent(state)],
+      [R.T, R.pipe(R.of, R.append(state))],
+    ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
+  )
+
+const appendTo = R.flip(R.append)
+
+export const mergeContent = parsedContent =>
+  R.ifElse(
+    R.prop('contentToMerge'),
+    R.pipe(R.prop('content'), R.concat(parsedContent)),
+    appendTo(parsedContent)
   )
 
 const parseArrayContent = ([content, state], parsedContentAndState = []) => {
@@ -130,7 +147,7 @@ const parseArrayContent = ([content, state], parsedContentAndState = []) => {
     const result = [
       {
         ...content,
-        content: [...parsedContent.content, parsedHeadChildContent],
+        content: mergeContent(parsedContent.content)(parsedHeadChildContent),
       },
       newParsedState,
     ]
