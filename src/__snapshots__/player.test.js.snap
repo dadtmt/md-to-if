@@ -387,22 +387,8 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " Should not you go somewhere else ",
-                "type": "text",
-              },
-              Object {
-                "content": "?
-or what ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
+            "content": "",
+            "type": "text",
           },
           Object {
             "content": " ",
@@ -528,22 +514,8 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " Should not you go somewhere else ",
-                "type": "text",
-              },
-              Object {
-                "content": "?
-or what ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
+            "content": "",
+            "type": "text",
           },
           Object {
             "content": " ",
@@ -785,22 +757,8 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " Should not you go somewhere else ",
-                "type": "text",
-              },
-              Object {
-                "content": "?
-or what ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
+            "content": "",
+            "type": "text",
           },
           Object {
             "content": " ",
@@ -926,22 +884,8 @@ or what ",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " Should not you go somewhere else ",
-                "type": "text",
-              },
-              Object {
-                "content": "?
-or what ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
+            "content": "",
+            "type": "text",
           },
           Object {
             "content": " ",
@@ -1298,22 +1242,8 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": Array [
-              Object {
-                "content": " Should not you go somewhere else ",
-                "type": "text",
-              },
-              Object {
-                "content": "?
-or what ",
-                "type": "text",
-              },
-              Object {
-                "content": "? ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
+            "content": "",
+            "type": "text",
           },
           Object {
             "content": " ",

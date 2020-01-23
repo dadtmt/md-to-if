@@ -159,7 +159,7 @@ describe('parseDynamicContentWithState', () => {
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
   })
-  it('parsing trueCaseContent returns [true case content to merged, state without text result] for state testResult true ', () => {
+  it('parsing trueCaseContent returns [true case content to merged, state without testResult] for state testResult true ', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
@@ -226,6 +226,80 @@ describe('parseDynamicContentWithState', () => {
           },
         ],
         type: 'trueCaseContent',
+        contentToMerge: true,
+      },
+      { played: state.played, currentSceneName },
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+  it('parsing falseCaseContent returns [false case content to merged, state without testResult] for state testResult false ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' false case content ',
+          type: 'text',
+        },
+      ],
+      type: 'falseCaseContent',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+      testResult: false,
+    }
+
+    const expected = [
+      {
+        content: [
+          {
+            content: ' false case content ',
+            type: 'text',
+          },
+        ],
+        type: 'falseCaseContent',
+        contentToMerge: true,
+      },
+      { played: state.played, currentSceneName },
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+  it('parsing falseCaseContent returns [empty node text content to merged, unmodified state] for state testResult true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' false case content ',
+          type: 'text',
+        },
+      ],
+      type: 'falseCaseContent',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+      testResult: true,
+    }
+
+    const expected = [
+      {
+        content: [
+          {
+            content: '',
+            type: 'text',
+          },
+        ],
+        type: 'falseCaseContent',
         contentToMerge: true,
       },
       { played: state.played, currentSceneName },

@@ -104,8 +104,8 @@ export const getDynamicContentAndState = state => content =>
     )
   )(content)
 
-const getTestResult = ({ testResult }) => content =>
-  testResult
+const getTestResult = ({ testResult }, match) => content =>
+  testResult === match
     ? content
     : {
         ...content,
@@ -117,10 +117,10 @@ const getTestResult = ({ testResult }) => content =>
         ],
       }
 
-const getCaseContent = state =>
+const getCaseContent = (state, match) =>
   R.pipe(
     R.assoc('contentToMerge', true),
-    getTestResult(state),
+    getTestResult(state, match),
     R.of,
     R.append(R.dissoc('testResult', state))
   )
@@ -130,7 +130,8 @@ export const parseDynamicContentWithState = state =>
   R.pipe(
     R.cond([
       [R.propEq('type', 'dynamic'), getDynamicContentAndState(state)],
-      [R.propEq('type', 'trueCaseContent'), getCaseContent(state)],
+      [R.propEq('type', 'trueCaseContent'), getCaseContent(state, true)],
+      [R.propEq('type', 'falseCaseContent'), getCaseContent(state, false)],
       [R.T, R.pipe(R.of, R.append(state))],
     ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
