@@ -125,7 +125,6 @@ const getCaseContent = (state, match) =>
     R.append(R.dissoc('testResult', state))
   )
 
-// modify this to handle true or false content
 export const parseDynamicContentWithState = state =>
   R.pipe(
     R.cond([
