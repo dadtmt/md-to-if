@@ -136,7 +136,42 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": "The cantina is full with your crew having a good time",
+            "content": "The cantina is full with your crew having a good time ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " test playedCount equals 1 ",
+                "type": "text",
+              },
+            ],
+            "type": "dynamic",
+          },
+          Object {
+            "content": " ",
+            "type": "text",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "trueCase",
+                "type": "text",
+              },
+            ],
+            "type": "trueCaseContent",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "falseCase",
+                "type": "text",
+              },
+            ],
+            "type": "falseCaseContent",
+          },
+          Object {
+            "content": " ",
             "type": "text",
           },
         ],
@@ -400,7 +435,42 @@ The trip is long and boring",
     Object {
       "content": Array [
         Object {
-          "content": "The cantina is full with your crew having a good time",
+          "content": "The cantina is full with your crew having a good time ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": " test playedCount equals 1 ",
+              "type": "text",
+            },
+          ],
+          "type": "dynamic",
+        },
+        Object {
+          "content": " ",
+          "type": "text",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "trueCase",
+              "type": "text",
+            },
+          ],
+          "type": "trueCaseContent",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "falseCase",
+              "type": "text",
+            },
+          ],
+          "type": "falseCaseContent",
+        },
+        Object {
+          "content": " ",
           "type": "text",
         },
       ],

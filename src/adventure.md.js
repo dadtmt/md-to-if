@@ -13,7 +13,7 @@ Are you going to [get food](/cantina) or to [get a rest](/bedroom)
 
 { show playedCount } time you come here
 
-The cantina is full with your crew having a good time
+The cantina is full with your crew having a good time { test playedCount equals 1 } [trueCase||falseCase] 
 
 They are singing 'oh my captain' for the { show playedCount } times
 

@@ -228,7 +228,7 @@ describe('parseDynamicContentWithState', () => {
         type: 'trueCaseContent',
         contentToMerge: true,
       },
-      { played: state.played, currentSceneName },
+      state,
     ]
 
     expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
@@ -301,6 +301,95 @@ describe('parseDynamicContentWithState', () => {
         ],
         type: 'falseCaseContent',
         contentToMerge: true,
+      },
+      state,
+    ]
+
+    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+  })
+  it('parsing a paragraph with a failing test returns [paragraph with false content, unmodified state] test true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' Start paragraph ',
+          type: 'text',
+        },
+        {
+          content: [
+            {
+              content: ' test playedCount equals 1 ',
+              type: 'text',
+            },
+          ],
+          type: 'dynamic',
+        },
+        {
+          content: ' ',
+          type: 'text',
+        },
+        {
+          content: [
+            {
+              content: 'trueCase',
+              type: 'text',
+            },
+          ],
+          type: 'trueCaseContent',
+        },
+        {
+          content: [
+            {
+              content: 'falseCase',
+              type: 'text',
+            },
+          ],
+          type: 'falseCaseContent',
+        },
+        {
+          content: ' ',
+          type: 'text',
+        },
+      ],
+      type: 'paragraph',
+    }
+    const state = {
+      played: {
+        currentSceneName: 2,
+      },
+      currentSceneName,
+    }
+
+    const expected = [
+      {
+        content: [
+          {
+            content: ' Start paragraph ',
+            type: 'text',
+          },
+          {
+            content: '',
+            type: 'text',
+          },
+          {
+            content: ' ',
+            type: 'text',
+          },
+          {
+            content: '',
+            type: 'text',
+          },
+          {
+            content: 'falseCase',
+            type: 'text',
+          },
+          {
+            content: ' ',
+            type: 'text',
+          },
+        ],
+        type: 'paragraph',
       },
       { played: state.played, currentSceneName },
     ]
