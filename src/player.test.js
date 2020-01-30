@@ -6,6 +6,7 @@ import player, {
   parseDynamicContentWithState,
   getDynamicContentAndState,
   mergeContent,
+  parseInstructions,
 } from './player'
 import adventure from './adventure.md.js'
 import book from './book'
@@ -21,6 +22,10 @@ const moveToCantina = {
 const moveToSpaceShip = {
   type: 'anchor',
   target: '/the_space_ship',
+}
+const moveToBedroom = {
+  type: 'anchor',
+  target: '/bedroom',
 }
 
 describe('player', () => {
@@ -41,6 +46,10 @@ describe('player', () => {
   })
   it('increment the spaceship scene played spaceship move', () => {
     const moves = [startMove, moveToCantina, moveToCantina, moveToSpaceShip]
+    expect(player(adventureBook, moves)).toMatchSnapshot()
+  })
+  it('describe a driod on bedroom', () => {
+    const moves = [startMove, moveToBedroom]
     expect(player(adventureBook, moves)).toMatchSnapshot()
   })
 })
@@ -699,5 +708,25 @@ describe('mergeContent', () => {
       { content: 'second current content', type: 'text' },
     ]
     expect(mergeContent(parsedContent)(currentContent)).toEqual(expected)
+  })
+})
+
+describe('parseInstructions', () => {
+  it('returns an object with instruction, args and data', () => {
+    const dynamicContent = [
+      { type: 'text', content: 'instruction arg0 arg1 arg2' },
+      { type: 'data', content: 'data0' },
+      { type: 'data', content: 'data1' },
+    ]
+
+    const expected = {
+      instruction: 'instruction',
+      args: ['arg0', 'arg1', 'arg2'],
+      data: [
+        { type: 'data', content: 'data0' },
+        { type: 'data', content: 'data1' },
+      ],
+    }
+    expect(parseInstructions(dynamicContent)).toEqual(expected)
   })
 })

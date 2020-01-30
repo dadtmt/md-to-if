@@ -51,7 +51,7 @@ const evaluateTest = state => test => {
   ])(test)
 }
 
-const applyDynamicInstructionsToContent = state => ([instruction, ...args]) => {
+const applyDynamicInstructionsToContent = state => ({ instruction, args }) => {
   const { played, currentSceneName, ...restOfState } = state
   switch (instruction) {
     case 'show': {
@@ -69,7 +69,11 @@ const applyDynamicInstructionsToContent = state => ([instruction, ...args]) => {
 
 const setValue = args => R.assocPath(R.dropLast(1, args), R.last(args))
 
-const applyDynamicInstructionsToState = ([instruction, ...args]) => state => {
+const applyDynamicInstructionsToState = ({
+  instruction,
+  args,
+  data,
+}) => state => {
   switch (instruction) {
     case 'set': {
       return setValue(args)(state)
@@ -77,17 +81,23 @@ const applyDynamicInstructionsToState = ([instruction, ...args]) => state => {
     case 'test': {
       return { ...state, testResult: evaluateTest(state)(args) }
     }
+    case 'describe': {
+      return { ...state, [args[0]]: data }
+    }
     default:
       return state
   }
 }
 
-const parseInstructions = R.pipe(
-  R.head,
-  R.prop('content'),
-  R.trim,
-  R.split(' ')
-)
+export const parseInstructions = ([command, ...data]) => {
+  const [instruction, ...args] = R.pipe(
+    R.prop('content'),
+    R.trim,
+    R.split(' ')
+  )(command)
+
+  return { instruction, args, data }
+}
 
 export const getDynamicContentAndState = state => content =>
   R.pipe(
