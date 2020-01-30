@@ -25,5 +25,12 @@ You have { show bag sandwich } with you
     Will you come back ? || Should not you go somewhere else ?
 or what ? ] 
 
+## Bedroom
+
+Crazy major doid jumps on you 
+
+{ describe droid |CC  |CT  |F  |E  |
+                 |----|----|---|---|
+                 |33  |32  |24 |41 | }
 
 `

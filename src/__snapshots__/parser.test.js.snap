@@ -309,5 +309,99 @@ or what ",
     ],
     "type": "paragraph",
   },
+  Object {
+    "content": Array [
+      Object {
+        "content": "Bedroom",
+        "type": "text",
+      },
+    ],
+    "level": 2,
+    "type": "heading",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "Crazy major doid jumps on you ",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": " describe droid ",
+        "type": "text",
+      },
+      Object {
+        "align": Array [
+          null,
+          null,
+          null,
+          null,
+        ],
+        "cells": Array [
+          Array [
+            Array [
+              Object {
+                "content": "33",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "32",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "24",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "41",
+                "type": "text",
+              },
+            ],
+          ],
+        ],
+        "header": Array [
+          Array [
+            Object {
+              "content": "CC",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "CT",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "F",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "E",
+              "type": "text",
+            },
+          ],
+        ],
+        "type": "table",
+      },
+    ],
+    "type": "dynamic",
+  },
+  Object {
+    "type": "newline",
+  },
 ]
 `;
