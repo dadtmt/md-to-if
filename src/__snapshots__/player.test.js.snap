@@ -344,71 +344,12 @@ The trip is long and boring",
     ],
     "state": Object {
       "currentSceneName": "bedroom",
-      "droid": Array [
-        Object {
-          "align": Array [
-            null,
-            null,
-            null,
-            null,
-          ],
-          "cells": Array [
-            Array [
-              Array [
-                Object {
-                  "content": "33",
-                  "type": "text",
-                },
-              ],
-              Array [
-                Object {
-                  "content": "32",
-                  "type": "text",
-                },
-              ],
-              Array [
-                Object {
-                  "content": "24",
-                  "type": "text",
-                },
-              ],
-              Array [
-                Object {
-                  "content": "41",
-                  "type": "text",
-                },
-              ],
-            ],
-          ],
-          "header": Array [
-            Array [
-              Object {
-                "content": "CC",
-                "type": "text",
-              },
-            ],
-            Array [
-              Object {
-                "content": "CT",
-                "type": "text",
-              },
-            ],
-            Array [
-              Object {
-                "content": "F",
-                "type": "text",
-              },
-            ],
-            Array [
-              Object {
-                "content": "E",
-                "type": "text",
-              },
-            ],
-          ],
-          "type": "table",
-        },
-      ],
+      "droid": Object {
+        "CC": "33",
+        "CT": "32",
+        "E": "41",
+        "F": "24",
+      },
       "played": Object {
         "bedroom": 1,
         "the_space_ship": 1,
