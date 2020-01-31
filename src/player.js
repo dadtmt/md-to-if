@@ -92,7 +92,8 @@ const applyDynamicInstructionsToState = ({
       return { ...state, testResult: evaluateTest(state)(args) }
     }
     case 'describe': {
-      return { ...state, [args[0]]: getDescription(data) }
+      const [name] = args
+      return { ...state, [name]: getDescription(data) }
     }
     default:
       return state
