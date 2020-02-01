@@ -1,8 +1,9 @@
-import playMoves from './moves/playMoves'
+import playMoves from './moves'
 
-const player = (book, moves = []) => {
-  const [introduction, ...scenes] = book
-  return [introduction, ...playMoves(moves, scenes)]
+// [Scene], [Move] -> [PlayedScene]
+const player = (scenes, moves = []) => {
+  const [introduction, ...scenesAfterInroduction] = scenes
+  return [introduction, ...playMoves(moves, scenesAfterInroduction)]
 }
 
 export default player
