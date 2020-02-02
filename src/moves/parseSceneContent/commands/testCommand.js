@@ -30,12 +30,15 @@ const evaluateLeftExpression = state => {
 // [String] -> String
 const getRightExpression = R.last
 
-// State -> [String] -> Boolean
-const evaluateTest = state => args => {
-  return R.converge(getTestFunction(args), [
+// [String], State -> Boolean
+const evaluateTest = (args, state) =>
+  R.converge(getTestFunction(args), [
     evaluateLeftExpression(state),
     getRightExpression,
   ])(args)
-}
 
-export default evaluateTest
+// Command -> State -> State
+const test = ({ args }) => state =>
+  R.assoc('testResult', evaluateTest(args, state))(state)
+
+export default test

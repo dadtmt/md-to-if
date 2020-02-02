@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import set from './set'
 import getDescription from './describe'
-import evaluateTest from './testCommand'
+import test from './testCommand'
 
 // Content -> [String]
 const getCommandLine = R.pipe(R.prop('content'), R.trim, R.split(' '))
@@ -46,7 +46,7 @@ const applyCommandToState = (state, command) => {
       return set(command)(state)
     }
     case 'test': {
-      return { ...state, testResult: evaluateTest(state)(args) }
+      return test(command)(state)
     }
     case 'describe': {
       const [name] = args
