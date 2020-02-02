@@ -100,6 +100,7 @@ export const applyDynamicContent = state => content => {
   ]
 }
 
+// Content -> State -> [Content, State]
 export const parseContent = state =>
   R.pipe(
     R.cond([
