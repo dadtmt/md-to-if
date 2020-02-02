@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { incPlayedSceneCount } from './playedSceneCount'
+import { incPlayedSceneCount } from './stateHelpers/playedSceneCount'
 
 // [PlayedScene] -> State
 const getLastPlayedSceneState = R.pipe(R.last, R.prop('state'))

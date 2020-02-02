@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import getPlayedSceneCount from '../playedSceneCount'
+import getPlayedSceneCount from '../stateHelpers/playedSceneCount'
 
 const getRightExpression = R.last
 
