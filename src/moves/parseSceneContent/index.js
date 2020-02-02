@@ -4,10 +4,13 @@ import getDescription from './describeInstruction'
 import evaluateTest from './testInstruction'
 import getCaseContent from './caseContent'
 
+// [String] -> State -> State
 const setValue = args => R.assocPath(R.dropLast(1, args), R.last(args))
 
+// [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 
+// Content -> Content -> Content
 export const mergeContent = parsedContent =>
   R.ifElse(
     R.prop('contentToMerge'),
@@ -15,6 +18,7 @@ export const mergeContent = parsedContent =>
     appendTo(parsedContent)
   )
 
+// [Content, State] , [Content, State] -> [Content, State]
 const parseArrayContent = ([content, state], parsedContentAndState = []) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
@@ -53,8 +57,8 @@ export const getCommand = ([commandLine, ...data]) => {
   return { instruction, args, data }
 }
 
-// Command -> State -> String
-const applyCommandToContent = state => ({ instruction, args }) => {
+// State, Command -> String
+const getStringCommandResultContent = (state, { instruction, args }) => {
   const { played, currentSceneName, ...restOfState } = state
   switch (instruction) {
     case 'show': {
@@ -69,6 +73,13 @@ const applyCommandToContent = state => ({ instruction, args }) => {
       return ''
   }
 }
+
+// State, Command -> Content
+const getCommandResultContent = (state, command) =>
+  R.pipe(
+    R.assoc('content', getStringCommandResultContent(state, command)),
+    R.assoc('type', 'text')
+  )({})
 
 // Command -> State -> State
 const applyCommandToState = ({ instruction, args, data }) => state => {
@@ -88,19 +99,16 @@ const applyCommandToState = ({ instruction, args, data }) => state => {
   }
 }
 
-// Content -> State -> [Content, State]
-export const applyDynamicContent = state => content => {
-  const command = getCommand(content.content)
+// State -> Content -> [Content, State]
+export const applyDynamicContent = state => ({ content }) => {
+  const command = getCommand(content)
   return [
-    R.pipe(
-      R.assoc('content', applyCommandToContent(state)(command)),
-      R.assoc('type', 'text')
-    )(content),
+    getCommandResultContent(state, command),
     applyCommandToState(command)(state),
   ]
 }
 
-// Content -> State -> [Content, State]
+// State -> Content -> [Content, State]
 export const parseContent = state =>
   R.pipe(
     R.cond([
