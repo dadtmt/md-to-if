@@ -1,10 +1,8 @@
 import * as R from 'ramda'
 
+import set from './set'
 import getDescription from './describe'
 import evaluateTest from './testCommand'
-
-// [String] -> State -> State
-const setValue = args => R.assocPath(R.dropLast(1, args), R.last(args))
 
 // Content -> [String]
 const getCommandLine = R.pipe(R.prop('content'), R.trim, R.split(' '))
@@ -40,11 +38,12 @@ const getCommandResultContent = (state, command) =>
     R.assoc('type', 'text')
   )({})
 
-// Command -> State -> State
-const applyCommandToState = ({ instruction, args, data }) => state => {
+// State, Command -> State
+const applyCommandToState = (state, command) => {
+  const { instruction, args, data } = command
   switch (instruction) {
     case 'set': {
-      return setValue(args)(state)
+      return set(command)(state)
     }
     case 'test': {
       return { ...state, testResult: evaluateTest(state)(args) }
@@ -63,7 +62,7 @@ export const applyCommand = state => ({ content }) => {
   const command = getCommand(content)
   return [
     getCommandResultContent(state, command),
-    applyCommandToState(command)(state),
+    applyCommandToState(state, command),
   ]
 }
 
