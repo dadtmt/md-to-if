@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 
+import show from './show'
 import set from './set'
 import describe from './describe'
 import test from './testCommand'
@@ -14,29 +15,9 @@ export const getCommand = ([commandLine, ...data]) => {
   return { instruction, args, data }
 }
 
-// State, Command -> String
-const getStringCommandResultContent = (state, { instruction, args }) => {
-  const { played, currentSceneName, ...restOfState } = state
-  switch (instruction) {
-    case 'show': {
-      if (args[0] === 'playedCount') {
-        return played[currentSceneName].toString()
-      } else {
-        return R.path(args)(restOfState)
-      }
-    }
-
-    default:
-      return ''
-  }
-}
-
-// State, Command -> Content
-const getCommandResultContent = (state, command) =>
-  R.pipe(
-    R.assoc('content', getStringCommandResultContent(state, command)),
-    R.assoc('type', 'text')
-  )({})
+// State -> Command -> Content
+const getCommandResultContent = state =>
+  R.cond([show(state), [R.T, R.always({ content: '', type: 'text' })]])
 
 // Command -> State -> State
 const applyCommandToState = R.cond([
@@ -50,7 +31,7 @@ const applyCommandToState = R.cond([
 export const applyCommand = state => ({ content }) => {
   const command = getCommand(content)
   return [
-    getCommandResultContent(state, command),
+    getCommandResultContent(state)(command),
     applyCommandToState(command)(state),
   ]
 }
