@@ -1,5 +1,5 @@
 import parser from '../parser'
-import { gotoScene, getTarget, matchTarget } from './gotoMove'
+import { getTargetedScene, getTargetSceneName, matchTarget } from './gotoMove'
 import adventure from '../adventure.md.js'
 import book from '../book'
 
@@ -14,9 +14,9 @@ const moveToSpaceShip = {
   target: '/the_space_ship',
 }
 
-describe('gotoScene', () => {
-  it('goto scene', () => {
-    expect(gotoScene(moveToCantina, [])(adventureBook)).toMatchSnapshot()
+describe('getTargetedScene', () => {
+  it('get the targeted scene', () => {
+    expect(getTargetedScene(moveToCantina, [])(adventureBook)).toMatchSnapshot()
   })
 })
 
@@ -35,8 +35,8 @@ describe('matchTarget', () => {
   })
 })
 
-describe('getTarget', () => {
-  it('get move target', () => {
-    expect(getTarget(moveToCantina)).toBe('cantina')
+describe('getTargetSceneName', () => {
+  it('get the targeted scene name', () => {
+    expect(getTargetSceneName(moveToCantina)).toBe('cantina')
   })
 })

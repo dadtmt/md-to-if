@@ -1,25 +1,33 @@
 import * as R from 'ramda'
 import { incPlayedSceneCount } from './playedSceneCount'
 
-export const getTarget = R.pipe(R.prop('target'), R.tail)
+// [PlayedScene] -> State
+const getLastPlayedSceneState = R.pipe(R.last, R.prop('state'))
 
-export const matchTarget = move => R.propEq('name', getTarget(move))
+//  Move -> String
+export const getTargetSceneName = R.pipe(R.prop('target'), R.tail)
 
-export const gotoScene = move => R.find(matchTarget(move))
+// Scene -> Move -> Boolean
+export const matchTarget = move => R.propEq('name', getTargetSceneName(move))
 
-const incrementPlayedScene = name =>
+// [Scene] -> Move -> Scene
+export const getTargetedScene = move => R.find(matchTarget(move))
+
+// State -> String -> State
+const updateState = name =>
   R.pipe(R.assoc('currentSceneName', name), incPlayedSceneCount(name))
 
-const goto = (scenes, story) => [
+// [Scene], [PlayedScene]-> [Move -> Boolean, Move -> MovedScene]
+const goto = (scenes, playedScenes) => [
   R.propEq('type', 'anchor'),
   move => {
-    const lastState = R.pipe(R.last, R.prop('state'))(story)
-    const scene = gotoScene(move)(scenes)
+    const lastState = getLastPlayedSceneState(playedScenes)
+    const scene = getTargetedScene(move)(scenes)
     const { name } = scene
 
     return {
       ...scene,
-      state: incrementPlayedScene(name)(lastState),
+      state: updateState(name)(lastState),
     }
   },
 ]

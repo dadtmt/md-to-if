@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gotoScene goto scene 1`] = `
+exports[`getTargetedScene get the targeted scene 1`] = `
 Object {
   "name": "cantina",
   "sceneContent": Array [
