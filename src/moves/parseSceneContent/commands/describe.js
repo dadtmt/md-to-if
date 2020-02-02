@@ -12,7 +12,10 @@ export const getDescription = R.pipe(
   ])
 )
 
-// Command -> State -> State
-const describe = ({ args, data }) => R.assoc(R.head(args), getDescription(data))
+// [Command -> Boolean, Command -> State -> State]
+const describe = [
+  R.propEq('instruction', 'describe'),
+  ({ args, data }) => R.assoc(R.head(args), getDescription(data)),
+]
 
 export default describe

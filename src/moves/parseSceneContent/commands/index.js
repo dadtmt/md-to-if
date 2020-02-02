@@ -38,30 +38,20 @@ const getCommandResultContent = (state, command) =>
     R.assoc('type', 'text')
   )({})
 
-// State, Command -> State
-const applyCommandToState = (state, command) => {
-  const { instruction } = command
-  switch (instruction) {
-    case 'set': {
-      return set(command)(state)
-    }
-    case 'test': {
-      return test(command)(state)
-    }
-    case 'describe': {
-      return describe(command)(state)
-    }
-    default:
-      return state
-  }
-}
+// Command -> State -> State
+const applyCommandToState = R.cond([
+  set,
+  test,
+  describe,
+  [R.T, () => R.identity],
+])
 
 // State -> Content -> [Content, State]
 export const applyCommand = state => ({ content }) => {
   const command = getCommand(content)
   return [
     getCommandResultContent(state, command),
-    applyCommandToState(state, command),
+    applyCommandToState(command)(state),
   ]
 }
 

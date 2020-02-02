@@ -37,8 +37,11 @@ const evaluateTest = (args, state) =>
     getRightExpression,
   ])(args)
 
-// Command -> State -> State
-const test = ({ args }) => state =>
-  R.assoc('testResult', evaluateTest(args, state))(state)
+// [Command -> Boolean, Command -> State -> State]
+const test = [
+  R.propEq('instruction', 'test'),
+  ({ args }) => state =>
+    R.assoc('testResult', evaluateTest(args, state))(state),
+]
 
 export default test
