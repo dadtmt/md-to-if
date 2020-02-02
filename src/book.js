@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import { snakeCase } from 'change-case'
 
+// Content -> String
 export const getSceneName = R.pipe(
   R.propOr([], 'content'),
   R.head,
@@ -8,6 +9,7 @@ export const getSceneName = R.pipe(
   snakeCase
 )
 
+// [Content] -> { Scene, [Content] }
 export const splitByScene = R.pipe(
   R.converge(R.prepend, [
     R.head,
@@ -31,6 +33,7 @@ export const splitByScene = R.pipe(
   })
 )
 
+// [Content], [Scene] -> [Scene]
 const book = (source, scenes = []) => {
   const { scene, sourceLeft } = splitByScene(source)
   return R.isEmpty(sourceLeft)
