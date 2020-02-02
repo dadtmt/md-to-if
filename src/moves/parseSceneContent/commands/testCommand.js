@@ -2,18 +2,19 @@ import * as R from 'ramda'
 
 import getPlayedSceneCount from '../../stateHelpers/playedSceneCount'
 
-const getRightExpression = R.last
-
+// [String] -> String
 const getTestOperator = R.pipe(R.dropLast(1), R.last)
 
-const getTestFunction = test => {
-  if (getTestOperator(test) === 'equals') {
+// [String] -> String -> String -> Boolean|ErrorString
+const getTestFunction = args => {
+  if (getTestOperator(args) === 'equals') {
     return R.equals
   } else {
     return R.always('illegal-operator')
   }
 }
 
+// State -> [String] -> String
 const evaluateLeftExpression = state => {
   return R.pipe(
     R.dropLast(2),
@@ -26,11 +27,15 @@ const evaluateLeftExpression = state => {
   )
 }
 
-const evaluateTest = state => test => {
-  return R.converge(getTestFunction(test), [
+// [String] -> String
+const getRightExpression = R.last
+
+// State -> [String] -> Boolean
+const evaluateTest = state => args => {
+  return R.converge(getTestFunction(args), [
     evaluateLeftExpression(state),
     getRightExpression,
-  ])(test)
+  ])(args)
 }
 
 export default evaluateTest
