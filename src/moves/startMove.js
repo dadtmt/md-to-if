@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 
 // [Scene] -> Move -> MovedScene
-const firstSceneWithState = scenes => () => {
-  const [scene] = scenes
+const firstSceneWithState = ([scene]) => () => {
   const { name } = scene
   const state = {
     currentSceneName: name,
