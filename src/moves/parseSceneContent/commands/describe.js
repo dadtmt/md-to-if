@@ -4,7 +4,7 @@ import * as R from 'ramda'
 const getContentList = R.map(R.pipe(R.head, R.prop('content')))
 
 // [Content] -> Object
-const getDescription = R.pipe(
+export const getDescription = R.pipe(
   R.head,
   R.converge(R.zipObj, [
     R.pipe(R.prop('header'), getContentList),
@@ -12,4 +12,7 @@ const getDescription = R.pipe(
   ])
 )
 
-export default getDescription
+// Command -> State -> State
+const describe = ({ args, data }) => R.assoc(R.head(args), getDescription(data))
+
+export default describe

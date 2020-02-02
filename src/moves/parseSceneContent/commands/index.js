@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import set from './set'
-import getDescription from './describe'
+import describe from './describe'
 import test from './testCommand'
 
 // Content -> [String]
@@ -40,7 +40,7 @@ const getCommandResultContent = (state, command) =>
 
 // State, Command -> State
 const applyCommandToState = (state, command) => {
-  const { instruction, args, data } = command
+  const { instruction } = command
   switch (instruction) {
     case 'set': {
       return set(command)(state)
@@ -49,8 +49,7 @@ const applyCommandToState = (state, command) => {
       return test(command)(state)
     }
     case 'describe': {
-      const [name] = args
-      return { ...state, [name]: getDescription(data) }
+      return describe(command)(state)
     }
     default:
       return state
