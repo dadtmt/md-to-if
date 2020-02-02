@@ -1,5 +1,5 @@
 import parser from '../parser'
-import { getTargetedScene, getTargetSceneName, matchTarget } from './gotoMove'
+import { getTargetedScene, getTargetSceneName, matchTarget } from './goto'
 import adventure from '../adventure.md.js'
 import book from '../book'
 

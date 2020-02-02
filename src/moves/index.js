@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import goto from './gotoMove'
-import start from './startMove'
+import goto from './goto'
+import start from './start'
 
 import parseSceneContent from './parseSceneContent'
 
