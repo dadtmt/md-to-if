@@ -1,4 +1,4 @@
-import getDescription from './describeInstruction'
+import getDescription from './describe'
 
 describe('getDescription', () => {
   it('returns object description from the table', () => {
