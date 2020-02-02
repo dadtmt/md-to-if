@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import parseCommandContent from './commands'
-import getCaseContent from './caseContent'
+import parseCaseContent from './caseContent'
 
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
@@ -48,8 +48,7 @@ export const parseContent = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
-      [R.propEq('type', 'trueCaseContent'), getCaseContent(state, true)],
-      [R.propEq('type', 'falseCaseContent'), getCaseContent(state, false)],
+      ...parseCaseContent(state),
       [R.T, R.pipe(R.of, R.append(state))],
     ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
