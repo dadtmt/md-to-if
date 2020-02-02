@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import goto from './gotoMove'
 import start from './startMove'
 
-import parseDynamicSceneContentWithState from './parseSceneContent'
+import parseSceneContent from './parseSceneContent'
 
 // Move -> [Scene], [PlayedScene] -> MovedScene
 const applyMove = (scenes, playedScenes) =>
@@ -13,7 +13,7 @@ const applyMove = (scenes, playedScenes) =>
 const playScene = movedscene => {
   const { sceneContent, state, ...restOfScene } = movedscene
 
-  const [parsedSceneContent, parsedState] = parseDynamicSceneContentWithState({
+  const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,
     state,
   })

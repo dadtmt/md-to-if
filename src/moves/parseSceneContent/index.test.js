@@ -1,11 +1,6 @@
-import {
-  parseDynamicContentWithState,
-  getDynamicContentAndState,
-  mergeContent,
-  parseInstructions,
-} from '.'
+import { parseContent, applyDynamicContent, mergeContent, getCommand } from '.'
 
-describe('parseDynamicContentWithState', () => {
+describe('parseContent', () => {
   it('returns [unmodified content, unmodified state] for a not dynamic content', () => {
     const currentSceneName = 'currentSceneName'
 
@@ -23,7 +18,7 @@ describe('parseDynamicContentWithState', () => {
 
     const expected = [content, state]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
 
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
@@ -54,7 +49,7 @@ describe('parseDynamicContentWithState', () => {
       state,
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('returns [emty text content node, state with property setted] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
@@ -90,7 +85,7 @@ describe('parseDynamicContentWithState', () => {
       },
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parsing trueCaseContent returns [true case content to merged, state without testResult] for state testResult true ', () => {
     const currentSceneName = 'currentSceneName'
@@ -127,7 +122,7 @@ describe('parseDynamicContentWithState', () => {
       { played: state.played, currentSceneName },
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parsing trueCaseContent returns [empty node text content to merged, unmodified state] for state testResult false ', () => {
     const currentSceneName = 'currentSceneName'
@@ -164,7 +159,7 @@ describe('parseDynamicContentWithState', () => {
       state,
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parsing falseCaseContent returns [false case content to merged, state without testResult] for state testResult false ', () => {
     const currentSceneName = 'currentSceneName'
@@ -201,7 +196,7 @@ describe('parseDynamicContentWithState', () => {
       { played: state.played, currentSceneName },
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parsing falseCaseContent returns [empty node text content to merged, unmodified state] for state testResult true ', () => {
     const currentSceneName = 'currentSceneName'
@@ -238,7 +233,7 @@ describe('parseDynamicContentWithState', () => {
       state,
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parsing a paragraph with a failing test returns [paragraph with false content, unmodified state] test true ', () => {
     const currentSceneName = 'currentSceneName'
@@ -327,7 +322,7 @@ describe('parseDynamicContentWithState', () => {
       { played: state.played, currentSceneName },
     ]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
   it('parses a list of content', () => {
     const currentSceneName = 'currentSceneName'
@@ -374,11 +369,11 @@ describe('parseDynamicContentWithState', () => {
 
     const expected = [expectedContent, state]
 
-    expect(parseDynamicContentWithState(state)(content)).toEqual(expected)
+    expect(parseContent(state)(content)).toEqual(expected)
   })
 })
 
-describe('getDynamicContentAndState', () => {
+describe('applyDynamicContent', () => {
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
@@ -407,7 +402,7 @@ describe('getDynamicContentAndState', () => {
       state,
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [node text with current scene play count, unmodified state] for instruction show playedCount', () => {
@@ -438,7 +433,7 @@ describe('getDynamicContentAndState', () => {
       state,
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [empty text content node, state with property setted] for instruction set', () => {
@@ -475,7 +470,7 @@ describe('getDynamicContentAndState', () => {
       },
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [text content node with value, unmodified state] for instruction show', () => {
@@ -513,7 +508,7 @@ describe('getDynamicContentAndState', () => {
       },
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [empty text node content, state with testResult: true] for instruction test playedCount equals 1 true ', () => {
@@ -544,7 +539,7 @@ describe('getDynamicContentAndState', () => {
       { ...state, testResult: true },
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [empty text node content, state with testResult: false] for instruction test playedCount equals 2 false ', () => {
@@ -575,7 +570,7 @@ describe('getDynamicContentAndState', () => {
       { ...state, testResult: false },
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 
   it('returns [empty text node content, state with illegal operator text result] for instruction test playedCount some 2 false ', () => {
@@ -606,7 +601,7 @@ describe('getDynamicContentAndState', () => {
       { ...state, testResult: 'illegal-operator' },
     ]
 
-    expect(getDynamicContentAndState(state)(content)).toEqual(expected)
+    expect(applyDynamicContent(state)(content)).toEqual(expected)
   })
 })
 
@@ -635,7 +630,7 @@ describe('mergeContent', () => {
   })
 })
 
-describe('parseInstructions', () => {
+describe('getCommand', () => {
   it('returns an object with instruction, args and data', () => {
     const dynamicContent = [
       { type: 'text', content: 'instruction arg0 arg1 arg2' },
@@ -651,6 +646,6 @@ describe('parseInstructions', () => {
         { type: 'data', content: 'data1' },
       ],
     }
-    expect(parseInstructions(dynamicContent)).toEqual(expected)
+    expect(getCommand(dynamicContent)).toEqual(expected)
   })
 })
