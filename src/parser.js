@@ -6,7 +6,7 @@ export const matchBracketPipe = source => /^\[([\s\S]*?)\|/.exec(source)
 
 export const matchPipeBracket = source => /^\|([\s\S]*?)\]/.exec(source)
 
-const dynamic = {
+const command = {
   order: 0,
   match: matchBraces,
   parse: (capture, parse, state) => ({ content: parse(capture[1], state) }),
@@ -26,7 +26,7 @@ const falseCaseContent = {
 
 const parser = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
-  dynamic,
+  command,
   trueCaseContent,
   falseCaseContent,
 })

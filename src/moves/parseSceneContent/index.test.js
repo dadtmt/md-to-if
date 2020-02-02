@@ -31,7 +31,7 @@ describe('parseContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -61,7 +61,7 @@ describe('parseContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -251,7 +251,7 @@ describe('parseContent', () => {
               type: 'text',
             },
           ],
-          type: 'dynamic',
+          type: 'command',
         },
         {
           content: ' ',
@@ -340,7 +340,7 @@ describe('parseContent', () => {
               type: 'text',
             },
           ],
-          type: 'dynamic',
+          type: 'command',
         },
       ],
       type: 'paragraph',
@@ -384,7 +384,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -415,7 +415,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -446,7 +446,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -483,7 +483,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -521,7 +521,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -552,7 +552,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {
@@ -583,7 +583,7 @@ describe('applyDynamicContent', () => {
           type: 'text',
         },
       ],
-      type: 'dynamic',
+      type: 'command',
     }
 
     const state = {

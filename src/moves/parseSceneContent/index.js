@@ -112,7 +112,7 @@ export const applyDynamicContent = state => ({ content }) => {
 export const parseContent = state =>
   R.pipe(
     R.cond([
-      [R.propEq('type', 'dynamic'), applyDynamicContent(state)],
+      [R.propEq('type', 'command'), applyDynamicContent(state)],
       [R.propEq('type', 'trueCaseContent'), getCaseContent(state, true)],
       [R.propEq('type', 'falseCaseContent'), getCaseContent(state, false)],
       [R.T, R.pipe(R.of, R.append(state))],
