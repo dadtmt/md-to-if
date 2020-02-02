@@ -39,11 +39,11 @@ const playMove = (scenes, playedScenes) =>
   )
 
 // [Move], [Scene], [PlayedScene] -> [PlayedScene]
-const playMoves = (moves, scenes, story = []) => {
+const playMoves = (moves, scenes, playedScenes = []) => {
   const move = R.head(moves)
   return move
-    ? playMoves(R.tail(moves), scenes, playMove(scenes, story)(move))
-    : story
+    ? playMoves(R.tail(moves), scenes, playMove(scenes, playedScenes)(move))
+    : playedScenes
 }
 
 export default playMoves
