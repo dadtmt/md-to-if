@@ -7,13 +7,13 @@ const getLastPlayedSceneState = R.pipe(R.last, R.prop('state'))
 //  Move -> String
 export const getTargetSceneName = R.pipe(R.prop('target'), R.tail)
 
-// Scene -> Move -> Boolean
+// Move -> Scene -> Boolean
 export const matchTarget = move => R.propEq('name', getTargetSceneName(move))
 
-// [Scene] -> Move -> Scene
+// Move -> [Scene] -> Scene
 export const getTargetedScene = move => R.find(matchTarget(move))
 
-// State -> String -> State
+// String -> State -> State
 const updateState = name =>
   R.pipe(R.assoc('currentSceneName', name), incPlayedSceneCount(name))
 

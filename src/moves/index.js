@@ -5,7 +5,7 @@ import start from './startMove'
 
 import parseSceneContent from './parseSceneContent'
 
-// Move -> [Scene], [PlayedScene] -> MovedScene
+// [Scene], [PlayedScene] ->  Move -> MovedScene
 const applyMove = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
@@ -24,13 +24,13 @@ const playScene = movedscene => {
   }
 }
 
-//  PlayedScene -> [PlayedScene] -> [PlayedScene]
+// [PlayedScene] -> PlayedScene -> [PlayedScene]
 const accPlayedScenes = playedScenes => playedScene => [
   ...playedScenes,
   playedScene,
 ]
 
-// Move -> [Scene], [PlayedScene] -> [PlayedScene]
+// [Scene], [PlayedScene] -> Move -> [PlayedScene]
 const playMove = (scenes, playedScenes) =>
   R.pipe(
     applyMove(scenes, playedScenes),
