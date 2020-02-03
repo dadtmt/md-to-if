@@ -1,25 +1,12 @@
 import * as R from 'ramda'
 
-import getPlayedSceneCount from '../../stateHelpers/playedSceneCount'
-
-// { a } -> [Idx] -> a
-const pathTo = R.flip(R.path)
-
-// State -> Command -> String
-const getStringToShow = state =>
-  R.pipe(
-    R.ifElse(
-      R.pipe(R.prop('args'), R.head, R.equals('playedCount')),
-      R.always(R.pipe(getPlayedSceneCount, R.toString)(state)),
-      R.pipe(R.prop('args'), pathTo(state))
-    )
-  )
+import evaluate from './evaluate'
 
 // State -> [Command -> Boolean, Command -> Content]
 const show = state => [
   R.propEq('instruction', 'show'),
-  command => ({
-    content: getStringToShow(state)(command),
+  ({ args }) => ({
+    content: evaluate(state)(args),
     type: 'text',
   }),
 ]

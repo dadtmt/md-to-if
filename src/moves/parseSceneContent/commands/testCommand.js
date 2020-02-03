@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import getPlayedSceneCount from '../../stateHelpers/playedSceneCount'
+import evaluate from './evaluate'
 
 // [String] -> String
 const getTestOperator = R.pipe(R.dropLast(1), R.last)
@@ -16,15 +16,7 @@ const getTestFunction = args => {
 
 // State -> [String] -> String
 const evaluateLeftExpression = state => {
-  return R.pipe(
-    R.dropLast(2),
-    R.when(
-      R.last,
-      R.equals('playedCount'),
-      R.always(getPlayedSceneCount(state))
-    ),
-    R.toString
-  )
+  return R.pipe(R.dropLast(2), evaluate(state))
 }
 
 // [String] -> String
