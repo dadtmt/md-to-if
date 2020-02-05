@@ -7,6 +7,9 @@ const playedCount = state => [
   R.pipe(R.always(getPlayedSceneCount(state)), R.toString),
 ]
 
+// [[String] -> Boolean, [String] -> String]
+const rollDices = [R.pipe(R.head, R.equals('roll')), R.always(3)]
+
 // { a } -> [Idx] -> Boolean
 const hasPathTo = R.flip(R.path)
 
@@ -20,6 +23,7 @@ const getValue = state => [hasPathTo(state), pathTo(state)]
 const evaluate = state =>
   R.cond([
     playedCount(state),
+    rollDices,
     getValue(state),
     [R.T, R.pipe(R.join(' '), R.concat('Error in expression : '))],
   ])

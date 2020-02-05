@@ -1,6 +1,13 @@
 import evaluate from './evaluate'
 
 describe('evaluate', () => {
+  it('returns value between 1 and 6 for ["roll", "D6"]', () => {
+    const expression = ['roll', 'D6']
+    const state = {}
+    const rolled = evaluate(state)(expression)
+    expect(rolled).toBeGreaterThanOrEqual(1)
+    expect(rolled).toBeLessThanOrEqual(6)
+  })
   it('returns current scene played count for ["playedCount"]', () => {
     const expression = ['playedCount']
     const state = {
