@@ -50,6 +50,7 @@
   "dependencies": {
     "change-case": "^4.1.1",
     "ramda": "^0.26.1",
+    "roll-dice": "^0.2.1",
     "simple-markdown": "^0.7.1"
   }
 }

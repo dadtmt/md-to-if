@@ -1,12 +1,12 @@
 import * as R from 'ramda'
 
-import evaluate from './evaluate'
+import parseExpression from './expressions'
 
 // State -> [Command -> Boolean, Command -> Content]
 const show = state => [
   R.propEq('instruction', 'show'),
   ({ args }) => ({
-    content: evaluate(state)(args),
+    content: parseExpression(state)(args),
     type: 'text',
   }),
 ]

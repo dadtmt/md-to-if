@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import evaluate from './evaluate'
+import parseExpression from './expressions'
 
 // [String] -> String
 const getTestOperator = R.pipe(R.dropLast(1), R.last)
@@ -16,7 +16,7 @@ const getTestFunction = args => {
 
 // State -> [String] -> String
 const evaluateLeftExpression = state => {
-  return R.pipe(R.dropLast(2), evaluate(state))
+  return R.pipe(R.dropLast(2), parseExpression(state))
 }
 
 // [String] -> String
