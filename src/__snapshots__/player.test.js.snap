@@ -137,6 +137,19 @@ The trip is long and boring",
       Object {
         "type": "newline",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You roll a dice it gives ",
+            "type": "text",
+          },
+          Object {
+            "content": 42,
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "state": Object {
       "currentSceneName": "bedroom",

@@ -33,4 +33,5 @@ Crazy major doid jumps on you
                  |----|----|---|---|
                  |33  |32  |24 |41 | }
 
+You roll a dice it gives { show roll d10 }
 `

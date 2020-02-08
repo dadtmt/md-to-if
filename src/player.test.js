@@ -3,6 +3,8 @@ import player from './player'
 import adventure from './adventure.md.js'
 import book from './book'
 
+jest.mock('./moves/parseSceneContent/commands/expressions/rollDices')
+
 const adventureBook = book(parser(adventure))
 const startMove = {
   type: 'start',

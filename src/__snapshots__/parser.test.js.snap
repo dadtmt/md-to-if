@@ -403,5 +403,23 @@ or what ",
   Object {
     "type": "newline",
   },
+  Object {
+    "content": Array [
+      Object {
+        "content": "You roll a dice it gives ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " show roll d10 ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
+    "type": "paragraph",
+  },
 ]
 `;
