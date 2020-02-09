@@ -224,7 +224,25 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": " set bag sandwich 1 ",
+            "content": " set bag sandwich val 1 ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "You find some pickles ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " set bag pickles val roll d10 ",
             "type": "text",
           },
         ],
@@ -243,6 +261,28 @@ The trip is long and boring",
         "content": Array [
           Object {
             "content": " show bag sandwich ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+      Object {
+        "content": " with you",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "You have ",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " show bag pickles ",
             "type": "text",
           },
         ],

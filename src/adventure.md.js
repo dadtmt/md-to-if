@@ -17,9 +17,13 @@ The cantina is full with your crew having a good time { test playedCount equals 
 
 They are singing 'oh my captain' for the { show playedCount } times
 
-You pick up a sandwich an put it in your bag { set bag sandwich 1 }
+You pick up a sandwich an put it in your bag { set bag sandwich val 1 }
+
+You find some pickles { set bag pickles val roll d10 }
 
 You have { show bag sandwich } with you
+
+You have { show bag pickles } with you
 
 { test playedCount equals 1 } [ This is your first time here
     Will you come back ? || Should not you go somewhere else ?
