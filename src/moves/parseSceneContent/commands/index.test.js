@@ -89,7 +89,7 @@ describe('applyCommand', () => {
     const content = {
       content: [
         {
-          content: ' set container prop value',
+          content: ' set container prop val value',
           type: 'text',
         },
       ],

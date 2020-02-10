@@ -6,11 +6,6 @@ import playedCount from './playedCount'
 
 // State -> [String] -> String
 const parseExpression = state =>
-  R.cond([
-    playedCount(state),
-    rollDices,
-    getValue(state),
-    [R.T, R.pipe(R.join(' '), R.concat('Error in expression : '))],
-  ])
+  R.cond([playedCount(state), rollDices, getValue(state), [R.T, R.head]])
 
 export default parseExpression

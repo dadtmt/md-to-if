@@ -1,6 +1,6 @@
 import parseExpression from '.'
 
-describe('parseExpression', () => {
+describe.only('parseExpression', () => {
   it('returns value between 1 and 6 for ["roll", "D6"]', () => {
     const expression = ['roll', 'd6']
     const state = {}
@@ -25,10 +25,10 @@ describe('parseExpression', () => {
     }
     expect(parseExpression(state)(expression)).toEqual('value')
   })
-  it('returns Error in expression : "not handled expression" for ["not" "handled" "expression"]', () => {
+  it('returns "not" for ["not" "handled" "expression"]', () => {
     const expression = ['not', 'handled', 'expression']
     const state = {}
-    const expected = 'Error in expression : not handled expression'
+    const expected = 'not'
     expect(parseExpression(state)(expression)).toEqual(expected)
   })
 })

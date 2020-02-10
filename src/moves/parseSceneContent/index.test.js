@@ -51,13 +51,13 @@ describe('parseContent', () => {
 
     expect(parseContent(state)(content)).toEqual(expected)
   })
-  it('returns [emty text content node, state with property setted] for instruction show playedCount', () => {
+  it('returns [empty text content node, state with property setted] for instruction set prop val value', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = {
       content: [
         {
-          content: ' set container prop value',
+          content: ' set container prop val value',
           type: 'text',
         },
       ],
