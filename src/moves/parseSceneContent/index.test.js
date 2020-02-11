@@ -247,7 +247,7 @@ describe('parseContent', () => {
         {
           content: [
             {
-              content: ' test playedCount equals 1 ',
+              content: ' test playedCount equals val 1 ',
               type: 'text',
             },
           ],

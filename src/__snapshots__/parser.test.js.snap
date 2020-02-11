@@ -150,7 +150,7 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": " test playedCount equals 1 ",
+            "content": " test playedCount equals val 1 ",
             "type": "text",
           },
         ],
@@ -298,7 +298,7 @@ The trip is long and boring",
   Object {
     "content": Array [
       Object {
-        "content": " test playedCount equals 1 ",
+        "content": " test playedCount equals val 1 ",
         "type": "text",
       },
     ],
@@ -362,7 +362,7 @@ or what ",
   Object {
     "content": Array [
       Object {
-        "content": "Crazy major doid jumps on you ",
+        "content": "Crazy major droid jumps on you ",
         "type": "text",
       },
     ],

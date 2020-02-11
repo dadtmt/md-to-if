@@ -13,7 +13,7 @@ Are you going to [get food](/cantina) or to [get a rest](/bedroom)
 
 { show playedCount } time you come here
 
-The cantina is full with your crew having a good time { test playedCount equals 1 } [trueCase||falseCase] 
+The cantina is full with your crew having a good time { test playedCount equals val 1 } [trueCase||falseCase] 
 
 They are singing 'oh my captain' for the { show playedCount } times
 
@@ -25,13 +25,13 @@ You have { show bag sandwich } with you
 
 You have { show bag pickles } with you
 
-{ test playedCount equals 1 } [ This is your first time here
+{ test playedCount equals val 1 } [ This is your first time here
     Will you come back ? || Should not you go somewhere else ?
 or what ? ] 
 
 ## Bedroom
 
-Crazy major doid jumps on you 
+Crazy major droid jumps on you 
 
 { describe droid |CC       |CT  |F  |E  |
                  |---------|----|---|---|

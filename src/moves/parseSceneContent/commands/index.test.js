@@ -164,7 +164,7 @@ describe('applyCommand', () => {
     const content = {
       content: [
         {
-          content: ' test playedCount equals 1 ',
+          content: ' test playedCount equals val 1 ',
           type: 'text',
         },
       ],
@@ -195,7 +195,7 @@ describe('applyCommand', () => {
     const content = {
       content: [
         {
-          content: ' test playedCount equals 2 ',
+          content: ' test playedCount equals val 2 ',
           type: 'text',
         },
       ],
@@ -226,7 +226,7 @@ describe('applyCommand', () => {
     const content = {
       content: [
         {
-          content: ' test playedCount some 2 ',
+          content: ' test playedCount some val 2 ',
           type: 'text',
         },
       ],

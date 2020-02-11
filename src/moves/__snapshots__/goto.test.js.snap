@@ -41,7 +41,7 @@ Object {
         Object {
           "content": Array [
             Object {
-              "content": " test playedCount equals 1 ",
+              "content": " test playedCount equals val 1 ",
               "type": "text",
             },
           ],
@@ -189,7 +189,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "content": " test playedCount equals 1 ",
+          "content": " test playedCount equals val 1 ",
           "type": "text",
         },
       ],
