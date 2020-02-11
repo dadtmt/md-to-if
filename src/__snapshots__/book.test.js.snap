@@ -382,7 +382,7 @@ or what ",
               Array [
                 Array [
                   Object {
-                    "content": "33",
+                    "content": "roll D6",
                     "type": "text",
                   },
                 ],
@@ -833,7 +833,7 @@ or what ",
             Array [
               Array [
                 Object {
-                  "content": "33",
+                  "content": "roll D6",
                   "type": "text",
                 },
               ],

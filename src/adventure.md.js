@@ -33,9 +33,9 @@ or what ? ]
 
 Crazy major doid jumps on you 
 
-{ describe droid |CC  |CT  |F  |E  |
-                 |----|----|---|---|
-                 |33  |32  |24 |41 | }
+{ describe droid |CC       |CT  |F  |E  |
+                 |---------|----|---|---|
+                 |roll D6  |32  |24 |41 | }
 
 You roll a dice it gives { show roll d10 }
 `
