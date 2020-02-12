@@ -3,13 +3,7 @@ import * as R from 'ramda'
 import parseExpression from './expressions'
 
 // String -> String, String -> Boolean|ErrorString
-const getTestFunction = operator => {
-  if (operator === 'equals') {
-    return R.equals
-  } else {
-    return R.always('illegal-operator')
-  }
-}
+const getTestFunction = operator => R[operator]
 
 // [String], State -> Boolean
 const evaluateTest = (args, state) => {

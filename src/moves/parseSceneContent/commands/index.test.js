@@ -219,35 +219,4 @@ describe('applyCommand', () => {
 
     expect(applyCommand(state)(content)).toEqual(expected)
   })
-
-  it('returns [empty text node content, state with illegal operator text result] for instruction test playedCount some 2 false ', () => {
-    const currentSceneName = 'currentSceneName'
-
-    const content = {
-      content: [
-        {
-          content: ' test playedCount some val 2 ',
-          type: 'text',
-        },
-      ],
-      type: 'command',
-    }
-
-    const state = {
-      played: {
-        currentSceneName: 1,
-      },
-      currentSceneName,
-    }
-
-    const expected = [
-      {
-        content: '',
-        type: 'text',
-      },
-      { ...state, testResult: 'illegal-operator' },
-    ]
-
-    expect(applyCommand(state)(content)).toEqual(expected)
-  })
 })
