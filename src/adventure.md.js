@@ -29,6 +29,22 @@ You have { show bag pickles } with you
     Will you come back ? || Should not you go somewhere else ?
 or what ? ] 
 
+### Drink
+
+You have a whisky or a milkhake
+
+#### Whisky
+
+You feel dipsy
+
+#### Milkshake
+
+Delicious strawberry one
+
+### Eat
+
+Some eggs
+
 ## Bedroom
 
 Crazy major droid shoots you 

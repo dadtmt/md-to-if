@@ -24,6 +24,7 @@ export const splitByScene = R.pipe(
     ),
   ]),
   R.zipObj(['heading', 'content', 'sourceLeft']),
+  // TODO parse content for actions
   ({ heading, content, sourceLeft }) => ({
     scene: {
       name: getSceneName(heading),

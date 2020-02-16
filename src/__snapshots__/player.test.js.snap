@@ -492,6 +492,82 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Drink",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have a whisky or a milkhake",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Whisky",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You feel dipsy",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Milkshake",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Delicious strawberry one",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Eat",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Some eggs",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -674,6 +750,82 @@ or what ",
           },
           Object {
             "content": " ",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Drink",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have a whisky or a milkhake",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Whisky",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You feel dipsy",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Milkshake",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Delicious strawberry one",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Eat",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Some eggs",
             "type": "text",
           },
         ],
@@ -973,6 +1125,82 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Drink",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have a whisky or a milkhake",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Whisky",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You feel dipsy",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Milkshake",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Delicious strawberry one",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Eat",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Some eggs",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -1155,6 +1383,82 @@ or what ",
           },
           Object {
             "content": " ",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Drink",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have a whisky or a milkhake",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Whisky",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You feel dipsy",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Milkshake",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Delicious strawberry one",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Eat",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Some eggs",
             "type": "text",
           },
         ],
@@ -1565,6 +1869,82 @@ The trip is long and boring",
           },
           Object {
             "content": " ",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Drink",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You have a whisky or a milkhake",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Whisky",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "You feel dipsy",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Milkshake",
+            "type": "text",
+          },
+        ],
+        "level": 4,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Delicious strawberry one",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Eat",
+            "type": "text",
+          },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "Some eggs",
             "type": "text",
           },
         ],
