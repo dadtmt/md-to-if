@@ -35,7 +35,10 @@ Crazy major droid jumps on you
 
 { describe droid |CC       |CT  |F  |E  |
                  |---------|----|---|---|
-                 |roll D6  |32  |24 |41 | }
+                 |roll D6  |33  |24 |41 | }
 
 You roll a dice it gives { show roll d10 }
+
+The droid try to shoot you
+{ test d100 lte val droid CT }[ you are shot || You luckyly escape ]
 `
