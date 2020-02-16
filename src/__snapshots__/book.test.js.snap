@@ -1204,3 +1204,49 @@ Object {
   "sourceLeft": Array [],
 }
 `;
+
+exports[`splitContentAndActions splits content from actions 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "actions": Array [],
+      "name": "action1",
+      "sceneContent": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": "Action1",
+              "type": "text",
+            },
+          ],
+          "level": 3,
+          "type": "heading",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": "this is a level 3 action",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+    },
+  ],
+  "content": Array [
+    Object {
+      "type": "newline",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "some content",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+}
+`;

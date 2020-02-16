@@ -1,5 +1,9 @@
 import parser from './parser'
-import book, { splitByScene, getSceneName } from './book'
+import book, {
+  splitByScene,
+  getSceneName,
+  splitContentAndActions,
+} from './book'
 import adventure from './adventure.md.js'
 
 const lastSceneMd = `## Final landing
@@ -17,6 +21,30 @@ describe('getSceneName', () => {
     
     `)
     expect(getSceneName(scene[0])).toBe('unnamed')
+  })
+})
+
+describe('splitContentAndActions', () => {
+  it('splits content from actions', () => {
+    const contentWithActions = `
+some content
+
+### Action1
+
+this is a level 3 action
+
+#### Action 1.1
+
+this is level 4 action
+
+
+### Action2
+
+this is a level 3 action
+    `
+    const content = parser(contentWithActions)
+
+    expect(splitContentAndActions(3)(content)).toMatchSnapshot()
   })
 })
 

@@ -9,21 +9,50 @@ export const getSceneName = R.pipe(
   snakeCase
 )
 
-// [Content] -> { Scene, [Content] }
+// int -> [Content] -> [[Content],[Content]]
+const splitByHeading = level =>
+  R.splitWhen(
+    R.where({
+      type: R.equals('heading'),
+      level: R.equals(level),
+    })
+  )
+
+const splitActions = (level, contentList, actionList = []) => {
+  const [headOfContent, ...tailOfContent] = contentList
+  const [actionContent, restOfContent] = splitByHeading(level)(tailOfContent)
+  const { content, actions } =
+    level <= 6
+      ? splitContentAndActions(level + 1)(actionContent)
+      : {
+          content: [],
+          actions: [],
+        }
+  return !R.isEmpty(restOfContent)
+    ? splitActions(level, restOfContent, [
+        ...actionList,
+        {
+          name: getSceneName(headOfContent),
+          sceneContent: [headOfContent, ...content],
+          actions,
+        },
+      ])
+    : actionList
+}
+
+// [Content] -> { content: [Content], actions: [Scene] }
+export const splitContentAndActions = level => contentAndActions => {
+  const [content, actions] = splitByHeading(level)(contentAndActions)
+  console.log(level)
+  console.log(content)
+  console.log(actions)
+  return { content, actions: splitActions(level, actions) }
+}
+
+// [Content] -> { scene: Scene, content: [Content] }
 export const splitByScene = level =>
   R.pipe(
-    R.converge(R.prepend, [
-      R.head,
-      R.pipe(
-        R.tail,
-        R.splitWhen(
-          R.where({
-            type: R.equals('heading'),
-            level: R.equals(level),
-          })
-        )
-      ),
-    ]),
+    R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     R.zipObj(['heading', 'content', 'sourceLeft']),
     // TODO parse content for actions
     ({ content, ...rest }) => ({
