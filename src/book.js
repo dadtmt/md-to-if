@@ -26,6 +26,10 @@ export const splitByScene = level =>
     ]),
     R.zipObj(['heading', 'content', 'sourceLeft']),
     // TODO parse content for actions
+    ({ content, ...rest }) => ({
+      content,
+      ...rest,
+    }),
     ({ heading, content, sourceLeft }) => ({
       scene: {
         name: getSceneName(heading),
