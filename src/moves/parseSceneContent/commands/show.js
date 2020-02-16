@@ -6,7 +6,10 @@ import parseExpression from './expressions'
 const show = state => [
   R.propEq('instruction', 'show'),
   ({ args }) => ({
-    content: parseExpression(state)(args),
+    content: R.pipe(
+      parseExpression(state),
+      R.when(R.pipe(R.is(String), R.not), R.toString)
+    )(args),
     type: 'text',
   }),
 ]

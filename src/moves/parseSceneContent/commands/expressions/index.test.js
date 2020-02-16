@@ -16,7 +16,7 @@ describe('parseExpression', () => {
         currentSceneName: 5,
       },
     }
-    expect(parseExpression(state)(expression)).toEqual('5')
+    expect(parseExpression(state)(expression)).toEqual(5)
   })
   it('returns value for ["path","to","the"]', () => {
     const expression = ['path', 'to', 'the']

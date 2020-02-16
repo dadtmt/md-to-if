@@ -31,7 +31,7 @@ or what ? ]
 
 ## Bedroom
 
-Crazy major droid jumps on you 
+Crazy major droid shoots you 
 
 { describe droid |CC       |CT  |F  |E  |
                  |---------|----|---|---|

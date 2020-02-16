@@ -406,7 +406,7 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
             "type": "text",
           },
           Object {
@@ -450,7 +450,7 @@ The trip is long and boring",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "cantina",
       "played": Object {
@@ -589,7 +589,7 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
             "type": "text",
           },
           Object {
@@ -637,7 +637,7 @@ or what ",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "cantina",
       "played": Object {
@@ -887,7 +887,7 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
             "type": "text",
           },
           Object {
@@ -931,7 +931,7 @@ The trip is long and boring",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "cantina",
       "played": Object {
@@ -1070,7 +1070,7 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
             "type": "text",
           },
           Object {
@@ -1118,7 +1118,7 @@ or what ",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "cantina",
       "played": Object {
@@ -1197,7 +1197,7 @@ The trip is long and boring",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "the_space_ship",
       "played": Object {
@@ -1484,7 +1484,7 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
             "type": "text",
           },
           Object {
@@ -1528,7 +1528,7 @@ The trip is long and boring",
     "state": Object {
       "bag": Object {
         "pickles": 42,
-        "sandwich": "1",
+        "sandwich": 1,
       },
       "currentSceneName": "cantina",
       "played": Object {
