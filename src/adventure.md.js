@@ -40,5 +40,8 @@ Crazy major droid shoots you
 You roll a dice it gives { show roll d10 }
 
 The droid try to shoot you
+
+### The Droid shoots
+
 { test roll d100 lte val droid CT }[ you are shot || You luckyly escape ]
 `

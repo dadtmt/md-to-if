@@ -464,39 +464,51 @@ or what ",
   Object {
     "content": Array [
       Object {
-        "content": "The droid try to shoot you
-",
+        "content": "The droid try to shoot you",
         "type": "text",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " test roll d100 lte val droid CT ",
-            "type": "text",
-          },
-        ],
-        "type": "command",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " you are shot ",
-            "type": "text",
-          },
-        ],
-        "type": "trueCaseContent",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " You luckyly escape ",
-            "type": "text",
-          },
-        ],
-        "type": "falseCaseContent",
       },
     ],
     "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": "The Droid shoots",
+        "type": "text",
+      },
+    ],
+    "level": 3,
+    "type": "heading",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": " test roll d100 lte val droid CT ",
+        "type": "text",
+      },
+    ],
+    "type": "command",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": " you are shot ",
+        "type": "text",
+      },
+    ],
+    "type": "trueCaseContent",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "content": " You luckyly escape ",
+        "type": "text",
+      },
+    ],
+    "type": "falseCaseContent",
+  },
+  Object {
+    "type": "newline",
   },
 ]
 `;

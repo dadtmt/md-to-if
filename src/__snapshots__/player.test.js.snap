@@ -153,24 +153,48 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": "The droid try to shoot you
-",
+            "content": "The droid try to shoot you",
             "type": "text",
           },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
           Object {
-            "content": "",
+            "content": "The Droid shoots",
             "type": "text",
           },
+        ],
+        "level": 3,
+        "type": "heading",
+      },
+      Object {
+        "content": "",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
           Object {
             "content": " you are shot ",
             "type": "text",
           },
+        ],
+        "contentToMerge": true,
+        "type": "trueCaseContent",
+      },
+      Object {
+        "content": Array [
           Object {
             "content": "",
             "type": "text",
           },
         ],
-        "type": "paragraph",
+        "contentToMerge": true,
+        "type": "falseCaseContent",
+      },
+      Object {
+        "type": "newline",
       },
     ],
     "state": Object {
