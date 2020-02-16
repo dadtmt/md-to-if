@@ -388,7 +388,7 @@ or what ",
                 ],
                 Array [
                   Object {
-                    "content": "33",
+                    "content": "45",
                     "type": "text",
                   },
                 ],
@@ -468,7 +468,7 @@ or what ",
           Object {
             "content": Array [
               Object {
-                "content": " test d100 lte val droid CT ",
+                "content": " test roll d100 lte val droid CT ",
                 "type": "text",
               },
             ],
@@ -876,7 +876,7 @@ or what ",
               ],
               Array [
                 Object {
-                  "content": "33",
+                  "content": "45",
                   "type": "text",
                 },
               ],
@@ -956,7 +956,7 @@ or what ",
         Object {
           "content": Array [
             Object {
-              "content": " test d100 lte val droid CT ",
+              "content": " test roll d100 lte val droid CT ",
               "type": "text",
             },
           ],

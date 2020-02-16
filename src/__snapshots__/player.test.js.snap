@@ -124,7 +124,7 @@ The trip is long and boring",
       Object {
         "content": Array [
           Object {
-            "content": "Crazy major droid jumps on you ",
+            "content": "Crazy major droid shoots you ",
             "type": "text",
           },
         ],
@@ -144,7 +144,29 @@ The trip is long and boring",
             "type": "text",
           },
           Object {
-            "content": 42,
+            "content": "42",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": "The droid try to shoot you
+",
+            "type": "text",
+          },
+          Object {
+            "content": "",
+            "type": "text",
+          },
+          Object {
+            "content": " you are shot ",
+            "type": "text",
+          },
+          Object {
+            "content": "",
             "type": "text",
           },
         ],
@@ -155,9 +177,9 @@ The trip is long and boring",
       "currentSceneName": "bedroom",
       "droid": Object {
         "CC": 42,
-        "CT": "32",
-        "E": "41",
-        "F": "24",
+        "CT": 45,
+        "E": 41,
+        "F": 24,
       },
       "played": Object {
         "bedroom": 1,
