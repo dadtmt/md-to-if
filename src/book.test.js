@@ -22,10 +22,10 @@ describe('getSceneName', () => {
 
 describe('splitByScene', () => {
   it('split the first scene', () => {
-    expect(splitByScene(parser(adventure))).toMatchSnapshot()
+    expect(splitByScene(2)(parser(adventure))).toMatchSnapshot()
   })
   it('split the last scene', () => {
-    expect(splitByScene(parser(lastSceneMd))).toMatchSnapshot()
+    expect(splitByScene(2)(parser(lastSceneMd))).toMatchSnapshot()
   })
 })
 
