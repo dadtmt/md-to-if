@@ -2,13 +2,21 @@
 
 ## Version
 
-0.0.1
+0.0.3
 
 ## Description
 
 An attempt to write a Markdown to Interactive Fiction parser
 
 ## Features
+
+- 0.0.3
+  - fix exporting issue
+  - add MIT license
+  - features :
+      - roll dices
+      - test command
+      - describe command
 
 - 0.0.1
   - `parser` is a default simple-markdown parsing
