@@ -6,6 +6,8 @@ import book, {
 } from './book'
 import adventure from './adventure.md.js'
 
+console.log(book)
+
 const lastSceneMd = `## Final landing
 
 congrats you made it!!!
