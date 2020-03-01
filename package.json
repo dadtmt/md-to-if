@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/dadtmt/md-to-if.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Thomas Culdaut",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dadtmt/md-to-if/issues"
   },
