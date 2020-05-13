@@ -4,7 +4,7 @@ import book, {
   getSceneName,
   splitContentAndActions,
 } from './book'
-import adventure from './adventure.md.js'
+import adventure from './adventure.md'
 
 const lastSceneMd = `## Final landing
 

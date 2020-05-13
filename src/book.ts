@@ -47,7 +47,7 @@ export const splitContentAndActions = level => contentAndActions => {
 }
 
 // [Content] -> { scene: Scene, content: [Content] }
-export const splitByScene = level =>
+export const splitByScene = (level: number) =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     R.zipObj(['heading', 'content', 'sourceLeft']),

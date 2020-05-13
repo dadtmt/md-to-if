@@ -4,10 +4,11 @@
   "description": "An attempt to write a Markdown to Interactive Fiction parser",
   "main": "src/index.js",
   "scripts": {
-    "lint": "npx eslint 'src/**/*.js'",
-    "lintandfix": "npx eslint --fix 'src/**/*.js'",
+    "lint": "npx eslint 'src/**/*.ts'",
+    "lintandfix": "npx eslint --fix 'src/**/*.ts'",
     "precommit": "lint-staged && npm test",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "check-types": "tsc"
   },
   "repository": {
     "type": "git",
@@ -23,24 +24,32 @@
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
     "@babel/preset-env": "^7.7.4",
-    "eslint": "^6.7.2",
-    "eslint-config-standard": "^14.1.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.2",
+    "@types/ramda": "^0.27.4",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier-config-standard": "^1.0.1",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
-    "supertest": "^4.0.2"
+    "prettier-config-standard": "^1.0.1",
+    "supertest": "^4.0.2",
+    "typescript": "^3.9.2"
   },
   "lint-staged": {
-    "**/*.js": [
+    "**/*.ts": [
       "npm run lint",
       "git add"
     ]

@@ -1,6 +1,6 @@
 import parser from './parser'
 import player from './player'
-import adventure from './adventure.md.js'
+import adventure from './adventure.md'
 import book from './book'
 
 jest.mock('./moves/parseSceneContent/commands/expressions/rollDices')

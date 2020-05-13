@@ -7,6 +7,6 @@ const hasPathTo = R.flip(R.path)
 const pathTo = R.flip(R.path)
 
 // State -> [[String] -> Boolean, [String] -> String]
-const getValue = state => [hasPathTo(state), pathTo(state)]
+const getValue = (state: any) => [hasPathTo(state), pathTo(state)]
 
 export default getValue

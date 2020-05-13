@@ -3,7 +3,7 @@ import parser, {
   matchBracketPipe,
   matchPipeBracket,
 } from './parser'
-import adventure from './adventure.md.js'
+import adventure from './adventure.md'
 
 describe('matchBraces', () => {
   it('match braces', () => {

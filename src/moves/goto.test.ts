@@ -1,6 +1,6 @@
 import parser from '../parser'
 import { getTargetedScene, getTargetSceneName, matchTarget } from './goto'
-import adventure from '../adventure.md.js'
+import adventure from '../adventure.md'
 import book from '../book'
 
 const adventureBook = book(parser(adventure))
