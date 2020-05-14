@@ -1,13 +1,14 @@
 import SimpleMarkdown from 'simple-markdown'
 
 // String -> [String]
-export const matchBraces = source => /^\{([\s\S]*?)\}/.exec(source)
+export const matchBraces = (source: string): RegExpExecArray | null =>
+  /^\{([\s\S]*?)\}/.exec(source)
 
 // String -> [String]
-export const matchBracketPipe = source => /^\[([\s\S]*?)\|/.exec(source)
+export const matchBracketPipe = (source: string): RegExpExecArray | null => /^\[([\s\S]*?)\|/.exec(source)
 
 // String -> [String]
-export const matchPipeBracket = source => /^\|([\s\S]*?)\]/.exec(source)
+export const matchPipeBracket = (source: string): RegExpExecArray | null => /^\|([\s\S]*?)\]/.exec(source)
 
 const command = {
   order: 0,
