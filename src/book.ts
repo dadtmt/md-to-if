@@ -41,13 +41,13 @@ const splitActions = (level, contentList, actionList = []) => {
 }
 
 // [Content] -> { content: [Content], actions: [Scene] }
-export const splitContentAndActions = level => contentAndActions => {
+export const splitContentAndActions = (level: number) => contentAndActions => {
   const [content, actions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, actions) }
 }
 
 // [Content] -> { scene: Scene, content: [Content] }
-export const splitByScene = (level: number) =>
+export const splitByScene = (level: number): Function =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     R.zipObj(['heading', 'content', 'sourceLeft']),
