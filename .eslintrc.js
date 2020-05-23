@@ -23,5 +23,15 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    '@typescript-eslint/member-delimiter-style': {
+      multiline: {
+        delimiter: 'none',
+        requireLast: false,
+      },
+      singleline: {
+        delimiter: 'none',
+        requireLast: false,
+      },
+    },
   },
 }
