@@ -1,10 +1,5 @@
 import * as R from 'ramda'
-
-type State = {
-  currentSceneName: string ;
-  played?: { currentSceneName: number } ; 
-  path?: { to: { the: string } } ;
-}
+import { State } from '../../..'
 
 // { a } -> [Idx] -> Boolean
 const hasPathTo = R.flip(R.path)
@@ -20,7 +15,9 @@ const getValue: (
   (expression: string[]) => string
 ] = state => [
   R.pipe(hasPathTo(state), R.isNil, R.not),
-  R.pipe(pathTo(state), R.toString),
+  R.pipe(pathTo(state), val =>
+    typeof val === 'string' ? val : R.toString(val)
+  ),
 ]
 
 export default getValue

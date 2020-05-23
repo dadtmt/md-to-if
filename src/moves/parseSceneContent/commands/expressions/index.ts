@@ -3,13 +3,7 @@ import * as R from 'ramda'
 import rollDices from './rollDices'
 import getValue from './getValue'
 import playedCount from './playedCount'
-
-type State = {
-  currentSceneName: string ;
-  played?: { currentSceneName: number } ; 
-  path?: { to: { the: string } } ;
-}
-
+import { State } from '../../..'
 
 const toNumber: (str: string) => string | number = str => {
   const convertedString = parseInt(str)

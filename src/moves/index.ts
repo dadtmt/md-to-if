@@ -5,6 +5,12 @@ import start from './start'
 
 import parseSceneContent from './parseSceneContent'
 
+export type State = {
+  currentSceneName?: string | undefined
+  played?: { currentSceneName: number }
+  path?: object
+}
+
 // [Scene], [PlayedScene] ->  Move -> MovedScene
 const applyMove = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])

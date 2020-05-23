@@ -1,12 +1,7 @@
 import * as R from 'ramda'
 
 import { Lens } from 'ramda'
-
-type State = {
-  currentSceneName: string ;
-  played?: { currentSceneName: number } ; 
-  path?: { to: { the: string } } ;
-}
+import { State } from '..'
 
 // String -> Lens
 const playedSceneCountLens: (name: string) => Lens = name =>
@@ -18,8 +13,10 @@ export const incPlayedSceneCount: (
 ) => (state: State) => State = name =>
   R.over(playedSceneCountLens(name), R.pipe(R.inc, R.defaultTo(1)))
 
-const getPlayedSceneCount: (name: string) => (state: State) => number = name =>
-  R.view(playedSceneCountLens(name))
+const getPlayedSceneCount: (
+  name: string | undefined
+) => (state: State) => number = name =>
+  name ? R.view(playedSceneCountLens(name)) : () => 0
 
 // State -> Number
 const getCurrentPlayedSceneCount: (state: State) => number = state => {
