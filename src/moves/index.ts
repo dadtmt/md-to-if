@@ -62,7 +62,7 @@ const playMove: (
 const playMoves: (
   moves: Move[],
   scenes: Scene[],
-  playedScenes: PlayedScene[]
+  playedScenes?: PlayedScene[]
 ) => PlayedScene[] = (moves, scenes, playedScenes = []) => {
   const move = R.head(moves)
   return move
