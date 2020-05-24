@@ -2,6 +2,7 @@ import * as R from 'ramda'
 
 import parseCommandContent from './commands'
 import parseCaseContent from './caseContent'
+import { State } from '..'
 
 export type Content = {
   type: string
@@ -11,8 +12,10 @@ export type Content = {
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 
-// Content -> Content -> Content
-export const mergeContent = parsedContent =>
+// [Content] -> Content -> Content
+export const mergeContent: (
+  parsedContent: Content[]
+) => (content: Content) => Content = parsedContent =>
   R.ifElse(
     R.prop('contentToMerge'),
     R.pipe(R.prop('content'), R.concat(parsedContent)),
@@ -20,7 +23,10 @@ export const mergeContent = parsedContent =>
   )
 
 // [Content, State] , [Content, State] -> [Content, State]
-const parseArrayContent = ([content, state], parsedContentAndState = []) => {
+const parseArrayContent: (
+  contentAndState: [Content, State],
+  parsedContentAndState: [Content, State] | []
+) => [Content, State] = ([content, state], parsedContentAndState = []) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
   if (headChildContent) {
@@ -48,8 +54,10 @@ const parseArrayContent = ([content, state], parsedContentAndState = []) => {
   return parsedContentAndState
 }
 
-// State -> Content -> [Content, State]
-export const parseContent = state =>
+// State | [] -> Content -> [Content, State]
+export const parseContent: (
+  state: State | []
+) => (content: Content) => [Content, State] = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
@@ -60,7 +68,13 @@ export const parseContent = state =>
   )
 
 //  { [Content], State } -> [[Content], State]
-const parseSceneContent = (
+const parseSceneContent: (
+  contentToParse: {
+    sceneContent: Content[]
+    state: State | []
+  },
+  parsedContentAndState?: [Content[], State] | [][]
+) => [Content[], State] = (
   { sceneContent, state },
   parsedContentAndState = [[]]
 ) => {

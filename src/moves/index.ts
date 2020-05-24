@@ -9,6 +9,7 @@ export type State = {
   currentSceneName?: string | undefined
   played?: { currentSceneName: number }
   path?: object
+  testResult?: boolean
 }
 
 // [Scene], [PlayedScene] ->  Move -> MovedScene
