@@ -3,6 +3,11 @@ import * as R from 'ramda'
 import parseCommandContent from './commands'
 import parseCaseContent from './caseContent'
 
+export type Content = {
+  type: string
+  content: Content[] | string
+}
+
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 

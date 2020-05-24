@@ -1,12 +1,19 @@
 import * as R from 'ramda'
 
 import parseExpression from './expressions'
+import { Command } from '.'
+import { State } from '../..'
 
 // String -> String, String -> Boolean|ErrorString
-const getTestFunction = operator => R[operator]
+const getTestFunction: (
+  operator: string | undefined
+) => (left: string, right: string | number) => boolean = operator => R[operator]
 
 // [String], State -> Boolean
-const evaluateTest = (args, state) => {
+const evaluateTest: (args: string[], state: State) => boolean = (
+  args,
+  state
+) => {
   const [leftExpressionAndOperator, valAndRightExpression] = R.splitWhen(
     R.equals('val')
   )(args)
@@ -23,7 +30,10 @@ const evaluateTest = (args, state) => {
 }
 
 // [Command -> Boolean, Command -> State -> State]
-const test = [
+const test: [
+  (command: Command) => boolean,
+  (command: Command) => (state: State) => State
+] = [
   R.propEq('instruction', 'test'),
   ({ args }) => state =>
     R.assoc('testResult', evaluateTest(args, state))(state),
