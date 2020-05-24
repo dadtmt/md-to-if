@@ -3,22 +3,28 @@ import * as R from 'ramda'
 import goto from './goto'
 import start from './start'
 
-import parseSceneContent from './parseSceneContent'
+import parseSceneContent, { Content } from './parseSceneContent'
+import { Move, Scene, PlayedScene } from '../player'
 
 export type State = {
   currentSceneName?: string | undefined
-  played?: { currentSceneName: number }
+  played?: object
   path?: object
   testResult?: boolean
 }
 
+export type MovedScene = { name: string; sceneContent: Content[]; state: State }
+
 // [Scene], [PlayedScene] ->  Move -> MovedScene
-const applyMove = (scenes, playedScenes) =>
+const applyMove: (
+  scenes: Scene[],
+  playedScenes: PlayedScene[]
+) => (move: Move) => MovedScene = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
 // MovedScene -> PlayedScene
-const playScene = movedscene => {
-  const { sceneContent, state, ...restOfScene } = movedscene
+const playScene: (movedScene: MovedScene) => PlayedScene = movedScene => {
+  const { sceneContent, state, ...restOfScene } = movedScene
 
   const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,
@@ -32,13 +38,20 @@ const playScene = movedscene => {
 }
 
 // [PlayedScene] -> PlayedScene -> [PlayedScene]
-const accPlayedScenes = playedScenes => playedScene => [
+const accPlayedScenes: (
+  playedScenes: PlayedScene[]
+) => (
+  playedScene: PlayedScene
+) => PlayedScene[] = playedScenes => playedScene => [
   ...playedScenes,
   playedScene,
 ]
 
 // [Scene], [PlayedScene] -> Move -> [PlayedScene]
-const playMove = (scenes, playedScenes) =>
+const playMove: (
+  scenes: Scene[],
+  playedScenes: PlayedScene[]
+) => (move: Move) => PlayedScene[] = (scenes, playedScenes) =>
   R.pipe(
     applyMove(scenes, playedScenes),
     playScene,
@@ -46,7 +59,11 @@ const playMove = (scenes, playedScenes) =>
   )
 
 // [Move], [Scene], [PlayedScene] -> [PlayedScene]
-const playMoves = (moves, scenes, playedScenes = []) => {
+const playMoves: (
+  moves: Move[],
+  scenes: Scene[],
+  playedScenes: PlayedScene[]
+) => PlayedScene[] = (moves, scenes, playedScenes = []) => {
   const move = R.head(moves)
   return move
     ? playMoves(R.tail(moves), scenes, playMove(scenes, playedScenes)(move))

@@ -1,7 +1,11 @@
 import * as R from 'ramda'
+import { Scene, Move } from '../player'
+import { MovedScene } from '.'
 
 // [Scene] -> Move -> MovedScene
-const firstSceneWithState = ([scene]) => () => {
+const firstSceneWithState: (scenes: Scene[]) => () => MovedScene = ([
+  scene,
+]) => () => {
   const { name } = scene
   const state = {
     currentSceneName: name,
@@ -11,6 +15,11 @@ const firstSceneWithState = ([scene]) => () => {
 }
 
 // [Scene]-> [Move -> Boolean, Move -> MovedScene]
-const start = scenes => [R.propEq('type', 'start'), firstSceneWithState(scenes)]
+const start: (
+  scenes: Scene[]
+) => [(move: Move) => boolean, () => MovedScene] = scenes => [
+  R.propEq('type', 'start'),
+  firstSceneWithState(scenes),
+]
 
 export default start

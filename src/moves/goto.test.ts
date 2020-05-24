@@ -16,7 +16,7 @@ const moveToSpaceShip = {
 
 describe('getTargetedScene', () => {
   it('get the targeted scene', () => {
-    expect(getTargetedScene(moveToCantina, [])(adventureBook)).toMatchSnapshot()
+    expect(getTargetedScene(moveToCantina)(adventureBook)).toMatchSnapshot()
   })
 })
 
