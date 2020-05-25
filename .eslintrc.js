@@ -29,7 +29,7 @@ module.exports = {
         requireLast: false,
       },
       singleline: {
-        delimiter: 'none',
+        delimiter: 'comma',
         requireLast: false,
       },
     },

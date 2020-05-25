@@ -1,8 +1,10 @@
 import * as R from 'ramda'
 import { snakeCase } from 'change-case'
+import { Content } from './moves/parseSceneContent'
+import { Scene } from './player'
 
 // Content -> String
-export const getSceneName = R.pipe(
+export const getSceneName: (content: Content) => string = R.pipe(
   R.propOr([], 'content'),
   R.head,
   R.propOr('unnamed', 'content'),
@@ -10,7 +12,9 @@ export const getSceneName = R.pipe(
 )
 
 // int -> [Content] -> [[Content],[Content]]
-const splitByHeading = level =>
+const splitByHeading: (
+  level: number
+) => (content: Content[]) => Content[][] = level =>
   R.splitWhen(
     R.where({
       type: R.equals('heading'),
@@ -18,7 +22,11 @@ const splitByHeading = level =>
     })
   )
 
-const splitActions = (level, contentList, actionList = []) => {
+const splitActions: (
+  level: number,
+  contentList: Content[],
+  actionList?: Scene[]
+) => Scene[] = (level, contentList, actionList = []) => {
   const [headOfContent, ...tailOfContent] = contentList
   const [actionContent, restOfContent] = splitByHeading(level)(tailOfContent)
   const { content, actions } =
@@ -41,20 +49,22 @@ const splitActions = (level, contentList, actionList = []) => {
 }
 
 // [Content] -> { content: [Content], actions: [Scene] }
-export const splitContentAndActions = (level: number) => contentAndActions => {
+export const splitContentAndActions: (
+  level: number
+) => (
+  contentAndActions: Content[]
+) => { content: Content[]; actions: Scene[] } = level => contentAndActions => {
   const [content, actions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, actions) }
 }
 
-// [Content] -> { scene: Scene, content: [Content] }
-export const splitByScene = (level: number): Function =>
+// int -> [Content] -> { scene: Scene, content: [Content] }
+export const splitByScene: (
+  level: number
+) => (content: Content[]) => { scene: Scene; sourceLeft: Content[] } = level =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     R.zipObj(['heading', 'content', 'sourceLeft']),
-    ({ content, ...rest }) => ({
-      content,
-      ...rest,
-    }),
     ({ heading, content, sourceLeft }) => ({
       scene: {
         name: getSceneName(heading),
@@ -65,7 +75,10 @@ export const splitByScene = (level: number): Function =>
   )
 
 // [Content], [Scene] -> [Scene]
-const book = (source, scenes = []) => {
+const book: (source: Content[], scenes: Scene[]) => Scene[] = (
+  source,
+  scenes = []
+) => {
   const { scene, sourceLeft } = splitByScene(2)(source)
   return R.isEmpty(sourceLeft)
     ? [...scenes, scene]

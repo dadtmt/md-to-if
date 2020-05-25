@@ -1,7 +1,7 @@
 import playMoves from './moves'
 import { Content } from './moves/parseSceneContent'
 
-export type Scene = { name: string; sceneContent: Content[] }
+export type Scene = { name: string; sceneContent: Content[]; actions?: Scene[] }
 export type Move = { type: string; target?: string }
 export type PlayedScene = {}
 
