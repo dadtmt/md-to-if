@@ -28,14 +28,15 @@ export const getDescription: (
     ])
   )
 
+const updateStateWithCommand: (command: Command) => (state: State) => State = ({
+  args,
+  data,
+}) => state => R.assoc(R.head(args), getDescription(state)(data))(state)
+
 // [Command -> Boolean, Command -> State -> State]
 const describe: [
   (command: Command) => boolean,
   (command: Command) => (state: State) => State
-] = [
-  R.propEq('instruction', 'describe'),
-  ({ args, data }) => state =>
-    R.assoc(R.head(args), getDescription(state)(data))(state),
-]
+] = [R.propEq('instruction', 'describe'), updateStateWithCommand]
 
 export default describe
