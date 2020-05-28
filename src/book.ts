@@ -58,20 +58,39 @@ export const splitContentAndActions: (
   return { content, actions: splitActions(level, actions) }
 }
 
+type SplittedContent = {
+  heading: Content
+  content: Content[]
+  sourceLeft: Content[]
+}
+
+const sortSplittedContent: (content: Content[]) => any = R.zipObj([
+  'heading',
+  'content',
+  'sourceLeft',
+])
+
+const splitContentToSceneAndSourceLeft: (
+  splittedContent: SplittedContent
+) => {
+  scene: Scene
+  sourceLeft: Content[]
+} = ({ heading, content, sourceLeft }) => ({
+  scene: {
+    name: getSceneName(heading),
+    sceneContent: [heading, ...content],
+  },
+  sourceLeft,
+})
+
 // int -> [Content] -> { scene: Scene, content: [Content] }
 export const splitByScene: (
   level: number
 ) => (content: Content[]) => { scene: Scene; sourceLeft: Content[] } = level =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
-    R.zipObj(['heading', 'content', 'sourceLeft']),
-    ({ heading, content, sourceLeft }) => ({
-      scene: {
-        name: getSceneName(heading),
-        sceneContent: [heading, ...content],
-      },
-      sourceLeft,
-    })
+    sortSplittedContent,
+    splitContentToSceneAndSourceLeft
   )
 
 // [Content], [Scene] -> [Scene]
