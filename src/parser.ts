@@ -1,4 +1,4 @@
-import SimpleMarkdown, { Capture } from 'simple-markdown'
+import SimpleMarkdown, { Capture, SingleASTNode } from 'simple-markdown'
 
 // String -> [String]
 export const matchBraces = (source: string): RegExpExecArray | null =>
@@ -37,7 +37,7 @@ const falseCaseContent = {
 }
 
 // String -> [Content]
-const parser = SimpleMarkdown.parserFor({
+const parser: (source: string) => SingleASTNode[] = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
   command,
   trueCaseContent,

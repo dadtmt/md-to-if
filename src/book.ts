@@ -1,20 +1,20 @@
 import * as R from 'ramda'
 import { snakeCase } from 'change-case'
-import { Content } from './moves/parseSceneContent'
-import { Scene } from './player'
+import { Scene } from '.'
+import { SingleASTNode } from 'simple-markdown'
 
 // Content -> String
-export const getSceneName: (content: Content) => string = R.pipe(
+export const getSceneName: (content: SingleASTNode) => string = R.pipe(
   R.propOr([], 'content'),
   R.head,
   R.propOr('unnamed', 'content'),
   snakeCase
 )
 
-// int -> [Content] -> [[Content],[Content]]
+// int -> [SingleASTNode] -> [[SingleASTNode],[SingleASTNode]]
 const splitByHeading: (
   level: number
-) => (content: Content[]) => Content[][] = level =>
+) => (content: SingleASTNode[]) => SingleASTNode[][] = level =>
   R.splitWhen(
     R.where({
       type: R.equals('heading'),
@@ -24,7 +24,7 @@ const splitByHeading: (
 
 const splitActions: (
   level: number,
-  contentList: Content[],
+  contentList: SingleASTNode[],
   actionList?: Scene[]
 ) => Scene[] = (level, contentList, actionList = []) => {
   const [headOfContent, ...tailOfContent] = contentList
@@ -48,23 +48,26 @@ const splitActions: (
     : actionList
 }
 
-// [Content] -> { content: [Content], actions: [Scene] }
+// [SingleASTNode] -> { content: [SingleASTNode], actions: [Scene] }
 export const splitContentAndActions: (
   level: number
 ) => (
-  contentAndActions: Content[]
-) => { content: Content[]; actions: Scene[] } = level => contentAndActions => {
+  contentAndActions: SingleASTNode[]
+) => {
+  content: SingleASTNode[]
+  actions: Scene[]
+} = level => contentAndActions => {
   const [content, actions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, actions) }
 }
 
 type SplittedContent = {
-  heading: Content
-  content: Content[]
-  sourceLeft: Content[]
+  heading: SingleASTNode
+  content: SingleASTNode[]
+  sourceLeft: SingleASTNode[]
 }
 
-const sortSplittedContent: (content: Content[]) => any = R.zipObj([
+const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
   'heading',
   'content',
   'sourceLeft',
@@ -74,7 +77,7 @@ const splitContentToSceneAndSourceLeft: (
   splittedContent: SplittedContent
 ) => {
   scene: Scene
-  sourceLeft: Content[]
+  sourceLeft: SingleASTNode[]
 } = ({ heading, content, sourceLeft }) => ({
   scene: {
     name: getSceneName(heading),
@@ -83,18 +86,20 @@ const splitContentToSceneAndSourceLeft: (
   sourceLeft,
 })
 
-// int -> [Content] -> { scene: Scene, content: [Content] }
+// int -> [SingleASTNode] -> { scene: Scene, content: [SingleASTNode] }
 export const splitByScene: (
   level: number
-) => (content: Content[]) => { scene: Scene; sourceLeft: Content[] } = level =>
+) => (
+  content: SingleASTNode[]
+) => { scene: Scene; sourceLeft: SingleASTNode[] } = level =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     sortSplittedContent,
     splitContentToSceneAndSourceLeft
   )
 
-// [Content], [Scene] -> [Scene]
-const book: (source: Content[], scenes: Scene[]) => Scene[] = (
+// [SingleASTNode], [Scene] -> [Scene]
+const book: (source: SingleASTNode[], scenes?: Scene[]) => Scene[] = (
   source,
   scenes = []
 ) => {
