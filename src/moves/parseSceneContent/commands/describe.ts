@@ -2,24 +2,18 @@ import * as R from 'ramda'
 import parseExpression from './expressions'
 import { Command } from '.'
 import { State } from '../..'
-import { Content } from '..'
-
-type DescriptionData = {
-  type: string
-  header: Content[][]
-  cells: Content[][]
-}[]
+import { SingleASTNode } from 'simple-markdown'
 
 // State -> [Content] -> [String]
 const getContentList: (
   state: State
-) => (content: Content[][]) => object = state =>
+) => (content: SingleASTNode[][]) => object = state =>
   R.map(R.pipe(R.head, R.prop('content'), R.split(' '), parseExpression(state)))
 
 // State -> [Content] -> Object
 export const getDescription: (
   state: State
-) => (data: DescriptionData) => object = state =>
+) => (data: SingleASTNode[]) => object = state =>
   R.pipe(
     R.head,
     R.converge(R.zipObj, [

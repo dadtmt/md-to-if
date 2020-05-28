@@ -1,12 +1,14 @@
 import * as R from 'ramda'
 import { incPlayedSceneCount } from './stateHelpers/playedSceneCount'
-import { Scene, PlayedScene, Move } from '../player'
+import { PlayedScene, Move } from '../player'
 import { MovedScene, State } from '.'
+import { Scene } from '..'
 
 // [PlayedScene] -> State
-const getLastPlayedSceneState: (playedScenes: PlayedScene[]) => State = R.pipe<
-  PlayedScene[]
->(R.last, R.prop('state'))
+const getLastPlayedSceneState: (playedScenes: PlayedScene[]) => State = R.pipe(
+  R.last,
+  R.prop('state')
+)
 
 //  Move -> String
 export const getTargetSceneName: (move: Move) => string = R.pipe<Move>(

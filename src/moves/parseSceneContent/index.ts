@@ -3,19 +3,15 @@ import * as R from 'ramda'
 import parseCommandContent from './commands'
 import parseCaseContent from './caseContent'
 import { State } from '..'
-
-export type Content = {
-  type: string
-  content: Content[] | string
-}
+import { SingleASTNode } from 'simple-markdown'
 
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 
 // [Content] -> Content -> Content
 export const mergeContent: (
-  parsedContent: Content[]
-) => (content: Content) => Content = parsedContent =>
+  parsedContent: SingleASTNode[]
+) => (content: SingleASTNode) => SingleASTNode = parsedContent =>
   R.ifElse(
     R.prop('contentToMerge'),
     R.pipe(R.prop('content'), R.concat(parsedContent)),
@@ -24,9 +20,12 @@ export const mergeContent: (
 
 // [Content, State] , [Content, State] -> [Content, State]
 const parseArrayContent: (
-  contentAndState: [Content, State],
-  parsedContentAndState: [Content, State] | []
-) => [Content, State] = ([content, state], parsedContentAndState = []) => {
+  contentAndState: [SingleASTNode, State],
+  parsedContentAndState: [SingleASTNode, State] | []
+) => [SingleASTNode, State] = (
+  [content, state],
+  parsedContentAndState = []
+) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
   if (headChildContent) {
@@ -57,7 +56,7 @@ const parseArrayContent: (
 // State | [] -> Content -> [Content, State]
 export const parseContent: (
   state: State | []
-) => (content: Content) => [Content, State] = state =>
+) => (content: SingleASTNode) => [SingleASTNode, State] = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
@@ -70,11 +69,11 @@ export const parseContent: (
 //  { [Content], State } -> [[Content], State]
 const parseSceneContent: (
   contentToParse: {
-    sceneContent: Content[]
-    state: State | []
+    sceneContent: SingleASTNode[]
+    state: State | [] | undefined
   },
-  parsedContentAndState?: [Content[], State] | [][]
-) => [Content[], State] = (
+  parsedContentAndState?: [SingleASTNode[], State] | [never[]]
+) => [SingleASTNode[], State] = (
   { sceneContent, state },
   parsedContentAndState = [[]]
 ) => {

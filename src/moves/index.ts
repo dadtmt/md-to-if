@@ -3,8 +3,10 @@ import * as R from 'ramda'
 import goto from './goto'
 import start from './start'
 
-import parseSceneContent, { Content } from './parseSceneContent'
-import { Move, Scene, PlayedScene } from '../player'
+import parseSceneContent from './parseSceneContent'
+import { Move, PlayedScene } from '../player'
+import { Scene } from '..'
+import { SingleASTNode } from 'simple-markdown'
 
 export type State = {
   currentSceneName?: string | undefined
@@ -13,7 +15,11 @@ export type State = {
   testResult?: boolean
 }
 
-export type MovedScene = { name: string; sceneContent: Content[]; state: State }
+export type MovedScene = {
+  name: string
+  sceneContent: SingleASTNode[]
+  state: State
+}
 
 // [Scene], [PlayedScene] ->  Move -> MovedScene
 const applyMove: (

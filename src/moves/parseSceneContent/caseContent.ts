@@ -1,12 +1,15 @@
 import * as R from 'ramda'
 import { State } from '..'
-import { Content } from '.'
+import { SingleASTNode } from 'simple-markdown'
 
 // State, Boolean -> Content -> [Content, State]
 const getTestResult: (
   state: State,
   match: boolean
-) => (content: Content) => [Content, State] = (state, match) => content => {
+) => (content: SingleASTNode) => [SingleASTNode, State] = (
+  state,
+  match
+) => content => {
   const { testResult } = state
   return testResult === match
     ? [content, R.dissoc('testResult', state)]
@@ -28,7 +31,7 @@ const getTestResult: (
 const getCaseContent: (
   state: State,
   match: boolean
-) => (content: Content) => [Content, State] = (state, match) => {
+) => (content: SingleASTNode) => [SingleASTNode, State] = (state, match) => {
   return R.pipe(R.assoc('contentToMerge', true), getTestResult(state, match))
 }
 
@@ -36,8 +39,8 @@ const getCaseContent: (
 const parseCaseContent: (
   state: State
 ) => [
-  (content: Content) => boolean,
-  (content: Content) => [Content, State]
+  (content: SingleASTNode) => boolean,
+  (content: SingleASTNode) => [SingleASTNode, State]
 ][] = state => [
   [R.propEq('type', 'trueCaseContent'), getCaseContent(state, true)],
   [R.propEq('type', 'falseCaseContent'), getCaseContent(state, false)],

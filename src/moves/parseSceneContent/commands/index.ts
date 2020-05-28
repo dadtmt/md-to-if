@@ -5,33 +5,35 @@ import set from './set'
 import describe from './describe'
 import test from './testCommand'
 import { State } from '../..'
-import { Content } from '..'
+import { SingleASTNode } from 'simple-markdown'
 
 export type Command = {
   instruction: string
   args: string[]
-  data: Content[]
+  data: SingleASTNode[]
 }
 
-const getContentAsString: (content: Content) => string = R.pipe(
-  R.prop('content'),
+const getContentAsString: (content: SingleASTNode) => string = R.pipe(
+  R.prop<string>('content'),
   R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
 )
 
-const getContentAsContents: (content: Content) => Content[] = R.pipe(
-  R.prop('content'),
+const getContentAsContents: (
+  content: SingleASTNode
+) => SingleASTNode[] = R.pipe(
+  R.prop<string>('content'),
   R.when(R.pipe(R.type, R.equals('Array'), R.not), R.always([]))
 )
 
 // Content -> [String]
-const getCommandLine: (content: Content) => string[] = R.pipe(
+const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
   getContentAsString,
   R.trim,
   R.split(' ')
 )
 
 // [Content] -> Command
-export const getCommand: (contentBody: Content[]) => Command = ([
+export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
   commandLine,
   ...data
 ]) => {
@@ -43,7 +45,7 @@ export const getCommand: (contentBody: Content[]) => Command = ([
 // State -> Command -> Content
 const getCommandResultContent: (
   state: State
-) => (command: Command) => Content = state =>
+) => (command: Command) => SingleASTNode = state =>
   R.cond([show(state), [R.T, R.always({ content: '', type: 'text' })]])
 
 // Command -> State -> State
@@ -59,7 +61,7 @@ const applyCommandToState: (
 // State -> Content -> [Content, State]
 export const applyCommand: (
   state: State
-) => (content: Content) => [Content, State] = state => content => {
+) => (content: SingleASTNode) => [SingleASTNode, State] = state => content => {
   const command = getCommand(getContentAsContents(content))
   return [
     getCommandResultContent(state)(command),
@@ -71,8 +73,8 @@ export const applyCommand: (
 const parseCommandContent: (
   state: State
 ) => [
-  (content: Content) => boolean,
-  (content: Content) => [Content, State]
+  (content: SingleASTNode) => boolean,
+  (content: SingleASTNode) => [SingleASTNode, State]
 ] = state => [R.propEq('type', 'command'), applyCommand(state)]
 
 export default parseCommandContent
