@@ -7,8 +7,15 @@ import { SingleASTNode } from 'simple-markdown'
 // State -> [Content] -> [String]
 const getContentList: (
   state: State
-) => (content: SingleASTNode[][]) => object = state =>
-  R.map(R.pipe(R.head, R.prop('content'), R.split(' '), parseExpression(state)))
+) => (content: SingleASTNode[][]) => (string | number)[] = state =>
+  R.map(
+    R.pipe(
+      R.head,
+      R.propOr('missing content', 'content'),
+      R.split(' '),
+      parseExpression(state)
+    )
+  )
 
 // State -> [Content] -> Object
 export const getDescription: (
@@ -22,10 +29,15 @@ export const getDescription: (
     ])
   )
 
+const getFirstArg: (args: string[]) => string = R.pipe(
+  R.head,
+  R.when(R.isNil, R.always('missing first arg'))
+)
+
 const updateStateWithCommand: (command: Command) => (state: State) => State = ({
   args,
   data,
-}) => state => R.assoc(R.head(args), getDescription(state)(data))(state)
+}) => state => R.assoc(getFirstArg(args), getDescription(state)(data))(state)
 
 // [Command -> Boolean, Command -> State -> State]
 const describe: [
