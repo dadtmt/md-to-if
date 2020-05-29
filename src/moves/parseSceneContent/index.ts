@@ -21,47 +21,57 @@ export const mergeContent: (
 // [Content, State] , [Content, State] -> [Content, State]
 const parseArrayContent: (
   contentAndState: [SingleASTNode, State],
-  parsedContentAndState: [SingleASTNode, State] | []
+  parsedContentAndState?: [SingleASTNode, State]
 ) => [SingleASTNode, State] = (
   [content, state],
-  parsedContentAndState = []
+  parsedContentAndState = [{ type: '', content: [] }, state]
 ) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
   if (headChildContent) {
-    const [parsedContent, parsedState] =
-      parsedContentAndState.length > 0
-        ? parsedContentAndState
-        : [{ content: [] }, state]
+    const [parsedContent, parsedState] = parsedContentAndState
     const [parsedHeadChildContent, newParsedState] = parseContent(parsedState)(
       headChildContent
     )
 
-    const result = [
-      {
-        ...content,
-        content: mergeContent(parsedContent.content)(parsedHeadChildContent),
-      },
-      newParsedState,
-    ]
     return parseArrayContent(
       [{ ...content, content: restOfChildContent }, newParsedState],
-      result
+      [
+        {
+          ...content,
+          content: mergeContent(parsedContent.content)(parsedHeadChildContent),
+        },
+        newParsedState,
+      ]
     )
   }
 
   return parsedContentAndState
 }
 
+const appendState: (
+  state: State
+) => (content: SingleASTNode) => [SingleASTNode, State] = state => content => [
+  content,
+  state,
+]
+
+const appendStateByDefault: (
+  state: State
+) => [
+  (content: SingleASTNode) => boolean,
+  (content: SingleASTNode) => [SingleASTNode, State]
+] = state => [R.T, appendState(state)]
+
 // State | [] -> Content -> [Content, State]
 export const parseContent: (
-  state: State | []
+  state: State
 ) => (content: SingleASTNode) => [SingleASTNode, State] = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
       ...parseCaseContent(state),
-      [R.T, R.pipe(R.of, R.append(state))],
+      appendStateByDefault(state),
     ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
@@ -70,22 +80,21 @@ export const parseContent: (
 const parseSceneContent: (
   contentToParse: {
     sceneContent: SingleASTNode[]
-    state: State | [] | undefined
+    state: State
   },
-  parsedContentAndState?: [SingleASTNode[], State] | [never[]]
+  parsedContentAndState?: [SingleASTNode[], State]
 ) => [SingleASTNode[], State] = (
   { sceneContent, state },
-  parsedContentAndState = [[]]
+  parsedContentAndState = [[], state]
 ) => {
   const [headContent, ...restOfContent] = sceneContent
   if (headContent) {
     const [parsedContent, parsedState] = parsedContentAndState
-    const stateToParse = parsedState || state
-    const [parsedHeadContent, newParsedSate] = parseContent(stateToParse)(
+    const [parsedHeadContent, newParsedSate] = parseContent(parsedState)(
       headContent
     )
     return parseSceneContent(
-      { sceneContent: restOfContent, state: stateToParse },
+      { sceneContent: restOfContent, state: parsedState },
       [[...parsedContent, parsedHeadContent], newParsedSate]
     )
   }
