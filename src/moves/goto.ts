@@ -13,7 +13,10 @@ const getLastPlayedSceneState: (playedScenes: PlayedScene[]) => State = R.pipe(
 )
 
 const removeFirstChar: (str: string) => string = R.tail
-const getTarget: (move: Move) => string = R.prop('target')
+const getTarget: (move: Move) => string = R.propOr(
+  'missing target prop',
+  'target'
+)
 
 //  Move -> String
 export const getTargetSceneName: (move: Move) => string = R.pipe(
