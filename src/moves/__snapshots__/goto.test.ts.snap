@@ -319,3 +319,30 @@ or what ",
   ],
 }
 `;
+
+exports[`getTargetedScene get the unknown scene 1`] = `
+Object {
+  "name": "unknown",
+  "sceneContent": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": "unknown",
+          "type": "text",
+        },
+      ],
+      "level": 2,
+      "type": "heading",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": "The scene with name unknown does not exist",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+}
+`;

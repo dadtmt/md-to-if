@@ -4,26 +4,64 @@ import { PlayedScene, Move } from '../player'
 import { MovedScene, State } from '.'
 import { Scene } from '..'
 
+const getState: (playedScene: PlayedScene) => State = R.prop('state')
+
 // [PlayedScene] -> State
 const getLastPlayedSceneState: (playedScenes: PlayedScene[]) => State = R.pipe(
   R.last,
-  R.prop('state')
+  getState
 )
 
+const removeFirstChar: (str: string) => string = R.tail
+const getTarget: (move: Move) => string = R.prop('target')
+
 //  Move -> String
-export const getTargetSceneName: (move: Move) => string = R.pipe<Move>(
-  R.prop('target'),
-  R.tail
+export const getTargetSceneName: (move: Move) => string = R.pipe(
+  getTarget,
+  removeFirstChar
 )
 
 // Move -> Scene -> Boolean
 export const matchTarget: (move: Move) => (scene: Scene) => boolean = move =>
   R.propEq('name', getTargetSceneName(move))
 
+const notFoundScene: (move: Move) => Scene = move => {
+  const name = getTargetSceneName(move)
+
+  return {
+    name,
+    sceneContent: [
+      {
+        type: 'heading',
+        level: 2,
+        content: [
+          {
+            type: 'text',
+            content: name,
+          },
+        ],
+      },
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            content: `The scene with name ${name} does not exist`,
+          },
+        ],
+      },
+    ],
+  }
+}
+
 // Move -> [Scene] -> Scene
 export const getTargetedScene: (
   move: Move
-) => (scenes: Scene[]) => Scene = move => R.find(matchTarget(move))
+) => (scenes: Scene[]) => Scene = move =>
+  R.pipe(
+    R.find(matchTarget(move)),
+    R.when(R.isNil, () => notFoundScene(move))
+  )
 
 // String -> State -> State
 const updateState: (name: string) => (state: State) => State = name =>
