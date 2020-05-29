@@ -6,7 +6,7 @@ import { State } from '../..'
 
 // String -> String, String -> Boolean|ErrorString
 const getTestFunction: (
-  operator: string | undefined
+  operator: string
 ) => (left: string, right: string | number) => boolean = operator => R[operator]
 
 // [String], State -> Boolean
