@@ -6,7 +6,11 @@ import describe from './describe'
 import test from './testCommand'
 import { State } from '../..'
 import { SingleASTNode } from 'simple-markdown'
-import { TestAndComputeContentAndState, ComputeContentAndState } from '..'
+import {
+  TestAndComputeContentAndState,
+  ComputeContentAndState,
+  ConditionalFunction,
+} from '..'
 
 export type Command = {
   instruction: string
@@ -14,7 +18,7 @@ export type Command = {
   data: SingleASTNode[]
 }
 
-type TestCommand = (command: Command) => boolean
+type TestCommand = ConditionalFunction<Command>
 
 export type CommandUpdateState = (command: Command) => (state: State) => State
 

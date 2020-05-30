@@ -9,7 +9,9 @@ type ContentAndState = [SingleASTNode, State]
 
 type ManyContentAndState = [SingleASTNode[], State]
 
-type TestContent = (content: SingleASTNode) => boolean
+export type ConditionalFunction<T> = (arg: T) => boolean
+
+type TestContent = ConditionalFunction<SingleASTNode>
 
 export type ComputeContentAndState = (content: SingleASTNode) => ContentAndState
 

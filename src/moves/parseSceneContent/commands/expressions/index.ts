@@ -4,12 +4,13 @@ import rollDices from './rollDices'
 import getValue from './getValue'
 import playedCount from './playedCount'
 import { State } from '../../..'
+import { ConditionalFunction } from '../..'
 
 export type Expression = string[]
 
 export type ParsedExpression = string | number
 
-type TestExpression = (expression: Expression) => boolean
+type TestExpression = ConditionalFunction<Expression>
 
 type ParseExpression = (expression: Expression) => ParsedExpression
 
