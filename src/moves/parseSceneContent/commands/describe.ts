@@ -1,13 +1,13 @@
 import * as R from 'ramda'
-import parseExpression from './expressions'
-import { Command } from '.'
+import parseExpression, { ParsedExpression } from './expressions'
+import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../..'
 import { SingleASTNode } from 'simple-markdown'
 
 // State -> [Content] -> [String]
 const getContentList: (
   state: State
-) => (content: SingleASTNode[][]) => (string | number)[] = state =>
+) => (content: SingleASTNode[][]) => ParsedExpression[] = state =>
   R.map(
     R.pipe(
       R.head,
@@ -29,20 +29,21 @@ export const getDescription: (
     ])
   )
 
-const getFirstArg: (args: string[]) => string = R.pipe(
+// TODO: Error "Need a key for this description"
+const getDescriptionKey: (args: string[]) => string = R.pipe(
   R.head,
-  R.when(R.isNil, R.always('missing first arg'))
+  R.when(R.isNil, R.always('Need a key for this description'))
 )
 
-const updateStateWithCommand: (command: Command) => (state: State) => State = ({
+const updateStateWithDescription: CommandUpdateState = ({
   args,
   data,
-}) => state => R.assoc(getFirstArg(args), getDescription(state)(data))(state)
+}) => state =>
+  R.assoc(getDescriptionKey(args), getDescription(state)(data))(state)
 
-// [Command -> Boolean, Command -> State -> State]
-const describe: [
-  (command: Command) => boolean,
-  (command: Command) => (state: State) => State
-] = [R.propEq('instruction', 'describe'), updateStateWithCommand]
+const describe: TestCommandAndUpdateState = [
+  R.propEq('instruction', 'describe'),
+  updateStateWithDescription,
+]
 
 export default describe

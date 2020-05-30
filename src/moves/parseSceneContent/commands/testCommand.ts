@@ -1,13 +1,14 @@
 import * as R from 'ramda'
 
-import parseExpression from './expressions'
-import { Command } from '.'
+import parseExpression, { ParsedExpression, Expression } from './expressions'
+import { TestCommandAndUpdateState } from '.'
 import { State } from '../..'
 
-// String -> String, String -> Boolean|ErrorString
+// TODO : type operator and Error 'not a valid operator'
 const getTestFunction: (
   operator: string
-) => (left: string, right: string | number) => boolean = operator => R[operator]
+) => (left: ParsedExpression, right: ParsedExpression) => boolean = operator =>
+  R[operator]
 
 // [String], State -> Boolean
 const evaluateTest: (args: string[], state: State) => boolean = (
@@ -21,7 +22,7 @@ const evaluateTest: (args: string[], state: State) => boolean = (
     R.dropLast(1),
     parseExpression(state)
   )(leftExpressionAndOperator)
-  const operator = R.last(leftExpressionAndOperator)
+  const operator = R.last(leftExpressionAndOperator) || 'missing operator'
   const rightExpression = R.pipe(
     R.drop(1),
     parseExpression(state)
@@ -29,11 +30,7 @@ const evaluateTest: (args: string[], state: State) => boolean = (
   return getTestFunction(operator)(leftExpression, rightExpression)
 }
 
-// [Command -> Boolean, Command -> State -> State]
-const test: [
-  (command: Command) => boolean,
-  (command: Command) => (state: State) => State
-] = [
+const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
   ({ args }) => state =>
     R.assoc('testResult', evaluateTest(args, state))(state),

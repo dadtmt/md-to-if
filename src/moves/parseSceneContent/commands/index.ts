@@ -13,6 +13,16 @@ export type Command = {
   data: SingleASTNode[]
 }
 
+type TestCommand = (command: Command) => boolean
+
+export type CommandUpdateState = (command: Command) => (state: State) => State
+
+type CommandToContent = (command: Command) => SingleASTNode
+
+export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
+
+export type TestCommandAndGetContent = [TestCommand, CommandToContent]
+
 const getContentAsString: (content: SingleASTNode) => string = R.pipe(
   R.prop<string>('content'),
   R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
@@ -42,20 +52,26 @@ export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
   return { instruction, args, data }
 }
 
+const emptyTextNodeByDefault: TestCommandAndGetContent = [
+  R.T,
+  R.always({ content: '', type: 'text' }),
+]
+
 // State -> Command -> Content
-const getCommandResultContent: (
-  state: State
-) => (command: Command) => SingleASTNode = state =>
-  R.cond([show(state), [R.T, R.always({ content: '', type: 'text' })]])
+const getCommandResultContent: (state: State) => CommandToContent = state =>
+  R.cond([show(state), emptyTextNodeByDefault])
+
+const doNoUpdateStateByDefault: TestCommandAndUpdateState = [
+  R.T,
+  () => R.identity,
+]
 
 // Command -> State -> State
-const applyCommandToState: (
-  command: Command
-) => (state: State) => State = R.cond([
+const applyCommandToState: CommandUpdateState = R.cond([
   set,
   test,
   describe,
-  [R.T, () => R.identity],
+  doNoUpdateStateByDefault,
 ])
 
 // State -> Content -> [Content, State]
