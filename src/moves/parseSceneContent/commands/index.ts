@@ -6,6 +6,7 @@ import describe from './describe'
 import test from './testCommand'
 import { State } from '../..'
 import { SingleASTNode } from 'simple-markdown'
+import { TestAndComputeContentAndState, ComputeContentAndState } from '..'
 
 export type Command = {
   instruction: string
@@ -77,7 +78,7 @@ const applyCommandToState: CommandUpdateState = R.cond([
 // State -> Content -> [Content, State]
 export const applyCommand: (
   state: State
-) => (content: SingleASTNode) => [SingleASTNode, State] = state => content => {
+) => ComputeContentAndState = state => content => {
   const command = getCommand(getContentAsContents(content))
   return [
     getCommandResultContent(state)(command),
@@ -88,9 +89,9 @@ export const applyCommand: (
 // State -> [Content -> Boolean, Content -> [Content, State]]
 const parseCommandContent: (
   state: State
-) => [
-  (content: SingleASTNode) => boolean,
-  (content: SingleASTNode) => [SingleASTNode, State]
-] = state => [R.propEq('type', 'command'), applyCommand(state)]
+) => TestAndComputeContentAndState = state => [
+  R.propEq('type', 'command'),
+  applyCommand(state),
+]
 
 export default parseCommandContent

@@ -5,6 +5,19 @@ import parseCaseContent from './caseContent'
 import { State } from '..'
 import { SingleASTNode } from 'simple-markdown'
 
+type ContentAndState = [SingleASTNode, State]
+
+type ManyContentAndState = [SingleASTNode[], State]
+
+type TestContent = (content: SingleASTNode) => boolean
+
+export type ComputeContentAndState = (content: SingleASTNode) => ContentAndState
+
+export type TestAndComputeContentAndState = [
+  TestContent,
+  ComputeContentAndState
+]
+
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 
@@ -20,9 +33,9 @@ export const mergeContent: (
 
 // [Content, State] , [Content, State] -> [Content, State]
 const parseArrayContent: (
-  contentAndState: [SingleASTNode, State],
-  parsedContentAndState?: [SingleASTNode, State]
-) => [SingleASTNode, State] = (
+  contentAndState: ContentAndState,
+  parsedContentAndState?: ContentAndState
+) => ContentAndState = (
   [content, state],
   parsedContentAndState = [{ type: '', content: [] }, state]
 ) => {
@@ -51,22 +64,14 @@ const parseArrayContent: (
 
 const appendState: (
   state: State
-) => (content: SingleASTNode) => [SingleASTNode, State] = state => content => [
-  content,
-  state,
-]
+) => ComputeContentAndState = state => content => [content, state]
 
 const appendStateByDefault: (
   state: State
-) => [
-  (content: SingleASTNode) => boolean,
-  (content: SingleASTNode) => [SingleASTNode, State]
-] = state => [R.T, appendState(state)]
+) => TestAndComputeContentAndState = state => [R.T, appendState(state)]
 
 // State | [] -> Content -> [Content, State]
-export const parseContent: (
-  state: State
-) => (content: SingleASTNode) => [SingleASTNode, State] = state =>
+export const parseContent: (state: State) => ComputeContentAndState = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
@@ -82,8 +87,8 @@ const parseSceneContent: (
     sceneContent: SingleASTNode[]
     state: State
   },
-  parsedContentAndState?: [SingleASTNode[], State]
-) => [SingleASTNode[], State] = (
+  parsedContentAndState?: ManyContentAndState
+) => ManyContentAndState = (
   { sceneContent, state },
   parsedContentAndState = [[], state]
 ) => {
