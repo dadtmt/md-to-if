@@ -5,33 +5,50 @@ import set from './set'
 import describe from './describe'
 import test from './testCommand'
 import { State } from '../..'
-import { Content } from '..'
+import { SingleASTNode } from 'simple-markdown'
+import {
+  TestAndComputeContentAndState,
+  ComputeContentAndState,
+  ConditionalFunction,
+} from '..'
 
 export type Command = {
   instruction: string
   args: string[]
-  data: Content[]
+  data: SingleASTNode[]
 }
 
-const getContentAsString: (content: Content) => string = R.pipe(
-  R.prop('content'),
+type TestCommand = ConditionalFunction<Command>
+
+export type CommandUpdateState = (command: Command) => (state: State) => State
+
+type CommandToContent = (command: Command) => SingleASTNode
+
+export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
+
+export type TestCommandAndGetContent = [TestCommand, CommandToContent]
+
+const getContentAsString: (content: SingleASTNode) => string = R.pipe(
+  R.prop<string>('content'),
   R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
 )
 
-const getContentAsContents: (content: Content) => Content[] = R.pipe(
-  R.prop('content'),
+const getContentAsContents: (
+  content: SingleASTNode
+) => SingleASTNode[] = R.pipe(
+  R.prop<string>('content'),
   R.when(R.pipe(R.type, R.equals('Array'), R.not), R.always([]))
 )
 
 // Content -> [String]
-const getCommandLine: (content: Content) => string[] = R.pipe(
+const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
   getContentAsString,
   R.trim,
   R.split(' ')
 )
 
 // [Content] -> Command
-export const getCommand: (contentBody: Content[]) => Command = ([
+export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
   commandLine,
   ...data
 ]) => {
@@ -40,26 +57,32 @@ export const getCommand: (contentBody: Content[]) => Command = ([
   return { instruction, args, data }
 }
 
+const emptyTextNodeByDefault: TestCommandAndGetContent = [
+  R.T,
+  R.always({ content: '', type: 'text' }),
+]
+
 // State -> Command -> Content
-const getCommandResultContent: (
-  state: State
-) => (command: Command) => Content = state =>
-  R.cond([show(state), [R.T, R.always({ content: '', type: 'text' })]])
+const getCommandResultContent: (state: State) => CommandToContent = state =>
+  R.cond([show(state), emptyTextNodeByDefault])
+
+const doNoUpdateStateByDefault: TestCommandAndUpdateState = [
+  R.T,
+  () => R.identity,
+]
 
 // Command -> State -> State
-const applyCommandToState: (
-  command: Command
-) => (state: State) => State = R.cond([
+const applyCommandToState: CommandUpdateState = R.cond([
   set,
   test,
   describe,
-  [R.T, () => R.identity],
+  doNoUpdateStateByDefault,
 ])
 
 // State -> Content -> [Content, State]
 export const applyCommand: (
   state: State
-) => (content: Content) => [Content, State] = state => content => {
+) => ComputeContentAndState = state => content => {
   const command = getCommand(getContentAsContents(content))
   return [
     getCommandResultContent(state)(command),
@@ -70,9 +93,9 @@ export const applyCommand: (
 // State -> [Content -> Boolean, Content -> [Content, State]]
 const parseCommandContent: (
   state: State
-) => [
-  (content: Content) => boolean,
-  (content: Content) => [Content, State]
-] = state => [R.propEq('type', 'command'), applyCommand(state)]
+) => TestAndComputeContentAndState = state => [
+  R.propEq('type', 'command'),
+  applyCommand(state),
+]
 
 export default parseCommandContent

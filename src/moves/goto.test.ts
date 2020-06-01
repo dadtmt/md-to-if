@@ -13,10 +13,17 @@ const moveToSpaceShip = {
   type: 'anchor',
   target: '/the_space_ship',
 }
+const moveToUnknown = {
+  type: 'anchor',
+  target: '/unknown',
+}
 
 describe('getTargetedScene', () => {
   it('get the targeted scene', () => {
     expect(getTargetedScene(moveToCantina)(adventureBook)).toMatchSnapshot()
+  })
+  it('get the unknown scene', () => {
+    expect(getTargetedScene(moveToUnknown)(adventureBook)).toMatchSnapshot()
   })
 })
 

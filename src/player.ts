@@ -1,17 +1,19 @@
-import playMoves from './moves'
-import { Content } from './moves/parseSceneContent'
+import playMoves, { State } from './moves'
+import { Scene } from '.'
 
-export type Scene = { name: string; sceneContent: Content[]; actions?: Scene[] }
-export type Move = { type: string; target?: string }
-export type PlayedScene = {}
+export type Move = {
+  type: string
+  [prop: string]: any
+}
+export type PlayedScene = Scene & { state: State }
 
 // [Scene], [Move] -> [PlayedScene]
-const player: (scenes: Scene[], moves?: Move[]) => PlayedScene[] = (
+const player: (scenes: Scene[], moves?: Move[]) => Scene[] = (
   scenes,
-  moves = []
+  moves
 ) => {
   const [introduction, ...scenesAfterInroduction] = scenes
-  return [introduction, ...playMoves(moves, scenesAfterInroduction)]
+  return [introduction, ...playMoves(moves || [], scenesAfterInroduction)]
 }
 
 export default player

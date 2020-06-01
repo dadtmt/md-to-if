@@ -3,19 +3,30 @@ import * as R from 'ramda'
 import parseCommandContent from './commands'
 import parseCaseContent from './caseContent'
 import { State } from '..'
+import { SingleASTNode } from 'simple-markdown'
 
-export type Content = {
-  type: string
-  content: Content[] | string
-}
+type ContentAndState = [SingleASTNode, State]
+
+type ManyContentAndState = [SingleASTNode[], State]
+
+export type ConditionalFunction<T> = (arg: T) => boolean
+
+type TestContent = ConditionalFunction<SingleASTNode>
+
+export type ComputeContentAndState = (content: SingleASTNode) => ContentAndState
+
+export type TestAndComputeContentAndState = [
+  TestContent,
+  ComputeContentAndState
+]
 
 // [a] -> a -> [a]
 const appendTo = R.flip(R.append)
 
 // [Content] -> Content -> Content
 export const mergeContent: (
-  parsedContent: Content[]
-) => (content: Content) => Content = parsedContent =>
+  parsedContent: SingleASTNode[]
+) => (content: SingleASTNode) => SingleASTNode = parsedContent =>
   R.ifElse(
     R.prop('contentToMerge'),
     R.pipe(R.prop('content'), R.concat(parsedContent)),
@@ -24,45 +35,50 @@ export const mergeContent: (
 
 // [Content, State] , [Content, State] -> [Content, State]
 const parseArrayContent: (
-  contentAndState: [Content, State],
-  parsedContentAndState: [Content, State] | []
-) => [Content, State] = ([content, state], parsedContentAndState = []) => {
+  contentAndState: ContentAndState,
+  parsedContentAndState?: ContentAndState
+) => ContentAndState = (
+  [content, state],
+  parsedContentAndState = [{ type: '', content: [] }, state]
+) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
   if (headChildContent) {
-    const [parsedContent, parsedState] =
-      parsedContentAndState.length > 0
-        ? parsedContentAndState
-        : [{ content: [] }, state]
+    const [parsedContent, parsedState] = parsedContentAndState
     const [parsedHeadChildContent, newParsedState] = parseContent(parsedState)(
       headChildContent
     )
 
-    const result = [
-      {
-        ...content,
-        content: mergeContent(parsedContent.content)(parsedHeadChildContent),
-      },
-      newParsedState,
-    ]
     return parseArrayContent(
       [{ ...content, content: restOfChildContent }, newParsedState],
-      result
+      [
+        {
+          ...content,
+          content: mergeContent(parsedContent.content)(parsedHeadChildContent),
+        },
+        newParsedState,
+      ]
     )
   }
 
   return parsedContentAndState
 }
 
+const appendState: (
+  state: State
+) => ComputeContentAndState = state => content => [content, state]
+
+const appendStateByDefault: (
+  state: State
+) => TestAndComputeContentAndState = state => [R.T, appendState(state)]
+
 // State | [] -> Content -> [Content, State]
-export const parseContent: (
-  state: State | []
-) => (content: Content) => [Content, State] = state =>
+export const parseContent: (state: State) => ComputeContentAndState = state =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
       ...parseCaseContent(state),
-      [R.T, R.pipe(R.of, R.append(state))],
+      appendStateByDefault(state),
     ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
@@ -70,23 +86,22 @@ export const parseContent: (
 //  { [Content], State } -> [[Content], State]
 const parseSceneContent: (
   contentToParse: {
-    sceneContent: Content[]
-    state: State | []
+    sceneContent: SingleASTNode[]
+    state: State
   },
-  parsedContentAndState?: [Content[], State] | [][]
-) => [Content[], State] = (
+  parsedContentAndState?: ManyContentAndState
+) => ManyContentAndState = (
   { sceneContent, state },
-  parsedContentAndState = [[]]
+  parsedContentAndState = [[], state]
 ) => {
   const [headContent, ...restOfContent] = sceneContent
   if (headContent) {
     const [parsedContent, parsedState] = parsedContentAndState
-    const stateToParse = parsedState || state
-    const [parsedHeadContent, newParsedSate] = parseContent(stateToParse)(
+    const [parsedHeadContent, newParsedSate] = parseContent(parsedState)(
       headContent
     )
     return parseSceneContent(
-      { sceneContent: restOfContent, state: stateToParse },
+      { sceneContent: restOfContent, state: parsedState },
       [[...parsedContent, parsedHeadContent], newParsedSate]
     )
   }

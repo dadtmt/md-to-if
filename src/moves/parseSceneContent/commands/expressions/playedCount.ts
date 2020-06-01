@@ -2,15 +2,10 @@ import * as R from 'ramda'
 
 import getPlayedSceneCount from '../../../stateHelpers/playedSceneCount'
 import { State } from '../../..'
+import { TestAndParseExpression, Expression, isFirstWord } from '.'
 
-// State -> [[String] -> Boolean, [String] -> String]
-const playedCount: (
-  state: State
-) => [
-  (expression: string[]) => boolean,
-  (expression: string[]) => number
-] = state => [
-  R.pipe(R.head, R.equals('playedCount')),
+const playedCount: (state: State) => TestAndParseExpression = state => [
+  isFirstWord('playedCount'),
   R.always(getPlayedSceneCount(state)),
 ]
 

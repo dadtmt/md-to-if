@@ -10,7 +10,7 @@ module.exports = {
     'standard',
     'prettier',
     'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
+    'standard-with-typescript',
   ],
   plugins: ['prettier', '@typescript-eslint'],
   globals: {

@@ -383,6 +383,7 @@ describe('mergeContent', () => {
   it('merge child content if contentToMerge is true', () => {
     const parsedContent = [{ content: 'previous content', type: 'text' }]
     const currentContent = {
+      type: 'paragraph',
       content: [
         { content: 'current content', type: 'text' },
         { content: 'second current content', type: 'text' },
