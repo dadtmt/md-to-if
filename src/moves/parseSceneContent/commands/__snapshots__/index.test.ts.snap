@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applyCommand returns [error node content, unmodified state] 1`] = `
+Array [
+  Object {
+    "content": "wanted Error",
+    "type": "error",
+  },
+  Object {
+    "currentSceneName": "current scene",
+  },
+]
+`;

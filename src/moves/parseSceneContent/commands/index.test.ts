@@ -219,4 +219,19 @@ describe('applyCommand', () => {
 
     expect(applyCommand(state)(content)).toEqual(expected)
   })
+
+  it('returns [error node content, unmodified state]', () => {
+    const content = {
+      content: [
+        {
+          content: ' error ',
+          type: 'text',
+        },
+      ],
+      type: 'command',
+    }
+    const state = { currentSceneName: 'current scene' }
+
+    expect(applyCommand(state)(content)).toMatchSnapshot()
+  })
 })
