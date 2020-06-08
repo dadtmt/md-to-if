@@ -234,4 +234,18 @@ describe('applyCommand', () => {
 
     expect(applyCommand(state)(content)).toMatchSnapshot()
   })
+  it('returns [error node content with missing path message, unmodified state]', () => {
+    const content = {
+      content: [
+        {
+          content: ' set val 2 ',
+          type: 'text',
+        },
+      ],
+      type: 'command',
+    }
+    const state = { currentSceneName: 'current scene' }
+
+    expect(applyCommand(state)(content)).toMatchSnapshot()
+  })
 })
