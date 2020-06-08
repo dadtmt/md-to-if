@@ -3,7 +3,21 @@
 exports[`applyCommand returns [error node content, unmodified state] 1`] = `
 Array [
   Object {
-    "content": "wanted Error",
+    "content": Array [
+      Object {
+        "content": "wanted Error",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " error ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
     "type": "error",
   },
   Object {
