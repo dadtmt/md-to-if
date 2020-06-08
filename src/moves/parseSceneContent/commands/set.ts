@@ -1,8 +1,9 @@
 import * as R from 'ramda'
 
 import parseExpression, { Expression, ParsedExpression } from './expressions'
-import { TestCommandAndUpdateState } from '.'
+import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../..'
+import { right } from 'fp-ts/lib/Either'
 
 const assocToState: (
   path: string[],
@@ -14,16 +15,16 @@ const assocToState: (
     parseExpression(state)(R.tail(expression))
   )(state)
 
-// [String] -> State -> State
-const setValue: (args: string[]) => (state: State) => State = args => state => {
+// TODO handle left for missing val
+const setValue: CommandUpdateState = ({ args }) => state => {
   const [path, expression] = R.splitWhen(R.equals('val'), args)
-  return assocToState(path, expression, state)
+  return right(assocToState(path, expression, state))
 }
 
 // [Command -> Boolean, Command -> State -> State]
 const set: TestCommandAndUpdateState = [
   R.propEq('instruction', 'set'),
-  ({ args }) => setValue(args),
+  setValue,
 ]
 
 export default set

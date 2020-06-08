@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import * as t from 'io-ts'
 
 import goto from './goto'
 import start from './start'

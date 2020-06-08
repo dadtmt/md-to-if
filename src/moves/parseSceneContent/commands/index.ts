@@ -11,6 +11,8 @@ import {
   ComputeContentAndState,
   ConditionalFunction,
 } from '..'
+import { Either, right, left, isRight } from 'fp-ts/lib/Either'
+import { fold } from 'fp-ts/lib/Option'
 
 export type Command = {
   instruction: string
@@ -20,7 +22,9 @@ export type Command = {
 
 type TestCommand = ConditionalFunction<Command>
 
-export type CommandUpdateState = (command: Command) => (state: State) => State
+export type CommandUpdateState = (
+  command: Command
+) => (state: State) => Either<string, State>
 
 type CommandToContent = (command: Command) => SingleASTNode
 
@@ -68,7 +72,12 @@ const getCommandResultContent: (state: State) => CommandToContent = state =>
 
 const doNoUpdateStateByDefault: TestCommandAndUpdateState = [
   R.T,
-  () => R.identity,
+  () => (state: State) => right(state),
+]
+
+const makeError: TestCommandAndUpdateState = [
+  R.propEq('instruction', 'error'),
+  () => () => left('wanted Error'),
 ]
 
 // Command -> State -> State
@@ -76,6 +85,7 @@ const applyCommandToState: CommandUpdateState = R.cond([
   set,
   test,
   describe,
+  makeError,
   doNoUpdateStateByDefault,
 ])
 
@@ -84,10 +94,13 @@ export const applyCommand: (
   state: State
 ) => ComputeContentAndState = state => content => {
   const command = getCommand(getContentAsContents(content))
-  return [
-    getCommandResultContent(state)(command),
-    applyCommandToState(command)(state),
-  ]
+  const tryToComputeState = applyCommandToState(command)(state)
+
+  if (isRight(tryToComputeState)) {
+    return [getCommandResultContent(state)(command), tryToComputeState.right]
+  }
+
+  return [{ type: 'error', content: tryToComputeState.left }, state]
 }
 
 // State -> [Content -> Boolean, Content -> [Content, State]]

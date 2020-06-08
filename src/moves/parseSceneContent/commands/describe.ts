@@ -3,6 +3,7 @@ import parseExpression, { ParsedExpression } from './expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../..'
 import { SingleASTNode } from 'simple-markdown'
+import { right } from 'fp-ts/lib/Either'
 
 // State -> [Content] -> [String]
 const getContentList: (
@@ -39,7 +40,7 @@ const updateStateWithDescription: CommandUpdateState = ({
   args,
   data,
 }) => state =>
-  R.assoc(getDescriptionKey(args), getDescription(state)(data))(state)
+  right(R.assoc(getDescriptionKey(args), getDescription(state)(data))(state))
 
 const describe: TestCommandAndUpdateState = [
   R.propEq('instruction', 'describe'),

@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import parseExpression, { ParsedExpression, Expression } from './expressions'
 import { TestCommandAndUpdateState } from '.'
 import { State } from '../..'
+import { right } from 'fp-ts/lib/Either'
 
 // TODO : type operator and Error 'not a valid operator'
 const getTestFunction: (
@@ -33,7 +34,7 @@ const evaluateTest: (args: string[], state: State) => boolean = (
 const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
   ({ args }) => state =>
-    R.assoc('testResult', evaluateTest(args, state))(state),
+    right(R.assoc('testResult', evaluateTest(args, state))(state)),
 ]
 
 export default test
