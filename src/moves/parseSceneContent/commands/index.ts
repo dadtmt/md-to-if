@@ -100,7 +100,13 @@ export const applyCommand: (
     return [getCommandResultContent(state)(command), tryToComputeState.right]
   }
 
-  return [{ type: 'error', content: tryToComputeState.left }, state]
+  return [
+    {
+      type: 'error',
+      content: [{ type: 'text', content: tryToComputeState.left }, content],
+    },
+    state,
+  ]
 }
 
 // State -> [Content -> Boolean, Content -> [Content, State]]

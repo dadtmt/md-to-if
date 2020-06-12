@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import parseExpression, { Expression, ParsedExpression } from './expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../..'
-import { right } from 'fp-ts/lib/Either'
+import { right, left } from 'fp-ts/lib/Either'
 
 const assocToState: (
   path: string[],
@@ -15,9 +15,11 @@ const assocToState: (
     parseExpression(state)(R.tail(expression))
   )(state)
 
-// TODO handle left for missing val
 const setValue: CommandUpdateState = ({ args }) => state => {
   const [path, expression] = R.splitWhen(R.equals('val'), args)
+  if (R.isEmpty(path)) {
+    return left('path is required to set a value -- path val value')
+  }
   return right(assocToState(path, expression, state))
 }
 
