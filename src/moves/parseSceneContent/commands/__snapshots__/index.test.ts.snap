@@ -51,3 +51,32 @@ Array [
   },
 ]
 `;
+
+exports[`applyCommand returns [error not valid operator node content, unmodified state] for instruction test playedCount maybe 1 true  1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": "Operator maybe is not valid",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " test playedCount maybe val 1 ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
+    "type": "error",
+  },
+  Object {
+    "currentSceneName": "currentSceneName",
+    "played": Object {
+      "currentSceneName": 1,
+    },
+  },
+]
+`;

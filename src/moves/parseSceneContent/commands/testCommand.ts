@@ -1,21 +1,27 @@
 import * as R from 'ramda'
 
 import parseExpression, { ParsedExpression, Expression } from './expressions'
-import { TestCommandAndUpdateState } from '.'
+import { TestCommandAndUpdateState, Command } from '.'
 import { State } from '../..'
-import { right } from 'fp-ts/lib/Either'
+import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 
-// TODO : type operator and Error 'not a valid operator'
+type TestFunction = (left: ParsedExpression, right: ParsedExpression) => boolean
+type TestEvaluation = (
+  command: Command,
+  state: State
+) => Either<string, boolean>
+
+// TODO : check number typees for some operators like lte
 const getTestFunction: (
   operator: string
-) => (left: ParsedExpression, right: ParsedExpression) => boolean = operator =>
-  R[operator]
+) => Either<string, TestFunction> = operator =>
+  R.cond<string, Either<string, TestFunction>>([
+    [R.equals('equals'), () => right(R.equals)],
+    [R.equals('lte'), () => right(R.lte)],
+    [R.T, () => left(`Operator ${operator} is not valid`)],
+  ])(operator)
 
-// [String], State -> Boolean
-const evaluateTest: (args: string[], state: State) => boolean = (
-  args,
-  state
-) => {
+const evaluateTest: TestEvaluation = ({ args }, state) => {
   const [leftExpressionAndOperator, valAndRightExpression] = R.splitWhen(
     R.equals('val')
   )(args)
@@ -28,13 +34,25 @@ const evaluateTest: (args: string[], state: State) => boolean = (
     R.drop(1),
     parseExpression(state)
   )(valAndRightExpression)
-  return getTestFunction(operator)(leftExpression, rightExpression)
+
+  const testFunction = getTestFunction(operator)
+  return isRight(testFunction)
+    ? right(testFunction.right(leftExpression, rightExpression))
+    : left(testFunction.left)
 }
+
+const storeTestResult = (testResult: boolean) =>
+  R.assoc('testResult', testResult)
 
 const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
-  ({ args }) => state =>
-    right(R.assoc('testResult', evaluateTest(args, state))(state)),
+  command => state => {
+    const testEvaluation = evaluateTest(command, state)
+    if (isRight(testEvaluation)) {
+      return right(storeTestResult(testEvaluation.right)(state))
+    }
+    return left(testEvaluation.left)
+  },
 ]
 
 export default test

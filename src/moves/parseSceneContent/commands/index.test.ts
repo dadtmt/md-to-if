@@ -189,6 +189,29 @@ describe('applyCommand', () => {
     expect(applyCommand(state)(content)).toEqual(expected)
   })
 
+  it('returns [error not valid operator node content, unmodified state] for instruction test playedCount maybe 1 true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' test playedCount maybe val 1 ',
+          type: 'text',
+        },
+      ],
+      type: 'command',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+    }
+
+    expect(applyCommand(state)(content)).toMatchSnapshot()
+  })
+
   it('returns [empty text node content, state with testResult: false] for instruction test playedCount equals 2 false ', () => {
     const currentSceneName = 'currentSceneName'
 
