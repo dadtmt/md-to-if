@@ -212,6 +212,29 @@ describe('applyCommand', () => {
     expect(applyCommand(state)(content)).toMatchSnapshot()
   })
 
+  it('returns [error operator supports only number node content, unmodified state] for instruction test playedCount lte string true ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' test playedCount lte val string ',
+          type: 'text',
+        },
+      ],
+      type: 'command',
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 1,
+      },
+      currentSceneName,
+    }
+
+    expect(applyCommand(state)(content)).toMatchSnapshot()
+  })
+
   it('returns [empty text node content, state with testResult: false] for instruction test playedCount equals 2 false ', () => {
     const currentSceneName = 'currentSceneName'
 

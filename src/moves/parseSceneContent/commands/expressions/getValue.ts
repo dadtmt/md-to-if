@@ -8,12 +8,10 @@ const hasPathTo = R.flip(R.path)
 // { a } -> [Idx] -> a
 const pathTo = R.flip(R.path)
 
-// State -> [[String] -> Boolean, [String] -> String]
+//TODO fix type string number issue
 const getValue: (state: State) => TestAndParseExpression = state => [
   R.pipe(hasPathTo(state), R.isNil, R.not),
-  R.pipe(pathTo(state), val =>
-    typeof val === 'string' ? val : R.toString(val)
-  ),
+  R.pipe(pathTo(state), R.identity),
 ]
 
 export default getValue

@@ -80,3 +80,32 @@ Array [
   },
 ]
 `;
+
+exports[`applyCommand returns [error operator supports only number node content, unmodified state] for instruction test playedCount lte string true  1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": "right operand of the test must be a number",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " test playedCount lte val string ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
+    "type": "error",
+  },
+  Object {
+    "currentSceneName": "currentSceneName",
+    "played": Object {
+      "currentSceneName": 1,
+    },
+  },
+]
+`;

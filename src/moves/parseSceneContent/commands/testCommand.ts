@@ -5,20 +5,51 @@ import { TestCommandAndUpdateState, Command } from '.'
 import { State } from '../..'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 
-type TestFunction = (left: ParsedExpression, right: ParsedExpression) => boolean
+type TestFunction = (
+  leftOperand: ParsedExpression,
+  rightOperand: ParsedExpression
+) => Either<string, boolean>
+
+type RelationToTestFunction = (
+  relation: (a: any, b: any) => boolean
+) => TestFunction
+
 type TestEvaluation = (
   command: Command,
   state: State
 ) => Either<string, boolean>
 
+function isNumber(x: any): x is number {
+  return typeof x === 'number'
+}
+
+const alwaysRight: RelationToTestFunction = relation => (
+  leftOperand,
+  rightOperand
+) => right(relation(leftOperand, rightOperand))
+
+const alwaysLeft: (errorMessage: string) => TestFunction = errorMessage => () =>
+  left(errorMessage)
+
+const operandsMustBeNumber: RelationToTestFunction = relation => (
+  leftOperand,
+  rightOperand
+) => {
+  if (!isNumber(leftOperand)) {
+    return left(`left operand of the test must be a number`)
+  }
+  if (!isNumber(rightOperand)) {
+    return left(`right operand of the test must be a number`)
+  }
+  return right(relation(leftOperand, rightOperand))
+}
+
 // TODO : check number typees for some operators like lte
-const getTestFunction: (
-  operator: string
-) => Either<string, TestFunction> = operator =>
-  R.cond<string, Either<string, TestFunction>>([
-    [R.equals('equals'), () => right(R.equals)],
-    [R.equals('lte'), () => right(R.lte)],
-    [R.T, () => left(`Operator ${operator} is not valid`)],
+const getTestFunction: (operator: string) => TestFunction = operator =>
+  R.cond<string, TestFunction>([
+    [R.equals('equals'), () => alwaysRight(R.equals)],
+    [R.equals('lte'), () => operandsMustBeNumber(R.lte)],
+    [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)],
   ])(operator)
 
 const evaluateTest: TestEvaluation = ({ args }, state) => {
@@ -35,10 +66,7 @@ const evaluateTest: TestEvaluation = ({ args }, state) => {
     parseExpression(state)
   )(valAndRightExpression)
 
-  const testFunction = getTestFunction(operator)
-  return isRight(testFunction)
-    ? right(testFunction.right(leftExpression, rightExpression))
-    : left(testFunction.left)
+  return getTestFunction(operator)(leftExpression, rightExpression)
 }
 
 const storeTestResult = (testResult: boolean) =>
