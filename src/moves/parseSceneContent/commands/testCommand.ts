@@ -52,19 +52,22 @@ const getTestFunction: (operator: string) => TestFunction = operator =>
     [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)],
   ])(operator)
 
+const splitLeftPart: (
+  expressionAndOperator: string[]
+) => [string, string[]] = expressionAndOperator => [
+  R.last(expressionAndOperator) || 'missing-operator',
+  R.dropLast<string>(1)(expressionAndOperator),
+]
+
 // TODO Control errors on expressions
 const evaluateTest: TestEvaluation = ({ args }, state) => {
-  const [leftExpressionAndOperator, valAndRightExpression] = splitArgsByVal(
-    args
-  )
-  const leftExpression = R.pipe(
-    R.dropLast(1),
-    resolveExpression(state)
-  )(leftExpressionAndOperator)
-  const operator = R.last(leftExpressionAndOperator) || 'missing operator'
-  const rightExpression = resolveExpression(state)(valAndRightExpression)
+  const [leftPartAndOperator, rightPart] = splitArgsByVal(args)
+  const [operator, leftPart] = splitLeftPart(leftPartAndOperator)
 
-  return getTestFunction(operator)(leftExpression, rightExpression)
+  return getTestFunction(operator)(
+    resolveExpression(state)(leftPart),
+    resolveExpression(state)(rightPart)
+  )
 }
 
 const storeTestResult = (testResult: boolean) =>
