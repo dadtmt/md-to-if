@@ -96,17 +96,15 @@ export const applyCommand: (
   const command = getCommand(getContentAsContents(content))
   const tryToComputeState = applyCommandToState(command)(state)
 
-  if (isRight(tryToComputeState)) {
-    return [getCommandResultContent(state)(command), tryToComputeState.right]
-  }
-
-  return [
-    {
-      type: 'error',
-      content: [{ type: 'text', content: tryToComputeState.left }, content],
-    },
-    state,
-  ]
+  return isRight(tryToComputeState)
+    ? [getCommandResultContent(state)(command), tryToComputeState.right]
+    : [
+        {
+          type: 'error',
+          content: [{ type: 'text', content: tryToComputeState.left }, content],
+        },
+        state,
+      ]
 }
 
 // State -> [Content -> Boolean, Content -> [Content, State]]

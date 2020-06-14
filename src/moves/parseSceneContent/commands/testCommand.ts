@@ -31,20 +31,19 @@ const alwaysRight: RelationToTestFunction = relation => (
 const alwaysLeft: (errorMessage: string) => TestFunction = errorMessage => () =>
   left(errorMessage)
 
+const operandMustBeANumber: (position: string) => string = position =>
+  `${position} operand of the test must be a number`
+
 const operandsMustBeNumber: RelationToTestFunction = relation => (
   leftOperand,
   rightOperand
-) => {
-  if (!isNumber(leftOperand)) {
-    return left(`left operand of the test must be a number`)
-  }
-  if (!isNumber(rightOperand)) {
-    return left(`right operand of the test must be a number`)
-  }
-  return right(relation(leftOperand, rightOperand))
-}
+) =>
+  !isNumber(leftOperand)
+    ? left(operandMustBeANumber('left'))
+    : !isNumber(rightOperand)
+    ? left(operandMustBeANumber('right'))
+    : right(relation(leftOperand, rightOperand))
 
-// TODO : check number typees for some operators like lte
 const getTestFunction: (operator: string) => TestFunction = operator =>
   R.cond<string, TestFunction>([
     [R.equals('equals'), () => alwaysRight(R.equals)],
@@ -76,10 +75,9 @@ const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
   command => state => {
     const testEvaluation = evaluateTest(command, state)
-    if (isRight(testEvaluation)) {
-      return right(storeTestResult(testEvaluation.right)(state))
-    }
-    return left(testEvaluation.left)
+    return isRight(testEvaluation)
+      ? right(storeTestResult(testEvaluation.right)(state))
+      : left(testEvaluation.left)
   },
 ]
 

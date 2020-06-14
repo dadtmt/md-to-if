@@ -17,10 +17,9 @@ const assocToState: (
 
 const setValue: CommandUpdateState = ({ args }) => state => {
   const [path, expression] = R.splitWhen(R.equals('val'), args)
-  if (R.isEmpty(path)) {
-    return left('path is required to set a value -- path val value')
-  }
-  return right(assocToState(path, expression, state))
+  return R.isEmpty(path)
+    ? left('path is required to set a value -- path val value')
+    : right(assocToState(path, expression, state))
 }
 
 // [Command -> Boolean, Command -> State -> State]
