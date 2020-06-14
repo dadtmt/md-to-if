@@ -1,11 +1,10 @@
 import * as R from 'ramda'
 
-import parseExpression, { ParsedExpression, Expression } from './expressions'
 import {
   TestCommandAndUpdateState,
   Command,
-  decodeExpression,
   splitArgsByVal,
+  resolveExpression,
 } from '.'
 import { State } from '../..'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
@@ -60,14 +59,10 @@ const evaluateTest: TestEvaluation = ({ args }, state) => {
   )
   const leftExpression = R.pipe(
     R.dropLast(1),
-    parseExpression(state),
-    decodeExpression
+    resolveExpression(state)
   )(leftExpressionAndOperator)
   const operator = R.last(leftExpressionAndOperator) || 'missing operator'
-  const rightExpression = R.pipe(
-    parseExpression(state),
-    decodeExpression
-  )(valAndRightExpression)
+  const rightExpression = resolveExpression(state)(valAndRightExpression)
 
   return getTestFunction(operator)(leftExpression, rightExpression)
 }

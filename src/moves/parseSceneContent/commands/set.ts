@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 
-import parseExpression, { Expression } from './expressions'
+import { Expression } from './expressions'
 import {
   TestCommandAndUpdateState,
   CommandUpdateState,
-  decodeExpression,
   splitArgsByVal,
+  resolveExpression,
 } from '.'
 import { State } from '../..'
 import { right, left } from 'fp-ts/lib/Either'
@@ -17,7 +17,7 @@ const assocToState: (
 ) => State = (path, expression, state) =>
   R.assocPath<string | number, State>(
     path,
-    R.pipe(parseExpression(state), decodeExpression)(expression)
+    resolveExpression(state)(expression)
   )(state)
 
 const setValue: CommandUpdateState = ({ args }) => state => {

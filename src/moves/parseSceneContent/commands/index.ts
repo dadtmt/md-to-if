@@ -12,7 +12,7 @@ import {
   ConditionalFunction,
 } from '..'
 import { Either, right, left, isRight } from 'fp-ts/lib/Either'
-import { ParsedExpression } from './expressions'
+import parseExpression, { ParsedExpression, Expression } from './expressions'
 
 export type Command = {
   instruction: string
@@ -42,10 +42,16 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
   removeVal
 )
 
-export const decodeExpression: (
+// todo find a way to throw the error message
+const decodeExpression: (
   parsedExpression: ParsedExpression
 ) => string | number = parsedExpression =>
   isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
+
+export const resolveExpression: (
+  state: State
+) => (expression: Expression) => string | number = state =>
+  R.pipe(parseExpression(state), decodeExpression)
 
 const getContentAsString: (content: SingleASTNode) => string = R.pipe(
   R.prop<string>('content'),
