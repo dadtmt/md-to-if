@@ -1,13 +1,14 @@
 import * as R from 'ramda'
 
 import parseExpression, { ParsedExpression, Expression } from './expressions'
-import { TestCommandAndUpdateState, Command } from '.'
+import { TestCommandAndUpdateState, Command, decodeExpression } from '.'
 import { State } from '../..'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
+import { isNumber } from '../../../typeGuards'
 
 type TestFunction = (
-  leftOperand: ParsedExpression,
-  rightOperand: ParsedExpression
+  leftOperand: string | number,
+  rightOperand: string | number
 ) => Either<string, boolean>
 
 type RelationToTestFunction = (
@@ -18,10 +19,6 @@ type TestEvaluation = (
   command: Command,
   state: State
 ) => Either<string, boolean>
-
-function isNumber(x: any): x is number {
-  return typeof x === 'number'
-}
 
 const alwaysRight: RelationToTestFunction = relation => (
   leftOperand,
@@ -51,18 +48,21 @@ const getTestFunction: (operator: string) => TestFunction = operator =>
     [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)],
   ])(operator)
 
+// TODO Control errors on expressions
 const evaluateTest: TestEvaluation = ({ args }, state) => {
   const [leftExpressionAndOperator, valAndRightExpression] = R.splitWhen(
     R.equals('val')
   )(args)
   const leftExpression = R.pipe(
     R.dropLast(1),
-    parseExpression(state)
+    parseExpression(state),
+    decodeExpression
   )(leftExpressionAndOperator)
   const operator = R.last(leftExpressionAndOperator) || 'missing operator'
   const rightExpression = R.pipe(
     R.drop(1),
-    parseExpression(state)
+    parseExpression(state),
+    decodeExpression
   )(valAndRightExpression)
 
   return getTestFunction(operator)(leftExpression, rightExpression)

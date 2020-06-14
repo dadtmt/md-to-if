@@ -3,18 +3,25 @@ import parseExpression, { ParsedExpression } from './expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../..'
 import { SingleASTNode } from 'simple-markdown'
-import { right } from 'fp-ts/lib/Either'
+import { right, isRight } from 'fp-ts/lib/Either'
 
-// State -> [Content] -> [String]
+//big mistery about import from . not working
+const decodeExpression: (
+  parsedExpression: ParsedExpression
+) => string | number = parsedExpression =>
+  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
+
+// TODO Control errors on expressions
 const getContentList: (
   state: State
-) => (content: SingleASTNode[][]) => ParsedExpression[] = state =>
+) => (content: SingleASTNode[][]) => (string | number)[] = state =>
   R.map(
     R.pipe(
       R.head,
       R.propOr('missing content', 'content'),
       R.split(' '),
-      parseExpression(state)
+      parseExpression(state),
+      decodeExpression
     )
   )
 

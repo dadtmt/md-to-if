@@ -3,6 +3,7 @@ import * as R from 'ramda'
 // @ts-ignore
 import DiceRoller from 'roll-dice'
 import { Expression, TestAndParseExpression } from '.'
+import { right } from 'fp-ts/lib/Either'
 
 const diceRoller = new DiceRoller()
 
@@ -16,7 +17,7 @@ const getResult: (dices: { result: number }) => number = R.prop('result')
 
 const rollDices: TestAndParseExpression = [
   R.pipe(R.head, R.equals('roll')),
-  R.pipe(getInput, roll, getResult),
+  R.pipe(getInput, roll, getResult, right),
 ]
 
 export default rollDices

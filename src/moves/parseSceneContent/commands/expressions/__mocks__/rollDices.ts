@@ -1,9 +1,10 @@
 import * as R from 'ramda'
+import { TestAndParseExpression } from '..'
+import { right } from 'fp-ts/lib/Either'
 
-// [[String] -> Boolean, [String] -> Number]
-const rollDices: [
-  (expression: string[]) => boolean,
-  (expression: string[]) => number
-] = [R.pipe(R.head, R.equals('roll')), R.always(42)]
+const rollDices: TestAndParseExpression = [
+  R.pipe(R.head, R.equals('roll')),
+  R.always(right(42)),
+]
 
 export default rollDices

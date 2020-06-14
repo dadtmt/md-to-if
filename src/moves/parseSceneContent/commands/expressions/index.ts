@@ -5,10 +5,11 @@ import getValue from './getValue'
 import playedCount from './playedCount'
 import { State } from '../../..'
 import { ConditionalFunction } from '../..'
+import { Either, right } from 'fp-ts/lib/Either'
 
 export type Expression = string[]
 
-export type ParsedExpression = string | number
+export type ParsedExpression = Either<string, string | number>
 
 type TestExpression = ConditionalFunction<Expression>
 
@@ -21,7 +22,7 @@ export const isFirstWord: (word: string) => TestExpression = word =>
 
 const wordMayBeANumber: (word: string) => ParsedExpression = word => {
   const convertedString = parseInt(word)
-  return !isNaN(convertedString) ? convertedString : word
+  return right(!isNaN(convertedString) ? convertedString : word)
 }
 
 const firstWordOrNumberByDefault: TestAndParseExpression = [

@@ -12,7 +12,7 @@ import {
   ConditionalFunction,
 } from '..'
 import { Either, right, left, isRight } from 'fp-ts/lib/Either'
-import { fold } from 'fp-ts/lib/Option'
+import { ParsedExpression } from './expressions'
 
 export type Command = {
   instruction: string
@@ -31,6 +31,11 @@ type CommandToContent = (command: Command) => SingleASTNode
 export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
 
 export type TestCommandAndGetContent = [TestCommand, CommandToContent]
+
+export const decodeExpression: (
+  parsedExpression: ParsedExpression
+) => string | number = parsedExpression =>
+  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
 
 const getContentAsString: (content: SingleASTNode) => string = R.pipe(
   R.prop<string>('content'),
