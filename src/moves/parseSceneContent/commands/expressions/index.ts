@@ -30,7 +30,6 @@ const firstWordOrNumberByDefault: TestAndParseExpression = [
   R.pipe(R.head, wordMayBeANumber),
 ]
 
-// State -> [String] -> String
 const parseExpression: (
   state: State
 ) => (expression: Expression) => ParsedExpression = state =>

@@ -29,6 +29,15 @@ describe('parseExpression', () => {
       'value'
     )
   })
+  it('returns error not a single value for ["path","to","the"]', () => {
+    const expression = ['path', 'to', 'the']
+    const state = {
+      path: { to: { the: { some: 'value' } } },
+    }
+    expect(decodeExpression(parseExpression(state)(expression))).toEqual(
+      'The path path/to/the is not a single value'
+    )
+  })
   it('returns "not" for ["not" "handled" "expression"]', () => {
     const expression = ['not', 'handled', 'expression']
     const state = {}
