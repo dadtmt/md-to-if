@@ -42,7 +42,7 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
   removeVal
 )
 
-// todo find a way to throw the error message
+// TODO find a way to throw the error message
 const decodeExpression: (
   parsedExpression: ParsedExpression
 ) => string | number = parsedExpression =>
@@ -65,14 +65,12 @@ const getContentAsContents: (
   R.when(R.pipe(R.type, R.equals('Array'), R.not), R.always([]))
 )
 
-// Content -> [String]
 const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
   getContentAsString,
   R.trim,
   R.split(' ')
 )
 
-// [Content] -> Command
 export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
   commandLine,
   ...data
@@ -87,7 +85,6 @@ const emptyTextNodeByDefault: TestCommandAndGetContent = [
   R.always({ content: '', type: 'text' }),
 ]
 
-// State -> Command -> Content
 const getCommandResultContent: (state: State) => CommandToContent = state =>
   R.cond([show(state), emptyTextNodeByDefault])
 
@@ -101,7 +98,6 @@ const makeError: TestCommandAndUpdateState = [
   () => () => left('wanted Error'),
 ]
 
-// Command -> State -> State
 const applyCommandToState: CommandUpdateState = R.cond([
   set,
   test,
@@ -110,7 +106,6 @@ const applyCommandToState: CommandUpdateState = R.cond([
   doNoUpdateStateByDefault,
 ])
 
-// State -> Content -> [Content, State]
 export const applyCommand: (
   state: State
 ) => ComputeContentAndState = state => content => {
@@ -128,7 +123,6 @@ export const applyCommand: (
       ]
 }
 
-// State -> [Content -> Boolean, Content -> [Content, State]]
 const parseCommandContent: (
   state: State
 ) => TestAndComputeContentAndState = state => [
