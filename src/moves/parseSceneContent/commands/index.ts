@@ -32,6 +32,16 @@ export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
 
 export type TestCommandAndGetContent = [TestCommand, CommandToContent]
 
+const removeVal: (parts: string[][]) => string[][] = ([
+  leftPart,
+  rightPart,
+]) => [leftPart, rightPart.slice(1)]
+
+export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
+  R.splitWhen(R.equals('val')),
+  removeVal
+)
+
 export const decodeExpression: (
   parsedExpression: ParsedExpression
 ) => string | number = parsedExpression =>

@@ -1,7 +1,12 @@
 import * as R from 'ramda'
 
 import parseExpression, { ParsedExpression, Expression } from './expressions'
-import { TestCommandAndUpdateState, Command, decodeExpression } from '.'
+import {
+  TestCommandAndUpdateState,
+  Command,
+  decodeExpression,
+  splitArgsByVal,
+} from '.'
 import { State } from '../..'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../../../typeGuards'
@@ -50,9 +55,9 @@ const getTestFunction: (operator: string) => TestFunction = operator =>
 
 // TODO Control errors on expressions
 const evaluateTest: TestEvaluation = ({ args }, state) => {
-  const [leftExpressionAndOperator, valAndRightExpression] = R.splitWhen(
-    R.equals('val')
-  )(args)
+  const [leftExpressionAndOperator, valAndRightExpression] = splitArgsByVal(
+    args
+  )
   const leftExpression = R.pipe(
     R.dropLast(1),
     parseExpression(state),
@@ -60,7 +65,6 @@ const evaluateTest: TestEvaluation = ({ args }, state) => {
   )(leftExpressionAndOperator)
   const operator = R.last(leftExpressionAndOperator) || 'missing operator'
   const rightExpression = R.pipe(
-    R.drop(1),
     parseExpression(state),
     decodeExpression
   )(valAndRightExpression)

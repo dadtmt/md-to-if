@@ -1,10 +1,11 @@
 import * as R from 'ramda'
 
-import parseExpression, { Expression, ParsedExpression } from './expressions'
+import parseExpression, { Expression } from './expressions'
 import {
   TestCommandAndUpdateState,
   CommandUpdateState,
   decodeExpression,
+  splitArgsByVal,
 } from '.'
 import { State } from '../..'
 import { right, left } from 'fp-ts/lib/Either'
@@ -16,17 +17,16 @@ const assocToState: (
 ) => State = (path, expression, state) =>
   R.assocPath<string | number, State>(
     path,
-    R.pipe(parseExpression(state), decodeExpression)(R.tail(expression))
+    R.pipe(parseExpression(state), decodeExpression)(expression)
   )(state)
 
 const setValue: CommandUpdateState = ({ args }) => state => {
-  const [path, expression] = R.splitWhen(R.equals('val'), args)
+  const [path, expression] = splitArgsByVal(args)
   return R.isEmpty(path)
     ? left('path is required to set a value -- path val value')
     : right(assocToState(path, expression, state))
 }
 
-// [Command -> Boolean, Command -> State -> State]
 const set: TestCommandAndUpdateState = [
   R.propEq('instruction', 'set'),
   setValue,
