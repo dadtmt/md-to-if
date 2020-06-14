@@ -51,6 +51,7 @@ describe('parseContent', () => {
 
     expect(parseContent(state)(content)).toEqual(expected)
   })
+
   it('returns [empty text content node, state with property setted] for instruction set prop val value', () => {
     const currentSceneName = 'currentSceneName'
 

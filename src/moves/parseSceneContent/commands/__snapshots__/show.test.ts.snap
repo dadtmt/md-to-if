@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applyCommand show returns [error about missing args, unmodified state] for instruction show  1`] = `
+Array [
+  Object {
+    "content": "The path  is not a single value",
+    "type": "text",
+  },
+  Object {
+    "currentSceneName": "currentSceneName",
+    "played": Object {
+      "currentSceneName": 3,
+    },
+  },
+]
+`;

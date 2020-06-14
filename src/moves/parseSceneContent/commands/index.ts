@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { Either, right, left, isRight } from 'fp-ts/lib/Either'
 
 import show from './show'
 import set from './set'
@@ -11,7 +12,6 @@ import {
   ComputeContentAndState,
   ConditionalFunction,
 } from '..'
-import { Either, right, left, isRight } from 'fp-ts/lib/Either'
 import parseExpression, { ParsedExpression, Expression } from './expressions'
 
 export type Command = {

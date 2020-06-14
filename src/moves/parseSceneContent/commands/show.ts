@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 
-import parseExpression from './expressions'
 import { State } from '../..'
 import { TestCommandAndGetContent, resolveExpression } from '.'
 
