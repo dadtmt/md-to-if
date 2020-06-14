@@ -9,6 +9,18 @@ describe('parseExpression', () => {
     expect(rolled).toBeGreaterThanOrEqual(1)
     expect(rolled).toBeLessThanOrEqual(6)
   })
+  it('returns error missing dices for ["roll"]', () => {
+    const expression = ['roll']
+    const state = {}
+    const rolled = decodeExpression(parseExpression(state)(expression))
+    expect(rolled).toEqual('The dices are missing (ex: roll d6)')
+  })
+  it('returns error D6 is not a valid dices input, try d6 for ["roll", "D6"]', () => {
+    const expression = ['roll', 'D6']
+    const state = {}
+    const rolled = decodeExpression(parseExpression(state)(expression))
+    expect(rolled).toEqual('D6 is not a valid dices input, try d6')
+  })
   it('returns current scene played count for ["playedCount"]', () => {
     const expression = ['playedCount']
     const state = {
