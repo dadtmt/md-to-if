@@ -3,8 +3,22 @@
 exports[`applyCommand show returns [error about missing args, unmodified state] for instruction show  1`] = `
 Array [
   Object {
-    "content": "The path  is not a single value",
-    "type": "text",
+    "content": Array [
+      Object {
+        "content": "The path  is not a single value",
+        "type": "text",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": " show ",
+            "type": "text",
+          },
+        ],
+        "type": "command",
+      },
+    ],
+    "type": "error",
   },
   Object {
     "currentSceneName": "currentSceneName",

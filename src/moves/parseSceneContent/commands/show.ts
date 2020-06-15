@@ -1,19 +1,24 @@
 import * as R from 'ramda'
 
 import { State } from '../..'
-import { TestCommandAndGetContent, resolveExpression } from '.'
+import { TestCommandAndGetContent } from '.'
+import { toStringIfNotString } from '../../../utils/typeCheck'
+import parseExpression, { Expression, ParsedExpression } from './expressions'
+import { isRight, left, right } from 'fp-ts/lib/Either'
 
-// TODO Control errors on expressions
-
-const show: (state: State) => TestCommandAndGetContent = state => [
-  R.propEq('instruction', 'show'),
-  ({ args }) => ({
-    content: R.pipe(
-      resolveExpression(state),
-      R.when(R.pipe(R.is(String), R.not), R.toString)
-    )(args),
-    type: 'text',
-  }),
-]
+const show: (state: State) => TestCommandAndGetContent = state => {
+  return [
+    R.propEq('instruction', 'show'),
+    ({ args }) => {
+      const mayBeContent = parseExpression(state)(args)
+      return isRight(mayBeContent)
+        ? right({
+            content: toStringIfNotString(mayBeContent.right),
+            type: 'text',
+          })
+        : left(mayBeContent.left)
+    },
+  ]
+}
 
 export default show

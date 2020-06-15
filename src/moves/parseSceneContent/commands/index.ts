@@ -26,7 +26,7 @@ export type CommandUpdateState = (
   command: Command
 ) => (state: State) => Either<string, State>
 
-type CommandToContent = (command: Command) => SingleASTNode
+type CommandToContent = (command: Command) => Either<string, SingleASTNode>
 
 export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
 
@@ -82,7 +82,7 @@ export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
 
 const emptyTextNodeByDefault: TestCommandAndGetContent = [
   R.T,
-  R.always({ content: '', type: 'text' }),
+  R.always(right({ content: '', type: 'text' })),
 ]
 
 const getCommandResultContent: (state: State) => CommandToContent = state =>
@@ -106,21 +106,29 @@ const applyCommandToState: CommandUpdateState = R.cond([
   doNoUpdateStateByDefault,
 ])
 
+export const errorContent: (
+  message: String,
+  content: SingleASTNode
+) => SingleASTNode = (message, content) => ({
+  type: 'error',
+  content: [{ type: 'text', content: message }, content],
+})
+
 export const applyCommand: (
   state: State
 ) => ComputeContentAndState = state => content => {
   const command = getCommand(getContentAsContents(content))
+  const tryToComputeContent = getCommandResultContent(state)(command)
   const tryToComputeState = applyCommandToState(command)(state)
 
   return isRight(tryToComputeState)
-    ? [getCommandResultContent(state)(command), tryToComputeState.right]
-    : [
-        {
-          type: 'error',
-          content: [{ type: 'text', content: tryToComputeState.left }, content],
-        },
-        state,
+    ? [
+        isRight(tryToComputeContent)
+          ? tryToComputeContent.right
+          : errorContent(tryToComputeContent.left, content),
+        tryToComputeState.right,
       ]
+    : [errorContent(tryToComputeState.left, content), state]
 }
 
 const parseCommandContent: (
