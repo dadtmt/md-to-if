@@ -3,21 +3,27 @@ import * as R from 'ramda'
 import { State } from '../..'
 import { TestCommandAndGetContent } from '.'
 import { toStringIfNotString } from '../../../utils/typeCheck'
-import parseExpression, { Expression, ParsedExpression } from './expressions'
-import { isRight, left, right } from 'fp-ts/lib/Either'
+import parseExpression from './expressions'
+import { left, right, fold, Either } from 'fp-ts/lib/Either'
+import { SingleASTNode } from 'simple-markdown'
+
+const contentToShow: (
+  text: string | number
+) => Either<string, SingleASTNode> = text =>
+  right({
+    content: toStringIfNotString(text),
+    type: 'text',
+  })
+
+const errorMessage: (
+  message: string
+) => Either<string, SingleASTNode> = message => left(message)
 
 const show: (state: State) => TestCommandAndGetContent = state => {
   return [
     R.propEq('instruction', 'show'),
-    ({ args }) => {
-      const mayBeContent = parseExpression(state)(args)
-      return isRight(mayBeContent)
-        ? right({
-            content: toStringIfNotString(mayBeContent.right),
-            type: 'text',
-          })
-        : left(mayBeContent.left)
-    },
+    ({ args }) =>
+      fold(errorMessage, contentToShow)(parseExpression(state)(args)),
   ]
 }
 
