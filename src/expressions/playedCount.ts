@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import getPlayedSceneCount from '../../../stateHelpers/playedSceneCount'
-import { State } from '../../..'
+import getPlayedSceneCount from '../stateHelpers/playedSceneCount'
+import { State } from '../moves'
 import { TestAndParseExpression, isFirstWord } from '.'
 import { right } from 'fp-ts/lib/Either'
 

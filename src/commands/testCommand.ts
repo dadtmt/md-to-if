@@ -6,9 +6,9 @@ import {
   splitArgsByVal,
   resolveExpression,
 } from '.'
-import { State } from '../..'
+import { State } from '../moves'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
-import { isNumber } from '../../../typeGuards'
+import { isNumber } from '../typeGuards'
 
 type TestFunction = (
   leftOperand: string | number,

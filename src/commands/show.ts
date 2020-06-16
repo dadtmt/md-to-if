@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 
-import { State } from '../..'
+import { State } from '../moves'
 import { TestCommandAndGetContent } from '.'
-import { toStringIfNotString } from '../../../utils/typeCheck'
-import parseExpression from './expressions'
+import { toStringIfNotString } from '../utils/typeCheck'
+import parseExpression from '../expressions'
 import { left, right, fold, Either } from 'fp-ts/lib/Either'
 import { SingleASTNode } from 'simple-markdown'
 

@@ -3,8 +3,8 @@ import * as R from 'ramda'
 import rollDices from './rollDices'
 import getValue from './getValue'
 import playedCount from './playedCount'
-import { State } from '../../..'
-import { ConditionalFunction } from '../..'
+import { State } from '../moves'
+import { ConditionalFunction } from '../moves/parseSceneContent'
 import { Either, right } from 'fp-ts/lib/Either'
 
 export type Expression = string[]

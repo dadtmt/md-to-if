@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
-import parseCommandContent from './commands'
+import parseCommandContent from '../commands'
 import parseCaseContent from './caseContent'
-import { State } from '..'
+import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
 
 type ContentAndState = [SingleASTNode, State]

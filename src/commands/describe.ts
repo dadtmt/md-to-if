@@ -1,7 +1,7 @@
 import * as R from 'ramda'
-import parseExpression, { ParsedExpression } from './expressions'
+import parseExpression, { ParsedExpression } from '../expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
-import { State } from '../..'
+import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
 import { right, isRight } from 'fp-ts/lib/Either'
 

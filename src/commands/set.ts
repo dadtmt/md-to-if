@@ -1,13 +1,13 @@
 import * as R from 'ramda'
 
-import { Expression } from './expressions'
+import { Expression } from '../expressions'
 import {
   TestCommandAndUpdateState,
   CommandUpdateState,
   splitArgsByVal,
   resolveExpression,
 } from '.'
-import { State } from '../..'
+import { State } from '../moves'
 import { right, left } from 'fp-ts/lib/Either'
 
 const assocToState: (

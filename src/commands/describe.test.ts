@@ -1,6 +1,6 @@
 import { getDescription } from './describe'
 
-jest.mock('./expressions/rollDices')
+jest.mock('../expressions/rollDices')
 
 describe('getDescription', () => {
   it('returns object description from the table', () => {

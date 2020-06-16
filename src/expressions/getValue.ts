@@ -1,8 +1,8 @@
 import * as R from 'ramda'
-import { State } from '../../..'
+import { State } from '../moves'
 import { TestAndParseExpression, ParsedExpression, Expression } from '.'
 import { right, left } from 'fp-ts/lib/Either'
-import { isStringOrNumber } from '../../../../typeGuards'
+import { isStringOrNumber } from '../typeGuards'
 
 // { a } -> [Idx] -> Boolean
 const hasPathTo = R.flip(R.path)

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import { Lens } from 'ramda'
-import { State } from '..'
+import { State } from '../moves'
 
 // String -> Lens
 const playedSceneCountLens: (name: string) => Lens = name =>

@@ -5,14 +5,14 @@ import show from './show'
 import set from './set'
 import describe from './describe'
 import test from './testCommand'
-import { State } from '../..'
+import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
 import {
   TestAndComputeContentAndState,
   ComputeContentAndState,
   ConditionalFunction,
-} from '..'
-import parseExpression, { ParsedExpression, Expression } from './expressions'
+} from '../moves/parseSceneContent'
+import parseExpression, { ParsedExpression, Expression } from '../expressions'
 
 export type Command = {
   instruction: string

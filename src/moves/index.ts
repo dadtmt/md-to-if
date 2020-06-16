@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import goto from './goto'
 import start from './start'
 
-import parseSceneContent from './parseSceneContent'
+import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
 import { Scene } from '..'
 import { SingleASTNode } from 'simple-markdown'

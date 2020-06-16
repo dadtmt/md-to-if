@@ -1,4 +1,4 @@
-import { resolveExpression } from '..'
+import { resolveExpression } from '../commands'
 
 describe('parseExpression', () => {
   it('returns value between 1 and 6 for ["roll", "D6"]', () => {

@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { incPlayedSceneCount } from './stateHelpers/playedSceneCount'
+import { incPlayedSceneCount } from '../stateHelpers/playedSceneCount'
 import { PlayedScene, Move } from '../player'
 import { MovedScene, State } from '.'
 import { Scene } from '..'
