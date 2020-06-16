@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { Either, right, left, isRight } from 'fp-ts/lib/Either'
+import { Either, right, left, isRight, fold } from 'fp-ts/lib/Either'
 
 import show from './show'
 import set from './set'
@@ -42,12 +42,13 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
   removeVal
 )
 
-// TODO find a way to throw the error message
+// TODO remove when not used anymore
 const decodeExpression: (
   parsedExpression: ParsedExpression
 ) => string | number = parsedExpression =>
   isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
 
+// TODO remove when not used anymore
 export const resolveExpression: (
   state: State
 ) => (expression: Expression) => string | number = state =>
@@ -60,10 +61,7 @@ const getContentAsString: (content: SingleASTNode) => string = R.pipe(
 
 const getContentAsContents: (
   content: SingleASTNode
-) => SingleASTNode[] = R.pipe(
-  R.prop<string>('content'),
-  R.when(R.pipe(R.type, R.equals('Array'), R.not), R.always([]))
-)
+) => SingleASTNode[] = R.prop<string>('content')
 
 const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
   getContentAsString,
@@ -118,17 +116,17 @@ export const applyCommand: (
   state: State
 ) => ComputeContentAndState = state => content => {
   const command = getCommand(getContentAsContents(content))
-  const tryToComputeContent = getCommandResultContent(state)(command)
-  const tryToComputeState = applyCommandToState(command)(state)
 
-  return isRight(tryToComputeState)
-    ? [
-        isRight(tryToComputeContent)
-          ? tryToComputeContent.right
-          : errorContent(tryToComputeContent.left, content),
-        tryToComputeState.right,
-      ]
-    : [errorContent(tryToComputeState.left, content), state]
+  return fold<string, State, [SingleASTNode, State]>(
+    (message: string) => [errorContent(message, content), state],
+    updatedState => [
+      fold<string, SingleASTNode, SingleASTNode>(
+        (message: string) => errorContent(message, content),
+        R.identity
+      )(getCommandResultContent(state)(command)),
+      updatedState,
+    ]
+  )(applyCommandToState(command)(state))
 }
 
 const parseCommandContent: (
