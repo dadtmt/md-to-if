@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { State } from '..'
+import { State } from '../moves'
 import { TestAndComputeContentAndState, ComputeContentAndState } from '.'
 
 // State, Boolean -> Content -> [Content, State]

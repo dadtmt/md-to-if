@@ -11,7 +11,7 @@ import {
   TestAndComputeContentAndState,
   ComputeContentAndState,
   ConditionalFunction,
-} from '../moves/parseSceneContent'
+} from '../parseSceneContent'
 import parseExpression, { ParsedExpression, Expression } from '../expressions'
 
 export type Command = {
