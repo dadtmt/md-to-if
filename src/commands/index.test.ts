@@ -21,37 +21,6 @@ describe('getCommand', () => {
 })
 
 describe('applyCommand', () => {
-  it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
-    const currentSceneName = 'currentSceneName'
-
-    const content = {
-      content: [
-        {
-          content: ' show playedCount ',
-          type: 'text',
-        },
-      ],
-      type: 'command',
-    }
-
-    const state = {
-      played: {
-        currentSceneName: 3,
-      },
-      currentSceneName,
-    }
-
-    const expected = [
-      {
-        content: '3',
-        type: 'text',
-      },
-      state,
-    ]
-
-    expect(applyCommand(state)(content)).toEqual(expected)
-  })
-
   it('returns [node text with current scene play count, unmodified state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
@@ -78,43 +47,6 @@ describe('applyCommand', () => {
         type: 'text',
       },
       state,
-    ]
-
-    expect(applyCommand(state)(content)).toEqual(expected)
-  })
-
-  it('returns [empty text content node, state with property setted] for instruction set', () => {
-    const currentSceneName = 'currentSceneName'
-
-    const content = {
-      content: [
-        {
-          content: ' set container prop val value',
-          type: 'text',
-        },
-      ],
-      type: 'command',
-    }
-
-    const state = {
-      played: {
-        currentSceneName: 3,
-      },
-      currentSceneName,
-    }
-
-    const expected = [
-      {
-        content: '',
-        type: 'text',
-      },
-      {
-        played: {
-          currentSceneName: 3,
-        },
-        currentSceneName,
-        container: { prop: 'value' },
-      },
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -271,20 +203,6 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' error ',
-          type: 'text',
-        },
-      ],
-      type: 'command',
-    }
-    const state = { currentSceneName: 'current scene' }
-
-    expect(applyCommand(state)(content)).toMatchSnapshot()
-  })
-  it('returns [error node content with missing path message, unmodified state]', () => {
-    const content = {
-      content: [
-        {
-          content: ' set val 2 ',
           type: 'text',
         },
       ],
