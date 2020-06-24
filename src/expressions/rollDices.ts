@@ -10,7 +10,7 @@ const diceRoller = new DiceRoller()
 const roll: (input: string) => { result: number } = input =>
   diceRoller.roll(input)
 
-const getInput: (expression: Expression) => string | undefined = R.nth(1)
+export const getInput: (expression: Expression) => string | undefined = R.nth(1)
 
 const getResult: (dices: { result: number }) => number = R.prop('result')
 
