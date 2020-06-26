@@ -1,18 +1,11 @@
 import * as R from 'ramda'
-import parseExpression, { ParsedExpression } from '../expressions'
+import parseExpression from '../expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
-import { right, isRight, Either, fold, left } from 'fp-ts/lib/Either'
-import { toStringIfNotString, toArrayOfStrings } from '../utils/typeCheck'
+import { right, Either, fold, left } from 'fp-ts/lib/Either'
+import { toArrayOfStrings } from '../utils/typeCheck'
 
-//big mistery about import from . not working
-const decodeExpression: (
-  parsedExpression: ParsedExpression
-) => string | number = parsedExpression =>
-  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
-
-// TODO Control errors on expressions
 const getContentList: (
   state: State
 ) => (
@@ -32,7 +25,7 @@ const getContentList: (
     R.split(' '),
     parseExpression(state)
   )(headOfContent)
-  return fold(
+  return fold<string, string | number, Either<string, (string | number)[]>>(
     message => left(message),
     parsedExpression =>
       getContentList(state)(restOfContent, [
@@ -42,7 +35,6 @@ const getContentList: (
   )(mayBeParsedExpression)
 }
 
-// State -> [Content] -> Object
 export const getDescription: (
   state: State
 ) => (data: SingleASTNode[]) => Either<string, object> = state => data => {
@@ -57,26 +49,18 @@ export const getDescription: (
     getContentList(state)
   )(data)
 
-  return fold(
+  return fold<string, (string | number)[], Either<string, object>>(
     message => left(message),
     (headerContent: (string | number)[]) => {
-      return fold(
+      return fold<string, (string | number)[], Either<string, object>>(
         message => left(message),
-        cellsContent =>
+        (cellsContent: (string | number)[]) =>
           right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
       )(mayBeCellsContent)
     }
   )(mayBeHeaderContent)
 }
-// R.pipe(
-//   R.head,
-//   R.converge(R.zipObj, [
-//     R.pipe(R.prop('header'), getContentList(state)),
-//     R.pipe(R.prop('cells'), R.head, getContentList(state)),
-//   ])
-// )
 
-// TODO: Error "Need a key for this description"
 const getDescriptionKey: (args: string[]) => string = R.pipe(
   R.head,
   R.when(R.isNil, R.always('Need a key for this description'))
@@ -93,7 +77,6 @@ const updateStateWithDescription: CommandUpdateState = ({
       right(R.assoc(getDescriptionKey(args), description)(state))
   )(maybeState)
 }
-// right(R.assoc(getDescriptionKey(args), getDescription(state)(data))(state))
 
 const describe: TestCommandAndUpdateState = [
   R.propEq('instruction', 'describe'),
