@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { Expression } from '../expressions'
+import { Expression, ExpressionValidResult } from '../expressions'
 import {
   TestCommandAndUpdateState,
   CommandUpdateState,
@@ -15,7 +15,7 @@ const assocToState: (
   expression: Expression,
   state: State
 ) => State = (path, expression, state) =>
-  R.assocPath<string | number, State>(
+  R.assocPath<ExpressionValidResult, State>(
     path,
     resolveExpression(state)(expression)
   )(state)

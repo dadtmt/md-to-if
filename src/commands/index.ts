@@ -12,7 +12,11 @@ import {
   ComputeContentAndState,
   ConditionalFunction,
 } from '../parseSceneContent'
-import parseExpression, { ParsedExpression, Expression } from '../expressions'
+import parseExpression, {
+  ParsedExpression,
+  Expression,
+  ExpressionValidResult,
+} from '../expressions'
 
 export type Command = {
   instruction: string
@@ -45,12 +49,12 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
 // TODO find a way to throw the error message
 const decodeExpression: (
   parsedExpression: ParsedExpression
-) => string | number = parsedExpression =>
+) => ExpressionValidResult = parsedExpression =>
   isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
 
 export const resolveExpression: (
   state: State
-) => (expression: Expression) => string | number = state =>
+) => (expression: Expression) => ExpressionValidResult = state =>
   R.pipe(parseExpression(state), decodeExpression)
 
 const getContentAsString: (content: SingleASTNode) => string = R.pipe(

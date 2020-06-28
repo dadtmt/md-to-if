@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import parseExpression from '../expressions'
+import parseExpression, { ExpressionValidResult } from '../expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
@@ -10,8 +10,8 @@ const getContentList: (
   state: State
 ) => (
   content: SingleASTNode[][],
-  parsedExpressions?: (string | number)[]
-) => Either<string, (string | number)[]> = state => (
+  parsedExpressions?: ExpressionValidResult[]
+) => Either<string, ExpressionValidResult[]> = state => (
   content,
   parsedExpressions = []
 ) => {
@@ -25,7 +25,11 @@ const getContentList: (
     R.split(' '),
     parseExpression(state)
   )(headOfContent)
-  return fold<string, string | number, Either<string, (string | number)[]>>(
+  return fold<
+    string,
+    ExpressionValidResult,
+    Either<string, ExpressionValidResult[]>
+  >(
     message => left(message),
     parsedExpression =>
       getContentList(state)(restOfContent, [
@@ -49,12 +53,12 @@ export const getDescription: (
     getContentList(state)
   )(data)
 
-  return fold<string, (string | number)[], Either<string, object>>(
+  return fold<string, ExpressionValidResult[], Either<string, object>>(
     message => left(message),
-    (headerContent: (string | number)[]) => {
-      return fold<string, (string | number)[], Either<string, object>>(
+    (headerContent: ExpressionValidResult[]) => {
+      return fold<string, ExpressionValidResult[], Either<string, object>>(
         message => left(message),
-        (cellsContent: (string | number)[]) =>
+        (cellsContent: ExpressionValidResult[]) =>
           right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
       )(mayBeCellsContent)
     }

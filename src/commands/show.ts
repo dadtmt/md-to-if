@@ -3,12 +3,12 @@ import * as R from 'ramda'
 import { State } from '../moves'
 import { TestCommandAndGetContent } from '.'
 import { toStringIfNotString } from '../utils/typeCheck'
-import parseExpression from '../expressions'
+import parseExpression, { ExpressionValidResult } from '../expressions'
 import { left, right, fold, Either } from 'fp-ts/lib/Either'
 import { SingleASTNode } from 'simple-markdown'
 
 const contentToShow: (
-  text: string | number
+  text: ExpressionValidResult
 ) => Either<string, SingleASTNode> = text =>
   right({
     content: toStringIfNotString(text),
