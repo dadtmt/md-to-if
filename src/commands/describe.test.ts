@@ -1,4 +1,5 @@
 import { getDescription } from './describe'
+import { getRight } from 'fp-ts/lib/Option'
 
 jest.mock('../expressions/rollDices')
 
@@ -20,8 +21,7 @@ describe('getDescription', () => {
       },
     ]
 
-    const expected = { prop1: 'val1', prop2: 'val2' }
-    expect(getDescription({})(data)).toEqual(expected)
+    expect(getDescription({})(data)).toMatchSnapshot()
   })
   it('handles expressions', () => {
     const data = [
@@ -43,6 +43,28 @@ describe('getDescription', () => {
     ]
 
     const expected = { prop1: 'val1', prop2: 42, numberProp: 12 }
-    expect(getDescription({})(data)).toEqual(expected)
+    expect(getDescription({})(data)).toMatchSnapshot()
+  })
+
+  it('returns error message of the first wrong expression', () => {
+    const data = [
+      {
+        type: 'table',
+        header: [
+          [{ type: 'text', content: 'prop1' }],
+          [{ type: 'text', content: 'prop2' }],
+          [{ type: 'text', content: 'numberProp' }],
+        ],
+        cells: [
+          [
+            [{ type: 'text', content: 'val1' }],
+            [{ type: 'text', content: 'roll' }],
+            [{ type: 'text', content: '12' }],
+          ],
+        ],
+      },
+    ]
+
+    expect(getDescription({})(data)).toMatchSnapshot()
   })
 })

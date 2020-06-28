@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import { State } from '../moves'
 import { TestAndComputeContentAndState, ComputeContentAndState } from '.'
 
-// State, Boolean -> Content -> [Content, State]
 const getTestResult: (
   state: State,
   match: boolean
@@ -32,7 +31,6 @@ const getCaseContent: (
   return R.pipe(R.assoc('contentToMerge', true), getTestResult(state, match))
 }
 
-// State -> [[Content -> Boolean, Content -> [Content, State]]]
 const parseCaseContent: (
   state: State
 ) => TestAndComputeContentAndState[] = state => [

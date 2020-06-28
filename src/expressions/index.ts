@@ -9,7 +9,9 @@ import { Either, right } from 'fp-ts/lib/Either'
 
 export type Expression = string[]
 
-export type ParsedExpression = Either<string, string | number>
+export type ExpressionValidResult = string | number
+
+export type ParsedExpression = Either<string, ExpressionValidResult>
 
 type TestExpression = ConditionalFunction<Expression>
 

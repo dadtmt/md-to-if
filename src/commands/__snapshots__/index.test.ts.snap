@@ -1,31 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applyCommand returns [error node content with missing path message, unmodified state] 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "content": "path is required to set a value -- path val value",
-        "type": "text",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " set val 2 ",
-            "type": "text",
-          },
-        ],
-        "type": "command",
-      },
-    ],
-    "type": "error",
-  },
-  Object {
-    "currentSceneName": "current scene",
-  },
-]
-`;
-
 exports[`applyCommand returns [error node content, unmodified state] 1`] = `
 Array [
   Object {

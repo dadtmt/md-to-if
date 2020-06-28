@@ -9,10 +9,11 @@ import {
 import { State } from '../moves'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../typeGuards'
+import { ExpressionValidResult } from '../expressions'
 
 type TestFunction = (
-  leftOperand: string | number,
-  rightOperand: string | number
+  leftOperand: ExpressionValidResult,
+  rightOperand: ExpressionValidResult
 ) => Either<string, boolean>
 
 type RelationToTestFunction = (
