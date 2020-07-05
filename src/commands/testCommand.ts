@@ -1,15 +1,10 @@
 import * as R from 'ramda'
 
-import {
-  TestCommandAndUpdateState,
-  Command,
-  splitArgsByVal,
-  resolveExpression,
-} from '.'
+import { TestCommandAndUpdateState, Command, splitArgsByVal } from '.'
 import { State } from '../moves'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../typeGuards'
-import { ExpressionValidResult } from '../expressions'
+import parseExpression, { ExpressionValidResult } from '../expressions'
 import foldError from '../utils/foldError'
 
 type TestFunction = (
@@ -61,15 +56,14 @@ const splitLeftPart: (
   R.dropLast<string>(1)(expressionAndOperator),
 ]
 
-// TODO Control errors on expressions
 const evaluateTest: TestEvaluation = ({ args }, state) => {
   const [leftPartAndOperator, rightPart] = splitArgsByVal(args)
   const [operator, leftPart] = splitLeftPart(leftPartAndOperator)
-
-  return getTestFunction(operator)(
-    resolveExpression(state)(leftPart),
-    resolveExpression(state)(rightPart)
-  )
+  return foldError<ExpressionValidResult, boolean>(leftValidExpression =>
+    foldError<ExpressionValidResult, boolean>(rightValidExpression =>
+      getTestFunction(operator)(leftValidExpression, rightValidExpression)
+    )(parseExpression(state)(rightPart))
+  )(parseExpression(state)(leftPart))
 }
 
 const storeTestResult = (testResult: boolean) =>
