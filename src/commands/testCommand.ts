@@ -10,6 +10,7 @@ import { State } from '../moves'
 import { right, Either, isRight, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../typeGuards'
 import { ExpressionValidResult } from '../expressions'
+import foldError from '../utils/foldError'
 
 type TestFunction = (
   leftOperand: ExpressionValidResult,
@@ -76,12 +77,10 @@ const storeTestResult = (testResult: boolean) =>
 
 const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
-  command => state => {
-    const testEvaluation = evaluateTest(command, state)
-    return isRight(testEvaluation)
-      ? right(storeTestResult(testEvaluation.right)(state))
-      : left(testEvaluation.left)
-  },
+  command => state =>
+    foldError<boolean, State>(testResult =>
+      right(storeTestResult(testResult)(state))
+    )(evaluateTest(command, state)),
 ]
 
 export default test
