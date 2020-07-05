@@ -46,13 +46,11 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
   removeVal
 )
 
-// TODO remove when not used anymore
 const decodeExpression: (
   parsedExpression: ParsedExpression
 ) => ExpressionValidResult = parsedExpression =>
   isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
 
-// TODO remove when not used anymore
 export const resolveExpression: (
   state: State
 ) => (expression: Expression) => ExpressionValidResult = state =>

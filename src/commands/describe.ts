@@ -3,8 +3,9 @@ import parseExpression, { ExpressionValidResult } from '../expressions'
 import { TestCommandAndUpdateState, CommandUpdateState } from '.'
 import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
-import { right, Either, fold, left } from 'fp-ts/lib/Either'
+import { right, Either } from 'fp-ts/lib/Either'
 import { toArrayOfStrings } from '../utils/typeCheck'
+import foldError from '../utils/foldError'
 
 const getContentList: (
   state: State
@@ -25,12 +26,8 @@ const getContentList: (
     R.split(' '),
     parseExpression(state)
   )(headOfContent)
-  return fold<
-    string,
-    ExpressionValidResult,
-    Either<string, ExpressionValidResult[]>
-  >(
-    message => left(message),
+
+  return foldError<ExpressionValidResult, ExpressionValidResult[]>(
     parsedExpression =>
       getContentList(state)(restOfContent, [
         ...parsedExpressions,
@@ -53,15 +50,12 @@ export const getDescription: (
     getContentList(state)
   )(data)
 
-  return fold<string, ExpressionValidResult[], Either<string, object>>(
-    message => left(message),
-    (headerContent: ExpressionValidResult[]) => {
-      return fold<string, ExpressionValidResult[], Either<string, object>>(
-        message => left(message),
+  return foldError<ExpressionValidResult[], object>(
+    (headerContent: ExpressionValidResult[]) =>
+      foldError<ExpressionValidResult[], object>(
         (cellsContent: ExpressionValidResult[]) =>
           right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
       )(mayBeCellsContent)
-    }
   )(mayBeHeaderContent)
 }
 
@@ -73,14 +67,10 @@ const getDescriptionKey: (args: string[]) => string = R.pipe(
 const updateStateWithDescription: CommandUpdateState = ({
   args,
   data,
-}) => state => {
-  const maybeState = getDescription(state)(data)
-  return fold(
-    (message: string) => left(message),
-    (description: object) =>
-      right(R.assoc(getDescriptionKey(args), description)(state))
-  )(maybeState)
-}
+}) => state =>
+  foldError<object, State>((description: object) =>
+    right(R.assoc(getDescriptionKey(args), description)(state))
+  )(getDescription(state)(data))
 
 const describe: TestCommandAndUpdateState = [
   R.propEq('instruction', 'describe'),
