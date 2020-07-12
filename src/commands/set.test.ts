@@ -51,4 +51,18 @@ describe('applyCommand set', () => {
 
     expect(applyCommand(state)(content)).toMatchSnapshot()
   })
+  it('returns [error node content with expression error message, unmodified state]', () => {
+    const content = {
+      content: [
+        {
+          content: ' set a path val error ',
+          type: 'text',
+        },
+      ],
+      type: 'command',
+    }
+    const state = { currentSceneName: 'current scene' }
+
+    expect(applyCommand(state)(content)).toMatchSnapshot()
+  })
 })
