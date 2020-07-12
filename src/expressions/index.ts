@@ -5,7 +5,7 @@ import getValue from './getValue'
 import playedCount from './playedCount'
 import { State } from '../moves'
 import { ConditionalFunction } from '../parseSceneContent'
-import { Either, right } from 'fp-ts/lib/Either'
+import { Either, right, left } from 'fp-ts/lib/Either'
 
 export type Expression = string[]
 
@@ -32,6 +32,11 @@ const firstWordOrNumberByDefault: TestAndParseExpression = [
   R.pipe(R.head, wordMayBeANumber),
 ]
 
+const makeExpressionError: TestAndParseExpression = [
+  isFirstWord('error'),
+  R.always(left('Error parsing an expression')),
+]
+
 const parseExpression: (
   state: State
 ) => (expression: Expression) => ParsedExpression = state =>
@@ -39,6 +44,7 @@ const parseExpression: (
     playedCount(state),
     rollDices,
     getValue(state),
+    makeExpressionError,
     firstWordOrNumberByDefault,
   ])
 
