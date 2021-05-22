@@ -1,3 +1,6 @@
+# Build dir
+lib
+
 # Logs
 logs
 *.log

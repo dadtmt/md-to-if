@@ -2,13 +2,18 @@
   "name": "md-to-if",
   "version": "0.0.3",
   "description": "An attempt to write a Markdown to Interactive Fiction parser",
-  "main": "src/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "./lib/**/*"
+  ],
   "scripts": {
     "lint": "npx eslint 'src/**/*.ts'",
     "lintandfix": "npx eslint --fix 'src/**/*.ts'",
     "precommit": "lint-staged && npm test",
     "test": "jest --watch",
-    "check-types": "tsc"
+    "clean": "del lib/*",
+    "build": "npm run clean && tsc"
   },
   "repository": {
     "type": "git",
@@ -32,6 +37,7 @@
     "@types/ramda": "^0.27.6",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
+    "del-cli": "^3.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-standard": "^14.1.0",
