@@ -1,6 +1,6 @@
 {
   "name": "md-to-if",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An attempt to write a Markdown to Interactive Fiction parser",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
