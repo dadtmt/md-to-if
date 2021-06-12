@@ -25,6 +25,7 @@ const moveToBedroom = {
 describe('player', () => {
   it('play book introduction if no actions', () => {
     expect(player(adventureBook)).toMatchSnapshot()
+    expect(player(adventureBook)).toHaveLength(1)
   })
   it('play first scene on start move and add state.played with first_scene: 1', () => {
     const moves = [startMove]
