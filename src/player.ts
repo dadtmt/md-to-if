@@ -1,7 +1,7 @@
 import playMoves, { State } from './moves'
 import { Scene } from '.'
 
-export type Move = {
+export interface Move {
   type: string
   [prop: string]: any
 }
@@ -13,7 +13,7 @@ const player: (scenes: Scene[], moves?: Move[]) => Scene[] = (
   moves
 ) => {
   const [introduction, ...scenesAfterInroduction] = scenes
-  return [introduction, ...playMoves(moves || [], scenesAfterInroduction)]
+  return [introduction, ...playMoves(moves ?? [], scenesAfterInroduction)]
 }
 
 export default player

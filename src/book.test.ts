@@ -2,7 +2,7 @@ import parser from './parser'
 import book, {
   splitByScene,
   getSceneName,
-  splitContentAndActions,
+  splitContentAndActions
 } from './book'
 import adventure from './adventure.md'
 

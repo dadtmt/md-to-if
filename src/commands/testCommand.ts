@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { TestCommandAndUpdateState, Command, splitArgsByVal } from '.'
 import { State } from '../moves'
-import { right, Either, isRight, left } from 'fp-ts/lib/Either'
+import { right, Either, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../typeGuards'
 import parseExpression, { ExpressionValidResult } from '../expressions'
 import foldError from '../utils/foldError'
@@ -21,60 +21,58 @@ type TestEvaluation = (
   state: State
 ) => Either<string, boolean>
 
-const alwaysRight: RelationToTestFunction = relation => (
-  leftOperand,
-  rightOperand
-) => right(relation(leftOperand, rightOperand))
+const alwaysRight: RelationToTestFunction =
+  (relation) => (leftOperand, rightOperand) =>
+    right(relation(leftOperand, rightOperand))
 
-const alwaysLeft: (errorMessage: string) => TestFunction = errorMessage => () =>
-  left(errorMessage)
+const alwaysLeft: (errorMessage: string) => TestFunction =
+  (errorMessage) => () =>
+    left(errorMessage)
 
-const operandMustBeANumber: (position: string) => string = position =>
+const operandMustBeANumber: (position: string) => string = (position) =>
   `${position} operand of the test must be a number`
 
-const operandsMustBeNumber: RelationToTestFunction = relation => (
-  leftOperand,
-  rightOperand
-) =>
-  !isNumber(leftOperand)
-    ? left(operandMustBeANumber('left'))
-    : !isNumber(rightOperand)
-    ? left(operandMustBeANumber('right'))
-    : right(relation(leftOperand, rightOperand))
+const operandsMustBeNumber: RelationToTestFunction =
+  (relation) => (leftOperand, rightOperand) =>
+    !isNumber(leftOperand)
+      ? left(operandMustBeANumber('left'))
+      : !isNumber(rightOperand)
+      ? left(operandMustBeANumber('right'))
+      : right(relation(leftOperand, rightOperand))
 
-const getTestFunction: (operator: string) => TestFunction = operator =>
+const getTestFunction: (operator: string) => TestFunction = (operator) =>
   R.cond<string, TestFunction>([
     [R.equals('equals'), () => alwaysRight(R.equals)],
     [R.equals('lte'), () => operandsMustBeNumber(R.lte)],
-    [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)],
+    [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)]
   ])(operator)
 
-const splitLeftPart: (
-  expressionAndOperator: string[]
-) => [string, string[]] = expressionAndOperator => [
-  R.last(expressionAndOperator) || 'missing-operator',
-  R.dropLast<string>(1)(expressionAndOperator),
+const splitLeftPart: (expressionAndOperator: string[]) => [string, string[]] = (
+  expressionAndOperator
+) => [
+  R.last(expressionAndOperator) ?? 'missing-operator',
+  R.dropLast<string>(1)(expressionAndOperator)
 ]
 
 const evaluateTest: TestEvaluation = ({ args }, state) => {
   const [leftPartAndOperator, rightPart] = splitArgsByVal(args)
   const [operator, leftPart] = splitLeftPart(leftPartAndOperator)
-  return foldError<ExpressionValidResult, boolean>(leftValidExpression =>
-    foldError<ExpressionValidResult, boolean>(rightValidExpression =>
+  return foldError<ExpressionValidResult, boolean>((leftValidExpression) =>
+    foldError<ExpressionValidResult, boolean>((rightValidExpression) =>
       getTestFunction(operator)(leftValidExpression, rightValidExpression)
     )(parseExpression(state)(rightPart))
   )(parseExpression(state)(leftPart))
 }
 
-const storeTestResult = (testResult: boolean) =>
+const storeTestResult = (testResult: boolean): ((state: State) => State) =>
   R.assoc('testResult', testResult)
 
 const test: TestCommandAndUpdateState = [
   R.propEq('instruction', 'test'),
-  command => state =>
-    foldError<boolean, State>(testResult =>
+  (command) => (state) =>
+    foldError<boolean, State>((testResult) =>
       right(storeTestResult(testResult)(state))
-    )(evaluateTest(command, state)),
+    )(evaluateTest(command, state))
 ]
 
 export default test

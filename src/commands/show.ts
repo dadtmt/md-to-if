@@ -9,21 +9,21 @@ import { SingleASTNode } from 'simple-markdown'
 
 const contentToShow: (
   text: ExpressionValidResult
-) => Either<string, SingleASTNode> = text =>
+) => Either<string, SingleASTNode> = (text) =>
   right({
     content: toStringIfNotString(text),
-    type: 'text',
+    type: 'text'
   })
 
-const errorMessage: (
-  message: string
-) => Either<string, SingleASTNode> = message => left(message)
+const errorMessage: (message: string) => Either<string, SingleASTNode> = (
+  message
+) => left(message)
 
-const show: (state: State) => TestCommandAndGetContent = state => {
+const show: (state: State) => TestCommandAndGetContent = (state) => {
   return [
     R.propEq('instruction', 'show'),
     ({ args }) =>
-      fold(errorMessage, contentToShow)(parseExpression(state)(args)),
+      fold(errorMessage, contentToShow)(parseExpression(state)(args))
   ]
 }
 

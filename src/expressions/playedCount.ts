@@ -5,9 +5,9 @@ import { State } from '../moves'
 import { TestAndParseExpression, isFirstWord } from '.'
 import { right } from 'fp-ts/lib/Either'
 
-const playedCount: (state: State) => TestAndParseExpression = state => [
+const playedCount: (state: State) => TestAndParseExpression = (state) => [
   isFirstWord('playedCount'),
-  R.always(right(getPlayedSceneCount(state))),
+  R.always(right(getPlayedSceneCount(state)))
 ]
 
 export default playedCount

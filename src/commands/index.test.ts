@@ -5,7 +5,7 @@ describe('getCommand', () => {
     const dynamicContent = [
       { type: 'text', content: 'instruction arg0 arg1 arg2' },
       { type: 'data', content: 'data0' },
-      { type: 'data', content: 'data1' },
+      { type: 'data', content: 'data1' }
     ]
 
     const expected = {
@@ -13,8 +13,8 @@ describe('getCommand', () => {
       args: ['arg0', 'arg1', 'arg2'],
       data: [
         { type: 'data', content: 'data0' },
-        { type: 'data', content: 'data1' },
-      ],
+        { type: 'data', content: 'data1' }
+      ]
     }
     expect(getCommand(dynamicContent)).toEqual(expected)
   })
@@ -28,25 +28,25 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' show playedCount ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '3',
-        type: 'text',
+        type: 'text'
       },
-      state,
+      state
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -59,32 +59,32 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' show container prop ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
       currentSceneName,
-      container: { prop: 'value' },
+      container: { prop: 'value' }
     }
 
     const expected = [
       {
         content: 'value',
-        type: 'text',
+        type: 'text'
       },
       {
         played: {
-          currentSceneName: 3,
+          currentSceneName: 3
         },
         currentSceneName,
-        container: { prop: 'value' },
-      },
+        container: { prop: 'value' }
+      }
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -97,25 +97,25 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' test playedCount equals val 1 ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '',
-        type: 'text',
+        type: 'text'
       },
-      { ...state, testResult: true },
+      { ...state, testResult: true }
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -128,17 +128,17 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' test playedCount maybe val 1 ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
-      currentSceneName,
+      currentSceneName
     }
 
     expect(applyCommand(state)(content)).toMatchSnapshot()
@@ -151,17 +151,17 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' test playedCount lte val string ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
-      currentSceneName,
+      currentSceneName
     }
 
     expect(applyCommand(state)(content)).toMatchSnapshot()
@@ -174,25 +174,25 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' test playedCount equals val 2 ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '',
-        type: 'text',
+        type: 'text'
       },
-      { ...state, testResult: false },
+      { ...state, testResult: false }
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -203,10 +203,10 @@ describe('applyCommand', () => {
       content: [
         {
           content: ' error ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
     const state = { currentSceneName: 'current scene' }
 

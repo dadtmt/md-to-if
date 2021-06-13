@@ -6,14 +6,14 @@ describe('parseContent', () => {
 
     const content = {
       content: 'some text',
-      type: 'text',
+      type: 'text'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [content, state]
@@ -28,25 +28,25 @@ describe('parseContent', () => {
       content: [
         {
           content: ' show playedCount ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '3',
-        type: 'text',
+        type: 'text'
       },
-      state,
+      state
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -59,31 +59,31 @@ describe('parseContent', () => {
       content: [
         {
           content: ' set container prop val value',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '',
-        type: 'text',
+        type: 'text'
       },
       {
         played: {
-          currentSceneName: 3,
+          currentSceneName: 3
         },
         currentSceneName,
-        container: { prop: 'value' },
-      },
+        container: { prop: 'value' }
+      }
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -95,18 +95,18 @@ describe('parseContent', () => {
       content: [
         {
           content: ' true case content ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'trueCaseContent',
+      type: 'trueCaseContent'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
       currentSceneName,
-      testResult: true,
+      testResult: true
     }
 
     const expected = [
@@ -114,13 +114,13 @@ describe('parseContent', () => {
         content: [
           {
             content: ' true case content ',
-            type: 'text',
-          },
+            type: 'text'
+          }
         ],
         type: 'trueCaseContent',
-        contentToMerge: true,
+        contentToMerge: true
       },
-      { played: state.played, currentSceneName },
+      { played: state.played, currentSceneName }
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -132,18 +132,18 @@ describe('parseContent', () => {
       content: [
         {
           content: ' true case content ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'trueCaseContent',
+      type: 'trueCaseContent'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
       currentSceneName,
-      testResult: false,
+      testResult: false
     }
 
     const expected = [
@@ -151,13 +151,13 @@ describe('parseContent', () => {
         content: [
           {
             content: '',
-            type: 'text',
-          },
+            type: 'text'
+          }
         ],
         type: 'trueCaseContent',
-        contentToMerge: true,
+        contentToMerge: true
       },
-      state,
+      state
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -169,18 +169,18 @@ describe('parseContent', () => {
       content: [
         {
           content: ' false case content ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'falseCaseContent',
+      type: 'falseCaseContent'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
       currentSceneName,
-      testResult: false,
+      testResult: false
     }
 
     const expected = [
@@ -188,13 +188,13 @@ describe('parseContent', () => {
         content: [
           {
             content: ' false case content ',
-            type: 'text',
-          },
+            type: 'text'
+          }
         ],
         type: 'falseCaseContent',
-        contentToMerge: true,
+        contentToMerge: true
       },
-      { played: state.played, currentSceneName },
+      { played: state.played, currentSceneName }
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -206,18 +206,18 @@ describe('parseContent', () => {
       content: [
         {
           content: ' false case content ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'falseCaseContent',
+      type: 'falseCaseContent'
     }
 
     const state = {
       played: {
-        currentSceneName: 1,
+        currentSceneName: 1
       },
       currentSceneName,
-      testResult: true,
+      testResult: true
     }
 
     const expected = [
@@ -225,13 +225,13 @@ describe('parseContent', () => {
         content: [
           {
             content: '',
-            type: 'text',
-          },
+            type: 'text'
+          }
         ],
         type: 'falseCaseContent',
-        contentToMerge: true,
+        contentToMerge: true
       },
-      state,
+      state
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -243,51 +243,51 @@ describe('parseContent', () => {
       content: [
         {
           content: ' Start paragraph ',
-          type: 'text',
+          type: 'text'
         },
         {
           content: [
             {
               content: ' test playedCount equals val 1 ',
-              type: 'text',
-            },
+              type: 'text'
+            }
           ],
-          type: 'command',
+          type: 'command'
         },
         {
           content: ' ',
-          type: 'text',
+          type: 'text'
         },
         {
           content: [
             {
               content: 'trueCase',
-              type: 'text',
-            },
+              type: 'text'
+            }
           ],
-          type: 'trueCaseContent',
+          type: 'trueCaseContent'
         },
         {
           content: [
             {
               content: 'falseCase',
-              type: 'text',
-            },
+              type: 'text'
+            }
           ],
-          type: 'falseCaseContent',
+          type: 'falseCaseContent'
         },
         {
           content: ' ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'paragraph',
+      type: 'paragraph'
     }
     const state = {
       played: {
-        currentSceneName: 2,
+        currentSceneName: 2
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
@@ -295,32 +295,32 @@ describe('parseContent', () => {
         content: [
           {
             content: ' Start paragraph ',
-            type: 'text',
+            type: 'text'
           },
           {
             content: '',
-            type: 'text',
+            type: 'text'
           },
           {
             content: ' ',
-            type: 'text',
+            type: 'text'
           },
           {
             content: '',
-            type: 'text',
+            type: 'text'
           },
           {
             content: 'falseCase',
-            type: 'text',
+            type: 'text'
           },
           {
             content: ' ',
-            type: 'text',
-          },
+            type: 'text'
+          }
         ],
-        type: 'paragraph',
+        type: 'paragraph'
       },
-      { played: state.played, currentSceneName },
+      { played: state.played, currentSceneName }
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
@@ -332,40 +332,40 @@ describe('parseContent', () => {
       content: [
         {
           content: 'some text',
-          type: 'text',
+          type: 'text'
         },
         {
           content: [
             {
               content: ' show playedCount ',
-              type: 'text',
-            },
+              type: 'text'
+            }
           ],
-          type: 'command',
-        },
+          type: 'command'
+        }
       ],
-      type: 'paragraph',
+      type: 'paragraph'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expectedContent = {
       content: [
         {
           content: 'some text',
-          type: 'text',
+          type: 'text'
         },
         {
           content: '3',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'paragraph',
+      type: 'paragraph'
     }
 
     const expected = [expectedContent, state]
@@ -387,14 +387,14 @@ describe('mergeContent', () => {
       type: 'paragraph',
       content: [
         { content: 'current content', type: 'text' },
-        { content: 'second current content', type: 'text' },
+        { content: 'second current content', type: 'text' }
       ],
-      contentToMerge: true,
+      contentToMerge: true
     }
     const expected = [
       ...parsedContent,
       { content: 'current content', type: 'text' },
-      { content: 'second current content', type: 'text' },
+      { content: 'second current content', type: 'text' }
     ]
     expect(mergeContent(parsedContent)(currentContent)).toEqual(expected)
   })

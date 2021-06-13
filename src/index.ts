@@ -3,7 +3,7 @@ import book from './book'
 import player from './player'
 import { SingleASTNode } from 'simple-markdown'
 
-export type Scene = {
+export interface Scene {
   name: string
   sceneContent: SingleASTNode[]
   actions?: Scene[]

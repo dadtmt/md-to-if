@@ -26,9 +26,10 @@ const appendTo = R.flip(R.append)
 // [Content] -> Content -> Content
 export const mergeContent: (
   parsedContent: SingleASTNode[]
-) => (content: SingleASTNode) => SingleASTNode = parsedContent =>
+) => (content: SingleASTNode) => SingleASTNode = (parsedContent) =>
   R.ifElse(
     R.prop('contentToMerge'),
+    // @ts-expect-error
     R.pipe(R.prop('content'), R.concat(parsedContent)),
     appendTo(parsedContent)
   )
@@ -43,20 +44,19 @@ const parseArrayContent: (
 ) => {
   const [headChildContent, ...restOfChildContent] = content.content
 
-  if (headChildContent) {
+  if (headChildContent !== undefined) {
     const [parsedContent, parsedState] = parsedContentAndState
-    const [parsedHeadChildContent, newParsedState] = parseContent(parsedState)(
-      headChildContent
-    )
+    const [parsedHeadChildContent, newParsedState] =
+      parseContent(parsedState)(headChildContent)
 
     return parseArrayContent(
       [{ ...content, content: restOfChildContent }, newParsedState],
       [
         {
           ...content,
-          content: mergeContent(parsedContent.content)(parsedHeadChildContent),
+          content: mergeContent(parsedContent.content)(parsedHeadChildContent)
         },
-        newParsedState,
+        newParsedState
       ]
     )
   }
@@ -64,21 +64,21 @@ const parseArrayContent: (
   return parsedContentAndState
 }
 
-const appendState: (
-  state: State
-) => ComputeContentAndState = state => content => [content, state]
+const appendState: (state: State) => ComputeContentAndState =
+  (state) => (content) =>
+    [content, state]
 
-const appendStateByDefault: (
-  state: State
-) => TestAndComputeContentAndState = state => [R.T, appendState(state)]
+const appendStateByDefault: (state: State) => TestAndComputeContentAndState = (
+  state
+) => [R.T, appendState(state)]
 
 // State | [] -> Content -> [Content, State]
-export const parseContent: (state: State) => ComputeContentAndState = state =>
+export const parseContent: (state: State) => ComputeContentAndState = (state) =>
   R.pipe(
     R.cond([
       parseCommandContent(state),
       ...parseCaseContent(state),
-      appendStateByDefault(state),
+      appendStateByDefault(state)
     ]),
     R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
   )
@@ -95,11 +95,10 @@ const parseSceneContent: (
   parsedContentAndState = [[], state]
 ) => {
   const [headContent, ...restOfContent] = sceneContent
-  if (headContent) {
+  if (headContent !== undefined) {
     const [parsedContent, parsedState] = parsedContentAndState
-    const [parsedHeadContent, newParsedSate] = parseContent(parsedState)(
-      headContent
-    )
+    const [parsedHeadContent, newParsedSate] =
+      parseContent(parsedState)(headContent)
     return parseSceneContent(
       { sceneContent: restOfContent, state: parsedState },
       [[...parsedContent, parsedHeadContent], newParsedSate]
