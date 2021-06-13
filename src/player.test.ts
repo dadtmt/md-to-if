@@ -7,19 +7,19 @@ jest.mock('./expressions/rollDices')
 
 const adventureBook = book(parser(adventure))
 const startMove = {
-  type: 'start',
+  type: 'start'
 }
 const moveToCantina = {
   type: 'anchor',
-  target: '/cantina',
+  target: '/cantina'
 }
 const moveToSpaceShip = {
   type: 'anchor',
-  target: '/the_space_ship',
+  target: '/the_space_ship'
 }
 const moveToBedroom = {
   type: 'anchor',
-  target: '/bedroom',
+  target: '/bedroom'
 }
 
 describe('player', () => {

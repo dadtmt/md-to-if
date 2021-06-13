@@ -8,11 +8,11 @@ module.exports = {
   },
   extends: [
     'standard',
-    'prettier',
     'plugin:@typescript-eslint/eslint-recommended',
     'standard-with-typescript',
+    'prettier',
   ],
-  plugins: ['prettier', '@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -20,10 +20,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.eslint.json',
   },
   rules: {
     'prettier/prettier': ['error'],
-    '@typescript-eslint/member-delimiter-style': {
+    '@typescript-eslint/member-delimiter-style': ["error", {
       multiline: {
         delimiter: 'none',
         requireLast: false,
@@ -32,6 +33,6 @@ module.exports = {
         delimiter: 'comma',
         requireLast: false,
       },
-    },
+    }],
   },
 }

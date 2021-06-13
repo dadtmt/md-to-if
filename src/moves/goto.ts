@@ -25,10 +25,10 @@ export const getTargetSceneName: (move: Move) => string = R.pipe(
 )
 
 // Move -> Scene -> Boolean
-export const matchTarget: (move: Move) => (scene: Scene) => boolean = move =>
+export const matchTarget: (move: Move) => (scene: Scene) => boolean = (move) =>
   R.propEq('name', getTargetSceneName(move))
 
-const notFoundScene: (move: Move) => Scene = move => {
+const notFoundScene: (move: Move) => Scene = (move) => {
   const name = getTargetSceneName(move)
 
   return {
@@ -40,34 +40,34 @@ const notFoundScene: (move: Move) => Scene = move => {
         content: [
           {
             type: 'text',
-            content: name,
-          },
-        ],
+            content: name
+          }
+        ]
       },
       {
         type: 'paragraph',
         content: [
           {
             type: 'text',
-            content: `The scene with name ${name} does not exist`,
-          },
-        ],
-      },
-    ],
+            content: `The scene with name ${name} does not exist`
+          }
+        ]
+      }
+    ]
   }
 }
 
 // Move -> [Scene] -> Scene
-export const getTargetedScene: (
-  move: Move
-) => (scenes: Scene[]) => Scene = move =>
+export const getTargetedScene: (move: Move) => (scenes: Scene[]) => Scene = (
+  move
+) =>
   R.pipe(
     R.find(matchTarget(move)),
     R.when(R.isNil, () => notFoundScene(move))
   )
 
 // String -> State -> State
-const updateState: (name: string) => (state: State) => State = name =>
+const updateState: (name: string) => (state: State) => State = (name) =>
   R.pipe(R.assoc('currentSceneName', name), incPlayedSceneCount(name))
 
 // [Scene], [PlayedScene]-> [Move -> Boolean, Move -> MovedScene]
@@ -79,16 +79,16 @@ const goto: (
   playedScenes
 ) => [
   R.propEq('type', 'anchor'),
-  move => {
+  (move) => {
     const lastState = getLastPlayedSceneState(playedScenes)
     const scene = getTargetedScene(move)(scenes)
     const { name } = scene
 
     return {
       ...scene,
-      state: updateState(name)(lastState),
+      state: updateState(name)(lastState)
     }
-  },
+  }
 ]
 
 export default goto

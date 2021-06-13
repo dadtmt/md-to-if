@@ -12,33 +12,32 @@ const getContentList: (
 ) => (
   content: SingleASTNode[][],
   parsedExpressions?: ExpressionValidResult[]
-) => Either<string, ExpressionValidResult[]> = state => (
-  content,
-  parsedExpressions = []
-) => {
-  const [headOfContent, ...restOfContent] = content
-  if (R.isNil(headOfContent)) {
-    return right(parsedExpressions)
-  }
-  const mayBeParsedExpression = R.pipe(
-    R.head,
-    R.propOr('', 'content'),
-    R.split(' '),
-    parseExpression(state)
-  )(headOfContent)
+) => Either<string, ExpressionValidResult[]> =
+  (state) =>
+  (content, parsedExpressions = []) => {
+    const [headOfContent, ...restOfContent] = content
+    if (R.isNil(headOfContent)) {
+      return right(parsedExpressions)
+    }
+    const mayBeParsedExpression = R.pipe(
+      R.head,
+      R.propOr('', 'content'),
+      R.split(' '),
+      parseExpression(state)
+    )(headOfContent)
 
-  return foldError<ExpressionValidResult, ExpressionValidResult[]>(
-    parsedExpression =>
-      getContentList(state)(restOfContent, [
-        ...parsedExpressions,
-        parsedExpression,
-      ])
-  )(mayBeParsedExpression)
-}
+    return foldError<ExpressionValidResult, ExpressionValidResult[]>(
+      (parsedExpression) =>
+        getContentList(state)(restOfContent, [
+          ...parsedExpressions,
+          parsedExpression
+        ])
+    )(mayBeParsedExpression)
+  }
 
 export const getDescription: (
   state: State
-) => (data: SingleASTNode[]) => Either<string, object> = state => data => {
+) => (data: SingleASTNode[]) => Either<string, object> = (state) => (data) => {
   const headerDataLens = R.lensPath([0, 'header'])
   const cellsDataLens = R.lensPath([0, 'cells', 0])
   const mayBeHeaderContent = R.pipe(
@@ -64,17 +63,16 @@ const getDescriptionKey: (args: string[]) => string = R.pipe(
   R.when(R.isNil, R.always('Need a key for this description'))
 )
 
-const updateStateWithDescription: CommandUpdateState = ({
-  args,
-  data,
-}) => state =>
-  foldError<object, State>((description: object) =>
-    right(R.assoc(getDescriptionKey(args), description)(state))
-  )(getDescription(state)(data))
+const updateStateWithDescription: CommandUpdateState =
+  ({ args, data }) =>
+  (state) =>
+    foldError<object, State>((description: object) =>
+      right(R.assoc(getDescriptionKey(args), description)(state))
+    )(getDescription(state)(data))
 
 const describe: TestCommandAndUpdateState = [
   R.propEq('instruction', 'describe'),
-  updateStateWithDescription,
+  updateStateWithDescription
 ]
 
 export default describe

@@ -14,11 +14,11 @@ export const getSceneName: (content: SingleASTNode) => string = R.pipe(
 // int -> [SingleASTNode] -> [[SingleASTNode],[SingleASTNode]]
 const splitByHeading: (
   level: number
-) => (content: SingleASTNode[]) => SingleASTNode[][] = level =>
+) => (content: SingleASTNode[]) => SingleASTNode[][] = (level) =>
   R.splitWhen(
     R.where({
       type: R.equals('heading'),
-      level: R.equals(level),
+      level: R.equals(level)
     })
   )
 
@@ -34,7 +34,7 @@ const splitActions: (
       ? splitContentAndActions(level + 1)(actionContent)
       : {
           content: [],
-          actions: [],
+          actions: []
         }
   return !R.isEmpty(restOfContent)
     ? splitActions(level, restOfContent, [
@@ -42,26 +42,24 @@ const splitActions: (
         {
           name: getSceneName(headOfContent),
           sceneContent: [headOfContent, ...content],
-          actions,
-        },
+          actions
+        }
       ])
     : actionList
 }
 
 // [SingleASTNode] -> { content: [SingleASTNode], actions: [Scene] }
-export const splitContentAndActions: (
-  level: number
-) => (
+export const splitContentAndActions: (level: number) => (
   contentAndActions: SingleASTNode[]
 ) => {
   content: SingleASTNode[]
   actions: Scene[]
-} = level => contentAndActions => {
+} = (level) => (contentAndActions) => {
   const [content, actions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, actions) }
 }
 
-type SplittedContent = {
+interface SplittedContent {
   heading: SingleASTNode
   content: SingleASTNode[]
   sourceLeft: SingleASTNode[]
@@ -70,28 +68,25 @@ type SplittedContent = {
 const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
   'heading',
   'content',
-  'sourceLeft',
+  'sourceLeft'
 ])
 
-const splitContentToSceneAndSourceLeft: (
-  splittedContent: SplittedContent
-) => {
+const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
   scene: Scene
   sourceLeft: SingleASTNode[]
 } = ({ heading, content, sourceLeft }) => ({
   scene: {
     name: getSceneName(heading),
-    sceneContent: [heading, ...content],
+    sceneContent: [heading, ...content]
   },
-  sourceLeft,
+  sourceLeft
 })
 
 // int -> [SingleASTNode] -> { scene: Scene, content: [SingleASTNode] }
-export const splitByScene: (
-  level: number
-) => (
-  content: SingleASTNode[]
-) => { scene: Scene; sourceLeft: SingleASTNode[] } = level =>
+export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
+  scene: Scene
+  sourceLeft: SingleASTNode[]
+} = (level) =>
   R.pipe(
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     sortSplittedContent,

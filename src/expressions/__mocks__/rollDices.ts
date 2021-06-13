@@ -10,7 +10,7 @@ const rollDices: TestAndParseExpression = [
     R.pipe(getInput, R.isNil),
     R.always(left('The dices are missing (ex: roll d6)')),
     R.always(right(42))
-  ),
+  )
 ]
 
 export default rollDices

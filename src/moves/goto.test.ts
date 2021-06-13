@@ -7,15 +7,15 @@ const adventureBook = book(parser(adventure))
 
 const moveToCantina = {
   type: 'anchor',
-  target: '/cantina',
+  target: '/cantina'
 }
 const moveToSpaceShip = {
   type: 'anchor',
-  target: '/the_space_ship',
+  target: '/the_space_ship'
 }
 const moveToUnknown = {
   type: 'anchor',
-  target: '/unknown',
+  target: '/unknown'
 }
 
 describe('getTargetedScene', () => {

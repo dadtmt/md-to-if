@@ -25,8 +25,8 @@ describe('parseExpression', () => {
     const state = {
       currentSceneName: 'currentSceneName',
       played: {
-        currentSceneName: 5,
-      },
+        currentSceneName: 5
+      }
     }
 
     expect(resolveExpression(state)(expression)).toEqual(5)
@@ -34,14 +34,14 @@ describe('parseExpression', () => {
   it('returns value for ["path","to","the"]', () => {
     const expression = ['path', 'to', 'the']
     const state = {
-      path: { to: { the: 'value' } },
+      path: { to: { the: 'value' } }
     }
     expect(resolveExpression(state)(expression)).toEqual('value')
   })
   it('returns error not a single value for ["path","to","the"]', () => {
     const expression = ['path', 'to', 'the']
     const state = {
-      path: { to: { the: { some: 'value' } } },
+      path: { to: { the: { some: 'value' } } }
     }
     expect(resolveExpression(state)(expression)).toEqual(
       'The path path/to/the is not a single value'

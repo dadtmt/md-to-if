@@ -1,7 +1,7 @@
 import parser, {
   matchBraces,
   matchBracketPipe,
-  matchPipeBracket,
+  matchPipeBracket
 } from './parser'
 import adventure from './adventure.md'
 

@@ -19,33 +19,33 @@ type ParseExpression = (expression: Expression) => ParsedExpression
 
 export type TestAndParseExpression = [TestExpression, ParseExpression]
 
-export const isFirstWord: (word: string) => TestExpression = word =>
+export const isFirstWord: (word: string) => TestExpression = (word) =>
   R.pipe(R.head, R.equals(word))
 
-const wordMayBeANumber: (word: string) => ParsedExpression = word => {
+const wordMayBeANumber: (word: string) => ParsedExpression = (word) => {
   const convertedString = parseInt(word)
   return right(!isNaN(convertedString) ? convertedString : word)
 }
 
 const firstWordOrNumberByDefault: TestAndParseExpression = [
   R.T,
-  R.pipe(R.head, wordMayBeANumber),
+  R.pipe(R.head, wordMayBeANumber)
 ]
 
 const makeExpressionError: TestAndParseExpression = [
   isFirstWord('error'),
-  R.always(left('Error parsing an expression')),
+  R.always(left('Error parsing an expression'))
 ]
 
 const parseExpression: (
   state: State
-) => (expression: Expression) => ParsedExpression = state =>
+) => (expression: Expression) => ParsedExpression = (state) =>
   R.cond([
     playedCount(state),
     rollDices,
     getValue(state),
     makeExpressionError,
-    firstWordOrNumberByDefault,
+    firstWordOrNumberByDefault
   ])
 
 export default parseExpression

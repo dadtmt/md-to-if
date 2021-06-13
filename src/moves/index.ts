@@ -8,14 +8,14 @@ import { Move, PlayedScene } from '../player'
 import { Scene } from '..'
 import { SingleASTNode } from 'simple-markdown'
 
-export type State = {
+export interface State {
   currentSceneName?: string | undefined
   played?: object
   path?: object
   testResult?: boolean
 }
 
-export type MovedScene = {
+export interface MovedScene {
   name: string
   sceneContent: SingleASTNode[]
   state: State
@@ -29,29 +29,26 @@ const applyMove: (
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
 // MovedScene -> PlayedScene
-const playScene: (movedScene: MovedScene) => PlayedScene = movedScene => {
+const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
   const { sceneContent, state, ...restOfScene } = movedScene
 
   const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,
-    state,
+    state
   })
   return {
     sceneContent: parsedSceneContent,
     state: parsedState,
-    ...restOfScene,
+    ...restOfScene
   }
 }
 
 // [PlayedScene] -> PlayedScene -> [PlayedScene]
 const accPlayedScenes: (
   playedScenes: PlayedScene[]
-) => (
-  playedScene: PlayedScene
-) => PlayedScene[] = playedScenes => playedScene => [
-  ...playedScenes,
-  playedScene,
-]
+) => (playedScene: PlayedScene) => PlayedScene[] =
+  (playedScenes) => (playedScene) =>
+    [...playedScenes, playedScene]
 
 // [Scene], [PlayedScene] -> Move -> [PlayedScene]
 const playMove: (
@@ -71,7 +68,7 @@ const playMoves: (
   playedScenes?: PlayedScene[]
 ) => PlayedScene[] = (moves, scenes, playedScenes = []) => {
   const move = R.head(moves)
-  return move
+  return move != null
     ? playMoves(R.tail(moves), scenes, playMove(scenes, playedScenes)(move))
     : playedScenes
 }

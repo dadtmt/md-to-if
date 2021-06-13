@@ -12,15 +12,15 @@ const pathTo = R.flip(R.path)
 
 const ensureSingleValue: (
   expression: Expression
-) => (val: any) => ParsedExpression = expression => val =>
+) => (val: any) => ParsedExpression = (expression) => (val) =>
   isStringOrNumber(val)
     ? right(val)
     : left(`The path ${R.join('/', expression)} is not a single value`)
 
-const getValue: (state: State) => TestAndParseExpression = state => [
+const getValue: (state: State) => TestAndParseExpression = (state) => [
   R.pipe(hasPathTo(state), R.isNil, R.not),
-  expression =>
-    R.pipe(pathTo(state), ensureSingleValue(expression))(expression),
+  (expression) =>
+    R.pipe(pathTo(state), ensureSingleValue(expression))(expression)
 ]
 
 export default getValue

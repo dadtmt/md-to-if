@@ -1,4 +1,4 @@
-import { getCommand, applyCommand } from '.'
+import { applyCommand } from '.'
 
 describe('applyCommand show', () => {
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
@@ -8,25 +8,25 @@ describe('applyCommand show', () => {
       content: [
         {
           content: ' show playedCount ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '3',
-        type: 'text',
+        type: 'text'
       },
-      state,
+      state
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -39,17 +39,17 @@ describe('applyCommand show', () => {
       content: [
         {
           content: ' show ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     expect(applyCommand(state)(content)).toMatchSnapshot()

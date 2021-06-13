@@ -1,5 +1,4 @@
 import { getDescription } from './describe'
-import { getRight } from 'fp-ts/lib/Option'
 
 jest.mock('../expressions/rollDices')
 
@@ -10,15 +9,15 @@ describe('getDescription', () => {
         type: 'table',
         header: [
           [{ type: 'text', content: 'prop1' }],
-          [{ type: 'text', content: 'prop2' }],
+          [{ type: 'text', content: 'prop2' }]
         ],
         cells: [
           [
             [{ type: 'text', content: 'val1' }],
-            [{ type: 'text', content: 'val2' }],
-          ],
-        ],
-      },
+            [{ type: 'text', content: 'val2' }]
+          ]
+        ]
+      }
     ]
 
     expect(getDescription({})(data)).toMatchSnapshot()
@@ -30,19 +29,18 @@ describe('getDescription', () => {
         header: [
           [{ type: 'text', content: 'prop1' }],
           [{ type: 'text', content: 'prop2' }],
-          [{ type: 'text', content: 'numberProp' }],
+          [{ type: 'text', content: 'numberProp' }]
         ],
         cells: [
           [
             [{ type: 'text', content: 'val1' }],
             [{ type: 'text', content: 'roll D6' }],
-            [{ type: 'text', content: '12' }],
-          ],
-        ],
-      },
+            [{ type: 'text', content: '12' }]
+          ]
+        ]
+      }
     ]
 
-    const expected = { prop1: 'val1', prop2: 42, numberProp: 12 }
     expect(getDescription({})(data)).toMatchSnapshot()
   })
 
@@ -53,16 +51,16 @@ describe('getDescription', () => {
         header: [
           [{ type: 'text', content: 'prop1' }],
           [{ type: 'text', content: 'prop2' }],
-          [{ type: 'text', content: 'numberProp' }],
+          [{ type: 'text', content: 'numberProp' }]
         ],
         cells: [
           [
             [{ type: 'text', content: 'val1' }],
             [{ type: 'text', content: 'roll' }],
-            [{ type: 'text', content: '12' }],
-          ],
-        ],
-      },
+            [{ type: 'text', content: '12' }]
+          ]
+        ]
+      }
     ]
 
     expect(getDescription({})(data)).toMatchSnapshot()

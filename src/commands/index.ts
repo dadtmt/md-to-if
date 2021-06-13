@@ -10,15 +10,15 @@ import { SingleASTNode } from 'simple-markdown'
 import {
   TestAndComputeContentAndState,
   ComputeContentAndState,
-  ConditionalFunction,
+  ConditionalFunction
 } from '../parseSceneContent'
 import parseExpression, {
   ParsedExpression,
   Expression,
-  ExpressionValidResult,
+  ExpressionValidResult
 } from '../expressions'
 
-export type Command = {
+export interface Command {
   instruction: string
   args: string[]
   data: SingleASTNode[]
@@ -38,7 +38,7 @@ export type TestCommandAndGetContent = [TestCommand, CommandToContent]
 
 const removeVal: (parts: string[][]) => string[][] = ([
   leftPart,
-  rightPart,
+  rightPart
 ]) => [leftPart, rightPart.slice(1)]
 
 export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
@@ -48,12 +48,12 @@ export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
 
 const decodeExpression: (
   parsedExpression: ParsedExpression
-) => ExpressionValidResult = parsedExpression =>
+) => ExpressionValidResult = (parsedExpression) =>
   isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
 
 export const resolveExpression: (
   state: State
-) => (expression: Expression) => ExpressionValidResult = state =>
+) => (expression: Expression) => ExpressionValidResult = (state) =>
   R.pipe(parseExpression(state), decodeExpression)
 
 const getContentAsString: (content: SingleASTNode) => string = R.pipe(
@@ -61,9 +61,8 @@ const getContentAsString: (content: SingleASTNode) => string = R.pipe(
   R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
 )
 
-const getContentAsContents: (
-  content: SingleASTNode
-) => SingleASTNode[] = R.prop<string>('content')
+const getContentAsContents: (content: SingleASTNode) => SingleASTNode[] =
+  R.prop<string>('content')
 
 const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
   getContentAsString,
@@ -82,20 +81,20 @@ export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
 
 const emptyTextNodeByDefault: TestCommandAndGetContent = [
   R.T,
-  R.always(right({ content: '', type: 'text' })),
+  R.always(right({ content: '', type: 'text' }))
 ]
 
-const getCommandResultContent: (state: State) => CommandToContent = state =>
+const getCommandResultContent: (state: State) => CommandToContent = (state) =>
   R.cond([show(state), emptyTextNodeByDefault])
 
 const doNoUpdateStateByDefault: TestCommandAndUpdateState = [
   R.T,
-  () => (state: State) => right(state),
+  () => (state: State) => right(state)
 ]
 
 const makeError: TestCommandAndUpdateState = [
   R.propEq('instruction', 'error'),
-  () => () => left('wanted Error'),
+  () => () => left('wanted Error')
 ]
 
 const applyCommandToState: CommandUpdateState = R.cond([
@@ -103,7 +102,7 @@ const applyCommandToState: CommandUpdateState = R.cond([
   test,
   describe,
   makeError,
-  doNoUpdateStateByDefault,
+  doNoUpdateStateByDefault
 ])
 
 export const errorContent: (
@@ -111,31 +110,27 @@ export const errorContent: (
   content: SingleASTNode
 ) => SingleASTNode = (message, content) => ({
   type: 'error',
-  content: [{ type: 'text', content: message }, content],
+  content: [{ type: 'text', content: message }, content]
 })
 
-export const applyCommand: (
-  state: State
-) => ComputeContentAndState = state => content => {
-  const command = getCommand(getContentAsContents(content))
+export const applyCommand: (state: State) => ComputeContentAndState =
+  (state) => (content) => {
+    const command = getCommand(getContentAsContents(content))
 
-  return fold<string, State, [SingleASTNode, State]>(
-    (message: string) => [errorContent(message, content), state],
-    updatedState => [
-      fold<string, SingleASTNode, SingleASTNode>(
-        (message: string) => errorContent(message, content),
-        R.identity
-      )(getCommandResultContent(state)(command)),
-      updatedState,
-    ]
-  )(applyCommandToState(command)(state))
-}
+    return fold<string, State, [SingleASTNode, State]>(
+      (message: string) => [errorContent(message, content), state],
+      (updatedState) => [
+        fold<string, SingleASTNode, SingleASTNode>(
+          (message: string) => errorContent(message, content),
+          R.identity
+        )(getCommandResultContent(state)(command)),
+        updatedState
+      ]
+    )(applyCommandToState(command)(state))
+  }
 
-const parseCommandContent: (
-  state: State
-) => TestAndComputeContentAndState = state => [
-  R.propEq('type', 'command'),
-  applyCommand(state),
-]
+const parseCommandContent: (state: State) => TestAndComputeContentAndState = (
+  state
+) => [R.propEq('type', 'command'), applyCommand(state)]
 
 export default parseCommandContent

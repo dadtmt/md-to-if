@@ -8,31 +8,31 @@ describe('applyCommand set', () => {
       content: [
         {
           content: ' set container prop val value',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
 
     const state = {
       played: {
-        currentSceneName: 3,
+        currentSceneName: 3
       },
-      currentSceneName,
+      currentSceneName
     }
 
     const expected = [
       {
         content: '',
-        type: 'text',
+        type: 'text'
       },
       {
         played: {
-          currentSceneName: 3,
+          currentSceneName: 3
         },
         currentSceneName,
-        container: { prop: 'value' },
-      },
+        container: { prop: 'value' }
+      }
     ]
 
     expect(applyCommand(state)(content)).toEqual(expected)
@@ -42,10 +42,10 @@ describe('applyCommand set', () => {
       content: [
         {
           content: ' set val 2 ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
     const state = { currentSceneName: 'current scene' }
 
@@ -56,10 +56,10 @@ describe('applyCommand set', () => {
       content: [
         {
           content: ' set a path val error ',
-          type: 'text',
-        },
+          type: 'text'
+        }
       ],
-      type: 'command',
+      type: 'command'
     }
     const state = { currentSceneName: 'current scene' }
 
