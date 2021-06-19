@@ -33,6 +33,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
   Object {
     "name": "the_space_ship",
@@ -247,6 +248,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
   Object {
     "name": "the_space_ship",
@@ -880,6 +882,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
   Object {
     "name": "the_space_ship",
@@ -1592,6 +1595,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
 ]
 `;
@@ -1629,6 +1633,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
   Object {
     "name": "the_space_ship",
@@ -1999,6 +2004,7 @@ Array [
         "type": "paragraph",
       },
     ],
+    "state": Object {},
   },
   Object {
     "name": "the_space_ship",
