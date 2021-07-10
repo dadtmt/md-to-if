@@ -14,12 +14,10 @@ import player from './player'
 
 const adventureBook = book(parser(adventure))
 
-describe('React render', () => {
+test('Render title and start button while playing intro (no moves)', () => {
   render(renderer(player(adventureBook)))
-
-  it('render the adventure title', () => {
-    expect(screen.queryByRole('heading', { level: 1 })).toHaveTextContent(
-      'Choose your story'
-    )
-  })
+  expect(screen.queryByRole('heading', { level: 1 })).toHaveTextContent(
+    'Choose your story'
+  )
+  expect(screen.getByRole('link')).toHaveTextContent('Start')
 })
