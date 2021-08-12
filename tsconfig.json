@@ -14,7 +14,8 @@
 		"esModuleInterop": true,
 		// Ensure that .d.ts files are created by tsc
 		"declaration": true,
-		"outDir": "lib"
+		"outDir": "lib",
+		"jsx": "react"
 	},
 	"include": [
 		"src"
