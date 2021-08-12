@@ -18,6 +18,8 @@ const handler: Handler = {
   handleStartClick: jest.fn()
 }
 
+const { handleStartClick } = handler
+
 test('Render title and start button while playing intro (no moves)', () => {
   render(renderer(handler)(player(adventureBook)))
   expect(screen.queryByRole('heading', { level: 1 })).toHaveTextContent(
@@ -26,8 +28,11 @@ test('Render title and start button while playing intro (no moves)', () => {
   expect(screen.getByRole('link')).toHaveTextContent('Start')
 })
 
-test('Click on the start button calls handleStartClick', () => {
+test('Click on the start button calls handleStartClick with a start move', () => {
   render(renderer(handler)(player(adventureBook)))
   fireEvent.click(screen.getByText(/Start/i))
-  expect(handler.handleStartClick).toHaveBeenCalledTimes(1)
+  expect(handleStartClick).toHaveBeenCalledTimes(1)
+  expect(handleStartClick).toHaveBeenCalledWith({
+    type: 'start'
+  })
 })
