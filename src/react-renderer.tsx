@@ -12,17 +12,24 @@ import { Move, PlayedScene } from './player'
 
 export type MoveHandler = (move: Move) => void
 
+const ifNotStartedAddStartButton =
+  (currentSceneName: string | undefined) => (sceneContent: SingleASTNode[]) =>
+    (currentSceneName ?? null) == null
+      ? [
+          ...sceneContent,
+          {
+            type: 'link',
+            target: 'start',
+            content: [{ type: 'text', content: 'Start' }]
+          }
+        ]
+      : sceneContent
+
 const addNodeFromState = ({
   sceneContent,
-  state
-}: PlayedScene): SingleASTNode[] => [
-  ...sceneContent,
-  {
-    type: 'link',
-    target: '/start',
-    content: [{ type: 'text', content: 'Start' }]
-  }
-]
+  state: { currentSceneName }
+}: PlayedScene): SingleASTNode[] =>
+  ifNotStartedAddStartButton(currentSceneName)(sceneContent)
 
 const Renderer: (
   moveHandler: MoveHandler
@@ -40,6 +47,7 @@ const Renderer: (
               <a
                 key={key}
                 href={node.target}
+                aria-label={node.target}
                 onClick={() =>
                   moveHandler({
                     type: 'start'

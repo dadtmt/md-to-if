@@ -12,6 +12,10 @@ import adventure from './adventure.md'
 import renderer, { MoveHandler } from './react-renderer'
 import player from './player'
 
+const startMove = {
+  type: 'start'
+}
+
 const adventureBook = book(parser(adventure))
 
 const moveHandler: MoveHandler = jest.fn()
@@ -24,11 +28,14 @@ test('Render title and start button while playing intro (no moves)', () => {
   expect(screen.getByRole('link')).toHaveTextContent('Start')
 })
 
-test('Click on the start button calls moveHandler with a start move', () => {
+test('Click on the start button calls moveHandler with a start move', async () => {
   render(renderer(moveHandler)(player(adventureBook)))
   fireEvent.click(screen.getByText(/Start/i))
   expect(moveHandler).toHaveBeenCalledTimes(1)
-  expect(moveHandler).toHaveBeenCalledWith({
-    type: 'start'
-  })
+  expect(moveHandler).toHaveBeenCalledWith(startMove)
+})
+
+test('A started adventure does not show the start button', async () => {
+  render(renderer(moveHandler)(player(adventureBook, [startMove])))
+  expect(screen.queryByRole('link', { name: 'start' })).toBeNull()
 })
