@@ -9,30 +9,26 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import book from './book'
 import parser from './parser'
 import adventure from './adventure.md'
-import renderer, { Handler } from './react-renderer'
+import renderer, { MoveHandler } from './react-renderer'
 import player from './player'
 
 const adventureBook = book(parser(adventure))
 
-const handler: Handler = {
-  handleStartClick: jest.fn()
-}
-
-const { handleStartClick } = handler
+const moveHandler: MoveHandler = jest.fn()
 
 test('Render title and start button while playing intro (no moves)', () => {
-  render(renderer(handler)(player(adventureBook)))
+  render(renderer(moveHandler)(player(adventureBook)))
   expect(screen.queryByRole('heading', { level: 1 })).toHaveTextContent(
     'Choose your story'
   )
   expect(screen.getByRole('link')).toHaveTextContent('Start')
 })
 
-test('Click on the start button calls handleStartClick with a start move', () => {
-  render(renderer(handler)(player(adventureBook)))
+test('Click on the start button calls moveHandler with a start move', () => {
+  render(renderer(moveHandler)(player(adventureBook)))
   fireEvent.click(screen.getByText(/Start/i))
-  expect(handleStartClick).toHaveBeenCalledTimes(1)
-  expect(handleStartClick).toHaveBeenCalledWith({
+  expect(moveHandler).toHaveBeenCalledTimes(1)
+  expect(moveHandler).toHaveBeenCalledWith({
     type: 'start'
   })
 })

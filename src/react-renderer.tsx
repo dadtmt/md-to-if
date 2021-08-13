@@ -10,9 +10,7 @@ import {
 } from 'simple-markdown'
 import { Move, PlayedScene } from './player'
 
-export interface Handler {
-  handleStartClick: (move: Move) => void
-}
+export type MoveHandler = (move: Move) => void
 
 const addNodeFromState = ({
   sceneContent,
@@ -27,8 +25,8 @@ const addNodeFromState = ({
 ]
 
 const Renderer: (
-  handler: Handler
-) => (scenes: PlayedScene[]) => React.ReactElement = ({ handleStartClick }) =>
+  moveHandler: MoveHandler
+) => (scenes: PlayedScene[]) => React.ReactElement = (moveHandler) =>
   R.pipe(
     R.last,
     addNodeFromState,
@@ -43,7 +41,7 @@ const Renderer: (
                 key={key}
                 href={node.target}
                 onClick={() =>
-                  handleStartClick({
+                  moveHandler({
                     type: 'start'
                   })
                 }>
