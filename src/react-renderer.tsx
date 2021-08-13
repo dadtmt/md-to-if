@@ -42,18 +42,29 @@ const Renderer: (
         ...defaultRules,
         link: {
           ...defaultRules.link,
-          react: (node: SingleASTNode, output: ReactOutput, { key }: State) => {
+          react: (
+            { target, content }: SingleASTNode,
+            output: ReactOutput,
+            { key }: State
+          ) => {
             return (
               <a
                 key={key}
-                href={node.target}
-                aria-label={node.target}
+                href={target}
+                aria-label={target}
                 onClick={() =>
-                  moveHandler({
-                    type: 'start'
-                  })
+                  moveHandler(
+                    target === 'start'
+                      ? {
+                          type: 'start'
+                        }
+                      : {
+                          type: 'anchor',
+                          target
+                        }
+                  )
                 }>
-                {output(node.content)}
+                {output(content)}
               </a>
             )
           }

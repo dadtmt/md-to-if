@@ -16,6 +16,11 @@ const startMove = {
   type: 'start'
 }
 
+const moveToCantina = {
+  type: 'anchor',
+  target: '/cantina'
+}
+
 const adventureBook = book(parser(adventure))
 
 const moveHandler: MoveHandler = jest.fn()
@@ -38,4 +43,17 @@ test('Click on the start button calls moveHandler with a start move', async () =
 test('A started adventure does not show the start button', async () => {
   render(renderer(moveHandler)(player(adventureBook, [startMove])))
   expect(screen.queryByRole('link', { name: 'start' })).toBeNull()
+})
+
+test('A started adventure show first scene heading', async () => {
+  render(renderer(moveHandler)(player(adventureBook, [startMove])))
+  expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+    'The space ship'
+  )
+})
+
+test('Click the goto cantina button calls moveHandler with a move to cantina', async () => {
+  render(renderer(moveHandler)(player(adventureBook, [startMove])))
+  fireEvent.click(screen.getByRole('link', { name: '/cantina' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantina)
 })
