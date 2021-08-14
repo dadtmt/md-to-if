@@ -3,6 +3,7 @@
 exports[`book sort by scene 1`] = `
 Array [
   Object {
+    "actions": Array [],
     "name": "choose_your_story",
     "sceneContent": Array [
       Object {
@@ -35,6 +36,7 @@ Array [
     ],
   },
   Object {
+    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -103,6 +105,109 @@ The trip is long and boring",
     ],
   },
   Object {
+    "actions": Array [
+      Object {
+        "actions": Array [
+          Object {
+            "actions": Array [],
+            "name": "whisky",
+            "sceneContent": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "content": "Whisky",
+                    "type": "text",
+                  },
+                ],
+                "level": 4,
+                "type": "heading",
+              },
+              Object {
+                "content": Array [
+                  Object {
+                    "content": "You feel dipsy",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+          },
+          Object {
+            "actions": Array [],
+            "name": "milkshake",
+            "sceneContent": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "content": "Milkshake",
+                    "type": "text",
+                  },
+                ],
+                "level": 4,
+                "type": "heading",
+              },
+              Object {
+                "content": Array [
+                  Object {
+                    "content": "Delicious strawberry one",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+          },
+        ],
+        "name": "drink",
+        "sceneContent": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "level": 3,
+            "type": "heading",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "You have a whisky or a milkhake",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+      },
+      Object {
+        "actions": Array [],
+        "name": "eat",
+        "sceneContent": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "level": 3,
+            "type": "heading",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Some eggs",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+      },
+    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -341,85 +446,57 @@ or what ",
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Drink",
-            "type": "text",
-          },
-        ],
-        "level": 3,
-        "type": "heading",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "You have a whisky or a milkhake",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Whisky",
-            "type": "text",
-          },
-        ],
-        "level": 4,
-        "type": "heading",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "You feel dipsy",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Milkshake",
-            "type": "text",
-          },
-        ],
-        "level": 4,
-        "type": "heading",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Delicious strawberry one",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Eat",
-            "type": "text",
-          },
-        ],
-        "level": 3,
-        "type": "heading",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": "Some eggs",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
     ],
   },
   Object {
+    "actions": Array [
+      Object {
+        "actions": Array [],
+        "name": "the_droid_shoots",
+        "sceneContent": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "The Droid shoots",
+                "type": "text",
+              },
+            ],
+            "level": 3,
+            "type": "heading",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " test roll d100 lte val droid CT ",
+                "type": "text",
+              },
+            ],
+            "type": "command",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " you are shot ",
+                "type": "text",
+              },
+            ],
+            "type": "trueCaseContent",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": " You luckyly escape ",
+                "type": "text",
+              },
+            ],
+            "type": "falseCaseContent",
+          },
+          Object {
+            "type": "newline",
+          },
+        ],
+      },
+    ],
     "name": "bedroom",
     "sceneContent": Array [
       Object {
@@ -543,54 +620,107 @@ or what ",
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": "The Droid shoots",
-            "type": "text",
-          },
-        ],
-        "level": 3,
-        "type": "heading",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " test roll d100 lte val droid CT ",
-            "type": "text",
-          },
-        ],
-        "type": "command",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " you are shot ",
-            "type": "text",
-          },
-        ],
-        "type": "trueCaseContent",
-      },
-      Object {
-        "content": Array [
-          Object {
-            "content": " You luckyly escape ",
-            "type": "text",
-          },
-        ],
-        "type": "falseCaseContent",
-      },
-      Object {
-        "type": "newline",
-      },
     ],
   },
 ]
 `;
 
+exports[`splitByScene split a Scene with actions 1`] = `
+Object {
+  "scene": Object {
+    "actions": Array [
+      Object {
+        "actions": Array [
+          Object {
+            "actions": Array [],
+            "name": "action_1_1",
+            "sceneContent": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "content": "Action 1 1",
+                    "type": "text",
+                  },
+                ],
+                "level": 4,
+                "type": "heading",
+              },
+              Object {
+                "content": "this is level 4 action",
+                "lang": undefined,
+                "type": "codeBlock",
+              },
+            ],
+          },
+        ],
+        "name": "action1",
+        "sceneContent": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Action1",
+                "type": "text",
+              },
+            ],
+            "level": 3,
+            "type": "heading",
+          },
+          Object {
+            "content": "this is a level 3 action",
+            "lang": undefined,
+            "type": "codeBlock",
+          },
+        ],
+      },
+      Object {
+        "actions": Array [],
+        "name": "action2",
+        "sceneContent": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Action2",
+                "type": "text",
+              },
+            ],
+            "level": 3,
+            "type": "heading",
+          },
+          Object {
+            "content": "this is a level 3 action
+    ",
+            "lang": undefined,
+            "type": "codeBlock",
+          },
+        ],
+      },
+    ],
+    "name": "",
+    "sceneContent": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "#",
+            "type": "text",
+          },
+          Object {
+            "content": "# Scene with actions 
+    some content",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+  },
+  "sourceLeft": Array [],
+}
+`;
+
 exports[`splitByScene split the first scene 1`] = `
 Object {
   "scene": Object {
+    "actions": Array [],
     "name": "choose_your_story",
     "sceneContent": Array [
       Object {
@@ -1166,6 +1296,7 @@ or what ",
 exports[`splitByScene split the last scene 1`] = `
 Object {
   "scene": Object {
+    "actions": Array [],
     "name": "final_landing",
     "sceneContent": Array [
       Object {
@@ -1202,51 +1333,5 @@ Object {
     ],
   },
   "sourceLeft": Array [],
-}
-`;
-
-exports[`splitContentAndActions splits content from actions 1`] = `
-Object {
-  "actions": Array [
-    Object {
-      "actions": Array [],
-      "name": "action1",
-      "sceneContent": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": "Action1",
-              "type": "text",
-            },
-          ],
-          "level": 3,
-          "type": "heading",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "content": "this is a level 3 action",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-    },
-  ],
-  "content": Array [
-    Object {
-      "type": "newline",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": "some content",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
 }
 `;

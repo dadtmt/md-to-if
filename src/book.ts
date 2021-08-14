@@ -24,28 +24,34 @@ const splitByHeading: (
 
 const splitActions: (
   level: number,
-  contentList: SingleASTNode[],
+  untratedActions: SingleASTNode[],
   actionList?: Scene[]
-) => Scene[] = (level, contentList, actionList = []) => {
-  const [headOfContent, ...tailOfContent] = contentList
+) => Scene[] = (level, untreatedActions, actionList = []) => {
+  const [headOfContent, ...tailOfContent] = untreatedActions
+  if (R.isEmpty(untreatedActions)) {
+    return [...actionList]
+  }
   const [actionContent, restOfContent] = splitByHeading(level)(tailOfContent)
-  const { content, actions } =
-    level <= 6
-      ? splitContentAndActions(level + 1)(actionContent)
-      : {
-          content: [],
-          actions: []
-        }
-  return !R.isEmpty(restOfContent)
-    ? splitActions(level, restOfContent, [
-        ...actionList,
-        {
-          name: getSceneName(headOfContent),
-          sceneContent: [headOfContent, ...content],
-          actions
-        }
-      ])
-    : actionList
+  if (R.isEmpty(restOfContent)) {
+    return [
+      ...actionList,
+      {
+        name: getSceneName(headOfContent),
+        sceneContent: [headOfContent, ...actionContent],
+        actions: []
+      }
+    ]
+  }
+  const { content, actions } = splitContentAndActions(level + 1)(actionContent)
+
+  return splitActions(level, restOfContent, [
+    ...actionList,
+    {
+      name: getSceneName(headOfContent),
+      sceneContent: [headOfContent, ...content],
+      actions
+    }
+  ])
 }
 
 // [SingleASTNode] -> { content: [SingleASTNode], actions: [Scene] }
@@ -55,32 +61,36 @@ export const splitContentAndActions: (level: number) => (
   content: SingleASTNode[]
   actions: Scene[]
 } = (level) => (contentAndActions) => {
-  const [content, actions] = splitByHeading(level)(contentAndActions)
-  return { content, actions: splitActions(level, actions) }
+  const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
+  return { content, actions: splitActions(level, untreatedActions) }
 }
 
 interface SplittedContent {
   heading: SingleASTNode
-  content: SingleASTNode[]
+  contentAndActions: SingleASTNode[]
   sourceLeft: SingleASTNode[]
 }
 
 const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
   'heading',
-  'content',
+  'contentAndActions',
   'sourceLeft'
 ])
 
 const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
   scene: Scene
   sourceLeft: SingleASTNode[]
-} = ({ heading, content, sourceLeft }) => ({
-  scene: {
-    name: getSceneName(heading),
-    sceneContent: [heading, ...content]
-  },
-  sourceLeft
-})
+} = ({ heading, contentAndActions, sourceLeft }) => {
+  const { content, actions } = splitContentAndActions(3)(contentAndActions)
+  return {
+    scene: {
+      name: getSceneName(heading),
+      sceneContent: [heading, ...content],
+      actions
+    },
+    sourceLeft
+  }
+}
 
 // int -> [SingleASTNode] -> { scene: Scene, content: [SingleASTNode] }
 export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
