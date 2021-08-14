@@ -107,8 +107,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -134,6 +136,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -183,6 +186,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [
@@ -451,6 +455,7 @@ or what ",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "The Droid shoots",
         "actions": Array [],
         "name": "the_droid_shoots",
         "sceneContent": Array [
@@ -630,8 +635,10 @@ Object {
   "scene": Object {
     "actions": Array [
       Object {
+        "actionLabel": "Action1",
         "actions": Array [
           Object {
+            "actionLabel": "Action 1 1",
             "actions": Array [],
             "name": "action_1_1",
             "sceneContent": Array [
@@ -673,6 +680,7 @@ Object {
         ],
       },
       Object {
+        "actionLabel": "Action2",
         "actions": Array [],
         "name": "action2",
         "sceneContent": Array [

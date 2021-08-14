@@ -1,6 +1,7 @@
 import parser from './parser'
 import book, {
   splitByScene,
+  getSceneLabel,
   getSceneName,
   splitContentAndActions
 } from './book'
@@ -33,6 +34,13 @@ const contentWithActions = `
 
 const sceneWithActions = `## Scene with actions ${contentWithActions}`
 
+describe('getSceneLabel', () => {
+  it('get scene label', () => {
+    const scene = parser(lastSceneMd)
+    expect(getSceneLabel(scene[0])).toBe('Final landing')
+  })
+})
+
 describe('getSceneName', () => {
   it('get scene name', () => {
     const scene = parser(lastSceneMd)
@@ -52,6 +60,7 @@ describe('splitContentAndActions', () => {
     const { actions } = splitContentAndActions(3)(content)
     expect(actions).toHaveLength(2)
     expect(actions[0].actions).toHaveLength(1)
+    expect(actions[0].actionLabel).toBe('Action1')
     expect(actions[0].actions[0].actions).toHaveLength(0)
     expect(actions[1].actions).toHaveLength(0)
     expect(actions[0].name).toBe('action1')

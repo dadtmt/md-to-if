@@ -114,6 +114,7 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "The Droid shoots",
         "actions": Array [],
         "name": "the_droid_shoots",
         "sceneContent": Array [
@@ -342,8 +343,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -369,6 +372,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -418,6 +422,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [
@@ -628,8 +633,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -655,6 +662,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -704,6 +712,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [
@@ -1032,8 +1041,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -1059,6 +1070,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -1108,6 +1120,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [
@@ -1318,8 +1331,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -1345,6 +1360,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -1394,6 +1410,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [
@@ -1688,7 +1705,7 @@ The trip is long and boring",
 ]
 `;
 
-exports[`player play book introduction if no actions 1`] = `
+exports[`player play book introduction if no moves 1`] = `
 Array [
   Object {
     "actions": Array [],
@@ -1841,8 +1858,10 @@ The trip is long and boring",
   Object {
     "actions": Array [
       Object {
+        "actionLabel": "Drink",
         "actions": Array [
           Object {
+            "actionLabel": "Whisky",
             "actions": Array [],
             "name": "whisky",
             "sceneContent": Array [
@@ -1868,6 +1887,7 @@ The trip is long and boring",
             ],
           },
           Object {
+            "actionLabel": "Milkshake",
             "actions": Array [],
             "name": "milkshake",
             "sceneContent": Array [
@@ -1917,6 +1937,7 @@ The trip is long and boring",
         ],
       },
       Object {
+        "actionLabel": "Eat",
         "actions": Array [],
         "name": "eat",
         "sceneContent": Array [

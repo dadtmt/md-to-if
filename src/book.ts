@@ -3,11 +3,15 @@ import { snakeCase } from 'change-case'
 import { Scene } from '.'
 import { SingleASTNode } from 'simple-markdown'
 
-// Content -> String
-export const getSceneName: (content: SingleASTNode) => string = R.pipe(
+// @ts-expect-error
+export const getSceneLabel: (content: SingleASTNode) => string = R.pipe(
   R.propOr([], 'content'),
   R.head,
-  R.propOr('unnamed', 'content'),
+  R.propOr('unnamed', 'content')
+)
+
+export const getSceneName: (content: SingleASTNode) => string = R.pipe(
+  getSceneLabel,
   snakeCase
 )
 
@@ -22,11 +26,15 @@ const splitByHeading: (
     })
   )
 
+interface ActionScene extends Scene {
+  actionLabel: string
+}
+
 const splitActions: (
   level: number,
   untratedActions: SingleASTNode[],
-  actionList?: Scene[]
-) => Scene[] = (level, untreatedActions, actionList = []) => {
+  actionList?: ActionScene[]
+) => ActionScene[] = (level, untreatedActions, actionList = []) => {
   const [headOfContent, ...tailOfContent] = untreatedActions
   if (R.isEmpty(untreatedActions)) {
     return [...actionList]
@@ -37,6 +45,7 @@ const splitActions: (
       ...actionList,
       {
         name: getSceneName(headOfContent),
+        actionLabel: getSceneLabel(headOfContent),
         sceneContent: [headOfContent, ...actionContent],
         actions: []
       }
@@ -49,7 +58,8 @@ const splitActions: (
     {
       name: getSceneName(headOfContent),
       sceneContent: [headOfContent, ...content],
-      actions
+      actions,
+      actionLabel: getSceneLabel(headOfContent)
     }
   ])
 }
@@ -59,7 +69,7 @@ export const splitContentAndActions: (level: number) => (
   contentAndActions: SingleASTNode[]
 ) => {
   content: SingleASTNode[]
-  actions: Scene[]
+  actions: ActionScene[]
 } = (level) => (contentAndActions) => {
   const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, untreatedActions) }

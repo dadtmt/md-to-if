@@ -4,8 +4,10 @@ exports[`getTargetedScene get the targeted scene 1`] = `
 Object {
   "actions": Array [
     Object {
+      "actionLabel": "Drink",
       "actions": Array [
         Object {
+          "actionLabel": "Whisky",
           "actions": Array [],
           "name": "whisky",
           "sceneContent": Array [
@@ -31,6 +33,7 @@ Object {
           ],
         },
         Object {
+          "actionLabel": "Milkshake",
           "actions": Array [],
           "name": "milkshake",
           "sceneContent": Array [
@@ -80,6 +83,7 @@ Object {
       ],
     },
     Object {
+      "actionLabel": "Eat",
       "actions": Array [],
       "name": "eat",
       "sceneContent": Array [

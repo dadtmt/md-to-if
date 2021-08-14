@@ -23,7 +23,7 @@ const moveToBedroom = {
 }
 
 describe('player', () => {
-  it('play book introduction if no actions', () => {
+  it('play book introduction if no moves', () => {
     expect(player(adventureBook)).toMatchSnapshot()
     expect(player(adventureBook)).toHaveLength(1)
   })
