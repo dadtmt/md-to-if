@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import { incPlayedSceneCount } from '../stateHelpers/playedSceneCount'
 import { PlayedScene, Move } from '../player'
 import { MovedScene, State } from '.'
-import { Scene } from '..'
+import { BookScene } from '..'
 
 const getState: (playedScene: PlayedScene) => State = R.prop('state')
 
@@ -25,13 +25,15 @@ export const getTargetSceneName: (move: Move) => string = R.pipe(
 )
 
 // Move -> Scene -> Boolean
-export const matchTarget: (move: Move) => (scene: Scene) => boolean = (move) =>
-  R.propEq('name', getTargetSceneName(move))
+export const matchTarget: (move: Move) => (scene: BookScene) => boolean = (
+  move
+) => R.propEq('name', getTargetSceneName(move))
 
-const notFoundScene: (move: Move) => Scene = (move) => {
+const notFoundScene: (move: Move) => BookScene = (move) => {
   const name = getTargetSceneName(move)
 
   return {
+    actions: [],
     name,
     sceneContent: [
       {
@@ -58,9 +60,9 @@ const notFoundScene: (move: Move) => Scene = (move) => {
 }
 
 // Move -> [Scene] -> Scene
-export const getTargetedScene: (move: Move) => (scenes: Scene[]) => Scene = (
-  move
-) =>
+export const getTargetedScene: (
+  move: Move
+) => (scenes: BookScene[]) => BookScene = (move) =>
   R.pipe(
     R.find(matchTarget(move)),
     R.when(R.isNil, () => notFoundScene(move))
@@ -72,7 +74,7 @@ const updateState: (name: string) => (state: State) => State = (name) =>
 
 // [Scene], [PlayedScene]-> [Move -> Boolean, Move -> MovedScene]
 const goto: (
-  scenes: Scene[],
+  scenes: BookScene[],
   playedScenes: PlayedScene[]
 ) => [(move: Move) => boolean, (move: Move) => MovedScene] = (
   scenes,

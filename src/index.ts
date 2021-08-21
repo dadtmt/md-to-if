@@ -6,7 +6,14 @@ import { SingleASTNode } from 'simple-markdown'
 export interface Scene {
   name: string
   sceneContent: SingleASTNode[]
-  actions?: Scene[]
+}
+
+export interface BookScene extends Scene {
+  actions: ActionScene[]
+}
+
+export interface ActionScene extends BookScene {
+  actionLabel: string
 }
 
 exports.book = book

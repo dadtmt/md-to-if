@@ -37,7 +37,6 @@ Array [
     "state": Object {},
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -112,55 +111,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "The Droid shoots",
-        "actions": Array [],
-        "name": "the_droid_shoots",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "The Droid shoots",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": " test roll d100 lte val droid CT ",
-                "type": "text",
-              },
-            ],
-            "type": "command",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": " you are shot ",
-                "type": "text",
-              },
-            ],
-            "type": "trueCaseContent",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": " You luckyly escape ",
-                "type": "text",
-              },
-            ],
-            "type": "falseCaseContent",
-          },
-          Object {
-            "type": "newline",
-          },
-        ],
-      },
-    ],
     "name": "bedroom",
     "sceneContent": Array [
       Object {
@@ -210,6 +160,21 @@ The trip is long and boring",
           },
         ],
         "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "The Droid shoots",
+                "type": "text",
+              },
+            ],
+            "target": "/bedroom/the_droid_shoots",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
       },
     ],
     "state": Object {
@@ -266,7 +231,6 @@ Array [
     "state": Object {},
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -341,113 +305,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "Drink",
-        "actions": Array [
-          Object {
-            "actionLabel": "Whisky",
-            "actions": Array [],
-            "name": "whisky",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Whisky",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "You feel dipsy",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-          Object {
-            "actionLabel": "Milkshake",
-            "actions": Array [],
-            "name": "milkshake",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Milkshake",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Delicious strawberry one",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-        ],
-        "name": "drink",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Drink",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "You have a whisky or a milkhake",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-      Object {
-        "actionLabel": "Eat",
-        "actions": Array [],
-        "name": "eat",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Eat",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "Some eggs",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -617,6 +474,31 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/drink",
+            "type": "link",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/eat",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -631,113 +513,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "Drink",
-        "actions": Array [
-          Object {
-            "actionLabel": "Whisky",
-            "actions": Array [],
-            "name": "whisky",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Whisky",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "You feel dipsy",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-          Object {
-            "actionLabel": "Milkshake",
-            "actions": Array [],
-            "name": "milkshake",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Milkshake",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Delicious strawberry one",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-        ],
-        "name": "drink",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Drink",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "You have a whisky or a milkhake",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-      Object {
-        "actionLabel": "Eat",
-        "actions": Array [],
-        "name": "eat",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Eat",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "Some eggs",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -910,6 +685,31 @@ or what ",
           },
         ],
         "type": "paragraph",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/drink",
+            "type": "link",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/eat",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
       },
     ],
     "state": Object {
@@ -964,7 +764,6 @@ Array [
     "state": Object {},
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -1039,113 +838,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "Drink",
-        "actions": Array [
-          Object {
-            "actionLabel": "Whisky",
-            "actions": Array [],
-            "name": "whisky",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Whisky",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "You feel dipsy",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-          Object {
-            "actionLabel": "Milkshake",
-            "actions": Array [],
-            "name": "milkshake",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Milkshake",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Delicious strawberry one",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-        ],
-        "name": "drink",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Drink",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "You have a whisky or a milkhake",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-      Object {
-        "actionLabel": "Eat",
-        "actions": Array [],
-        "name": "eat",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Eat",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "Some eggs",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -1315,6 +1007,31 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/drink",
+            "type": "link",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/eat",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -1329,113 +1046,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "Drink",
-        "actions": Array [
-          Object {
-            "actionLabel": "Whisky",
-            "actions": Array [],
-            "name": "whisky",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Whisky",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "You feel dipsy",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-          Object {
-            "actionLabel": "Milkshake",
-            "actions": Array [],
-            "name": "milkshake",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Milkshake",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Delicious strawberry one",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-        ],
-        "name": "drink",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Drink",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "You have a whisky or a milkhake",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-      Object {
-        "actionLabel": "Eat",
-        "actions": Array [],
-        "name": "eat",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Eat",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "Some eggs",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -1609,6 +1219,31 @@ or what ",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/drink",
+            "type": "link",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/eat",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -1623,7 +1258,6 @@ or what ",
     },
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -1781,7 +1415,6 @@ Array [
     "state": Object {},
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {
@@ -1856,113 +1489,6 @@ The trip is long and boring",
     },
   },
   Object {
-    "actions": Array [
-      Object {
-        "actionLabel": "Drink",
-        "actions": Array [
-          Object {
-            "actionLabel": "Whisky",
-            "actions": Array [],
-            "name": "whisky",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Whisky",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "You feel dipsy",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-          Object {
-            "actionLabel": "Milkshake",
-            "actions": Array [],
-            "name": "milkshake",
-            "sceneContent": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Milkshake",
-                    "type": "text",
-                  },
-                ],
-                "level": 4,
-                "type": "heading",
-              },
-              Object {
-                "content": Array [
-                  Object {
-                    "content": "Delicious strawberry one",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-          },
-        ],
-        "name": "drink",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Drink",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "You have a whisky or a milkhake",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-      Object {
-        "actionLabel": "Eat",
-        "actions": Array [],
-        "name": "eat",
-        "sceneContent": Array [
-          Object {
-            "content": Array [
-              Object {
-                "content": "Eat",
-                "type": "text",
-              },
-            ],
-            "level": 3,
-            "type": "heading",
-          },
-          Object {
-            "content": Array [
-              Object {
-                "content": "Some eggs",
-                "type": "text",
-              },
-            ],
-            "type": "paragraph",
-          },
-        ],
-      },
-    ],
     "name": "cantina",
     "sceneContent": Array [
       Object {
@@ -2132,6 +1658,31 @@ The trip is long and boring",
         ],
         "type": "paragraph",
       },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "content": "Drink",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/drink",
+            "type": "link",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "content": "Eat",
+                "type": "text",
+              },
+            ],
+            "target": "/cantina/eat",
+            "type": "link",
+          },
+        ],
+        "type": "menu",
+      },
     ],
     "state": Object {
       "bag": Object {
@@ -2185,7 +1736,6 @@ Array [
     "state": Object {},
   },
   Object {
-    "actions": Array [],
     "name": "the_space_ship",
     "sceneContent": Array [
       Object {

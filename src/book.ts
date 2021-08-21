@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { snakeCase } from 'change-case'
-import { Scene } from '.'
+import { ActionScene, BookScene } from '.'
 import { SingleASTNode } from 'simple-markdown'
 
 // @ts-expect-error
@@ -25,10 +25,6 @@ const splitByHeading: (
       level: R.equals(level)
     })
   )
-
-interface ActionScene extends Scene {
-  actionLabel: string
-}
 
 const splitActions: (
   level: number,
@@ -88,7 +84,7 @@ const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
 ])
 
 const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
-  scene: Scene
+  scene: BookScene
   sourceLeft: SingleASTNode[]
 } = ({ heading, contentAndActions, sourceLeft }) => {
   const { content, actions } = splitContentAndActions(3)(contentAndActions)
@@ -104,7 +100,7 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
 
 // int -> [SingleASTNode] -> { scene: Scene, content: [SingleASTNode] }
 export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
-  scene: Scene
+  scene: BookScene
   sourceLeft: SingleASTNode[]
 } = (level) =>
   R.pipe(
@@ -114,7 +110,7 @@ export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
   )
 
 // [SingleASTNode], [Scene] -> [Scene]
-const book: (source: SingleASTNode[], scenes?: Scene[]) => Scene[] = (
+const book: (source: SingleASTNode[], scenes?: BookScene[]) => BookScene[] = (
   source,
   scenes = []
 ) => {

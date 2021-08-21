@@ -5,8 +5,7 @@ import start from './start'
 
 import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
-import { Scene } from '..'
-import { SingleASTNode } from 'simple-markdown'
+import { BookScene } from '..'
 
 export interface State {
   currentSceneName?: string | undefined
@@ -15,30 +14,42 @@ export interface State {
   testResult?: boolean
 }
 
-export interface MovedScene {
-  name: string
-  sceneContent: SingleASTNode[]
+export interface MovedScene extends BookScene {
   state: State
 }
 
 // [Scene], [PlayedScene] ->  Move -> MovedScene
 const applyMove: (
-  scenes: Scene[],
+  scenes: BookScene[],
   playedScenes: PlayedScene[]
 ) => (move: Move) => MovedScene = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
 // MovedScene -> PlayedScene
 const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
-  const { sceneContent, state, ...restOfScene } = movedScene
+  const { sceneContent, state, actions, name, ...restOfScene } = movedScene
 
   const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,
     state
   })
   return {
-    sceneContent: parsedSceneContent,
+    sceneContent:
+      actions.length > 0
+        ? [
+            ...parsedSceneContent,
+            {
+              type: 'menu',
+              content: actions.map(({ actionLabel, name: actionName }) => ({
+                type: 'link',
+                target: `/${name}/${actionName}`,
+                content: [{ type: 'text', content: actionLabel }]
+              }))
+            }
+          ]
+        : parsedSceneContent,
     state: parsedState,
+    name,
     ...restOfScene
   }
 }
@@ -52,7 +63,7 @@ const accPlayedScenes: (
 
 // [Scene], [PlayedScene] -> Move -> [PlayedScene]
 const playMove: (
-  scenes: Scene[],
+  scenes: BookScene[],
   playedScenes: PlayedScene[]
 ) => (move: Move) => PlayedScene[] = (scenes, playedScenes) =>
   R.pipe(
@@ -64,7 +75,7 @@ const playMove: (
 // [Move], [Scene], [PlayedScene] -> [PlayedScene]
 const playMoves: (
   moves: Move[],
-  scenes: Scene[],
+  scenes: BookScene[],
   playedScenes?: PlayedScene[]
 ) => PlayedScene[] = (moves, scenes, playedScenes = []) => {
   const move = R.head(moves)

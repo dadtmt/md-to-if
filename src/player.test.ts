@@ -2,6 +2,7 @@ import parser from './parser'
 import player from './player'
 import adventure from './adventure.md'
 import book from './book'
+import R from 'ramda'
 
 jest.mock('./expressions/rollDices')
 
@@ -35,6 +36,15 @@ describe('player', () => {
     const moves = [startMove, moveToCantina]
     expect(player(adventureBook, moves)).toMatchSnapshot()
   })
+
+  it('add menu with 2 links at the end of content', () => {
+    const moves = [startMove, moveToCantina]
+    const { sceneContent } = R.last(player(adventureBook, moves))
+    const { type, content } = R.last(sceneContent)
+    expect(type).toBe('menu')
+    expect(content).toHaveLength(2)
+  })
+
   it('increment cantina scene played on second cantina move', () => {
     const moves = [startMove, moveToCantina, moveToCantina]
     expect(player(adventureBook, moves)).toMatchSnapshot()

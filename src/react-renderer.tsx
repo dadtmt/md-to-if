@@ -33,13 +33,28 @@ const addNodeFromState = ({
 
 const Renderer: (
   moveHandler: MoveHandler
-) => (scenes: PlayedScene[]) => React.ReactElement = (moveHandler) =>
-  R.pipe(
+) => (scenes: PlayedScene[]) => React.ReactElement = (moveHandler) => {
+  return R.pipe(
     R.last,
     addNodeFromState,
     outputFor<ReactOutputRule, 'react'>(
       {
         ...defaultRules,
+        menu: {
+          react: (
+            { content }: SingleASTNode,
+            output: ReactOutput,
+            { key }: State
+          ) => {
+            return (
+              <ul key={key}>
+                {content.map((link: SingleASTNode) => (
+                  <li key={link.target}>{output(link)}</li>
+                ))}
+              </ul>
+            )
+          }
+        },
         link: {
           ...defaultRules.link,
           react: (
@@ -73,5 +88,6 @@ const Renderer: (
       'react'
     )
   )
+}
 
 export default Renderer

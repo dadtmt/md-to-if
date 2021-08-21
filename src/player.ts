@@ -1,15 +1,17 @@
 import playMoves, { State } from './moves'
-import { Scene } from '.'
+import { BookScene, Scene } from '.'
 
 export interface Move {
   type: string
   [prop: string]: any
 }
 
-export type PlayedScene = Scene & { state: State }
+export interface PlayedScene extends Scene {
+  state: State
+}
 
 // [Scene], [Move] -> [PlayedScene]
-const player: (scenes: Scene[], moves?: Move[]) => PlayedScene[] = (
+const player: (scenes: BookScene[], moves?: Move[]) => PlayedScene[] = (
   scenes,
   moves
 ) => {

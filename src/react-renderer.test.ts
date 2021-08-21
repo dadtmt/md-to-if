@@ -57,3 +57,19 @@ test('Click the goto cantina button calls moveHandler with a move to cantina', a
   fireEvent.click(screen.getByRole('link', { name: '/cantina' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantina)
 })
+
+test('It render link to action', async () => {
+  render(
+    renderer(moveHandler)(player(adventureBook, [startMove, moveToCantina]))
+  )
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
+  expect(moveHandler).toHaveBeenCalledWith({
+    type: 'anchor',
+    target: '/cantina/drink'
+  })
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
+  expect(moveHandler).toHaveBeenCalledWith({
+    type: 'anchor',
+    target: '/cantina/eat'
+  })
+})

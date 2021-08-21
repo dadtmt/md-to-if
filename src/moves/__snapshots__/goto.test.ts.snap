@@ -353,6 +353,7 @@ or what ",
 
 exports[`getTargetedScene get the unknown scene 1`] = `
 Object {
+  "actions": Array [],
   "name": "unknown",
   "sceneContent": Array [
     Object {
