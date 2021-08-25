@@ -9,7 +9,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import book from './book'
 import parser from './parser'
 import adventure from './adventure.md'
-import renderer, { MoveHandler } from './react-renderer'
+import renderer, { MoveHandler } from './renderer'
 import player from './player'
 
 const startMove = {
