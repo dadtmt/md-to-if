@@ -6,35 +6,15 @@ import { BookScene } from '..'
 
 const getState: (playedScene: PlayedScene) => State = R.prop('state')
 
-// [PlayedScene] -> State
 const getLastPlayedSceneState: (playedScenes: PlayedScene[]) => State = R.pipe(
   R.last,
   getState
 )
 
-const removeFirstChar: (str: string) => string = R.tail
-const getTarget: (move: Move) => string = R.propOr(
-  'missing target prop',
-  'target'
-)
-
-//  Move -> String
-export const getTargetSceneName: (move: Move) => string = R.pipe(
-  getTarget,
-  removeFirstChar
-)
-
-// Move -> Scene -> Boolean
-export const matchTarget: (move: Move) => (scene: BookScene) => boolean = (
-  move
-) => R.propEq('name', getTargetSceneName(move))
-
 const notFoundScene: (move: Move) => BookScene = (move) => {
-  const name = getTargetSceneName(move)
-
   return {
     actions: [],
-    name,
+    name: 'unknown',
     sceneContent: [
       {
         type: 'heading',
@@ -42,7 +22,7 @@ const notFoundScene: (move: Move) => BookScene = (move) => {
         content: [
           {
             type: 'text',
-            content: name
+            content: 'unknown'
           }
         ]
       },
@@ -51,7 +31,9 @@ const notFoundScene: (move: Move) => BookScene = (move) => {
         content: [
           {
             type: 'text',
-            content: `The scene with name ${name} does not exist`
+            content: `The scene with path: /${getPath(move).join(
+              '/'
+            )} does not exist`
           }
         ]
       }
@@ -59,20 +41,32 @@ const notFoundScene: (move: Move) => BookScene = (move) => {
   }
 }
 
-// Move -> [Scene] -> Scene
+const getSceneByPath =
+  (move: Move) =>
+  (scenes: BookScene[], path: string[]): BookScene => {
+    const [firstSceneName, ...restOfSceneNames] = path
+    const pathScene =
+      scenes.find(({ name }) => {
+        return firstSceneName.localeCompare(name) === 0
+      }) ?? notFoundScene(move)
+    const { actions } = pathScene
+    return restOfSceneNames.length > 0 && actions.length > 0
+      ? getSceneByPath(move)(actions, restOfSceneNames)
+      : pathScene
+  }
+
+const getPath = ({ target }: Move): string[] =>
+  target?.split('/').splice(1) ?? []
+
 export const getTargetedScene: (
   move: Move
-) => (scenes: BookScene[]) => BookScene = (move) =>
-  R.pipe(
-    R.find(matchTarget(move)),
-    R.when(R.isNil, () => notFoundScene(move))
-  )
+) => (scenes: BookScene[]) => BookScene = (move) => (scenes) => {
+  return getSceneByPath(move)(scenes, getPath(move))
+}
 
-// String -> State -> State
 const updateState: (name: string) => (state: State) => State = (name) =>
   R.pipe(R.assoc('currentSceneName', name), incPlayedSceneCount(name))
 
-// [Scene], [PlayedScene]-> [Move -> Boolean, Move -> MovedScene]
 const goto: (
   scenes: BookScene[],
   playedScenes: PlayedScene[]

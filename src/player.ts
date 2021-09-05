@@ -3,7 +3,7 @@ import { BookScene, Scene } from '.'
 
 export interface Move {
   type: string
-  [prop: string]: any
+  target?: string
 }
 
 export interface PlayedScene extends Scene {

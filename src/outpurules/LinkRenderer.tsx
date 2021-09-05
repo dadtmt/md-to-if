@@ -1,6 +1,6 @@
 import React from 'react'
 import { ReactOutput, SingleASTNode, State } from 'simple-markdown'
-import { MoveHandler } from '../react-renderer'
+import { MoveHandler } from '../renderer'
 
 const LinkRenderer =
   (moveHandler: MoveHandler) =>
