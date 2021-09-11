@@ -1,14 +1,13 @@
 /**
- * @jest-environment jsdom
+ * @jest-environment ./src/test/adventure-jsdom-environment.ts
  */
-
+import './test/types.d'
 import '@testing-library/jest-dom'
 
 import { render, screen, fireEvent } from '@testing-library/react'
 
 import book from './book'
 import parser from './parser'
-import adventure from './adventure.md'
 import renderer, { MoveHandler } from './renderer'
 import player from './player'
 
@@ -20,8 +19,9 @@ const moveToCantina = {
   type: 'anchor',
   target: '/cantina'
 }
-
-const adventureBook = book(parser(adventure))
+const { adventureGlobals } = global
+const { adventureMd } = adventureGlobals
+const adventureBook = book(parser(adventureMd))
 
 const moveHandler: MoveHandler = jest.fn()
 

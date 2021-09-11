@@ -1,10 +1,12 @@
+import '../test/types.d'
 import parser from '../parser'
 import { getTargetedScene } from './goto'
-import adventure from '../adventure.md'
 import book from '../book'
 import { ActionScene } from '..'
 
-const adventureBook = book(parser(adventure))
+const { adventureGlobals } = global
+const { adventureMd } = adventureGlobals
+const adventureBook = book(parser(adventureMd))
 
 const moveToCantina = {
   type: 'anchor',

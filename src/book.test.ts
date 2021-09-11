@@ -1,3 +1,4 @@
+import './test/types.d'
 import parser from './parser'
 import book, {
   splitByScene,
@@ -5,7 +6,9 @@ import book, {
   getSceneName,
   splitContentAndActions
 } from './book'
-import adventure from './adventure.md'
+
+const { adventureGlobals } = global
+const { adventureMd } = adventureGlobals
 
 const lastSceneMd = `## Final landing
 
@@ -77,7 +80,7 @@ describe('splitContentAndActions', () => {
 
 describe('splitByScene', () => {
   it('split the first scene', () => {
-    expect(splitByScene(2)(parser(adventure))).toMatchSnapshot()
+    expect(splitByScene(2)(parser(adventureMd))).toMatchSnapshot()
   })
   it('split the last scene', () => {
     expect(splitByScene(2)(parser(lastSceneMd))).toMatchSnapshot()
@@ -89,6 +92,6 @@ describe('splitByScene', () => {
 
 describe('book', () => {
   it('sort by scene', () => {
-    expect(book(parser(adventure))).toMatchSnapshot()
+    expect(book(parser(adventureMd))).toMatchSnapshot()
   })
 })

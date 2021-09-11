@@ -1,12 +1,14 @@
+import './test/types.d'
 import parser from './parser'
 import player from './player'
-import adventure from './adventure.md'
 import book from './book'
 import R from 'ramda'
 
 jest.mock('./expressions/rollDices')
 
-const adventureBook = book(parser(adventure))
+const { adventureGlobals } = global
+const { adventureMd } = adventureGlobals
+const adventureBook = book(parser(adventureMd))
 const startMove = {
   type: 'start'
 }

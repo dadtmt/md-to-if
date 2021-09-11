@@ -1,9 +1,12 @@
+import './test/types.d'
 import parser, {
   matchBraces,
   matchBracketPipe,
   matchPipeBracket
 } from './parser'
-import adventure from './adventure.md'
+
+const { adventureGlobals } = global
+const { adventureMd } = adventureGlobals
 
 describe('matchBraces', () => {
   it('match braces', () => {
@@ -33,6 +36,6 @@ describe('matchPipeBracket', () => {
 
 describe('parser', () => {
   it('parse markdown', () => {
-    expect(parser(adventure)).toMatchSnapshot()
+    expect(parser(adventureMd)).toMatchSnapshot()
   })
 })

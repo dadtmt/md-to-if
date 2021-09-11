@@ -8,7 +8,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
 import book from './book'
 import parser from './parser'
-import adventure from './adventure.md'
+import adventure from './test/adventure.md'
 import Viewer from './Viewer'
 
 test('Click on start display first scene', async () => {
