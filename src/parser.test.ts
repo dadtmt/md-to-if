@@ -1,25 +1,9 @@
 import './test/types.d'
-import parser, { matchBracketPipe, matchPipeBracket } from './parser'
+import parser from './parser'
 import { ASTNode } from 'simple-markdown'
 
 const { adventureGlobals } = global
 const { adventureMd } = adventureGlobals
-
-describe('matchBracketPipe', () => {
-  it('match bracket and a pipe', () => {
-    const source = '[ condition true | condition false ] }'
-
-    expect(matchBracketPipe(source)).toMatchSnapshot()
-  })
-})
-
-describe('matchPipeBracket', () => {
-  it('match bracket and a pipe', () => {
-    const source = '| condition false ] }'
-
-    expect(matchPipeBracket(source)).toMatchSnapshot()
-  })
-})
 
 describe('parser', () => {
   it('parses {} into command node', () => {
@@ -37,6 +21,34 @@ describe('parser', () => {
     const { content } = mainContent
     const secondNode = content[1]
     expect(secondNode).toEqual(expected)
+  })
+  it('parses [ content if true | content if false] into trueCaseContent and falseCaseContent nodes', () => {
+    const trueFalseContentMd = `some content [ true content || false content ] some content`
+    const expected: [ASTNode, ASTNode] = [
+      {
+        type: 'trueCaseContent',
+        content: [
+          {
+            type: 'text',
+            content: ' true content '
+          }
+        ]
+      },
+      {
+        type: 'falseCaseContent',
+        content: [
+          {
+            type: 'text',
+            content: ' false content '
+          }
+        ]
+      }
+    ]
+    const [mainContent] = parser(trueFalseContentMd)
+    const { content } = mainContent
+    const trueContentNode = content[1]
+    const falseContentNode = content[2]
+    expect([trueContentNode, falseContentNode]).toEqual(expected)
   })
   it('parse markdown', () => {
     expect(parser(adventureMd)).toMatchSnapshot()

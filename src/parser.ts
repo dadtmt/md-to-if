@@ -3,12 +3,10 @@ import SimpleMarkdown, { SingleASTNode } from 'simple-markdown'
 const matchBraces = (source: string): RegExpExecArray | null =>
   /^\{([\s\S]*?)\}/.exec(source)
 
-// String -> [String]
-export const matchBracketPipe = (source: string): RegExpExecArray | null =>
+const matchBracketPipe = (source: string): RegExpExecArray | null =>
   /^\[([\s\S]*?)\|/.exec(source)
 
-// String -> [String]
-export const matchPipeBracket = (source: string): RegExpExecArray | null =>
+const matchPipeBracket = (source: string): RegExpExecArray | null =>
   /^\|([\s\S]*?)\]/.exec(source)
 
 const parse: (capture: any, parse: any, state: any) => any = (
@@ -35,7 +33,6 @@ const falseCaseContent = {
   parse
 }
 
-// String -> [Content]
 const parser: (source: string) => SingleASTNode[] = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
   command,
