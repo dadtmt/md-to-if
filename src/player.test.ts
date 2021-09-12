@@ -1,53 +1,56 @@
 import './test/types.d'
 import parser from './parser'
-import player from './player'
+import player, { PlayedScene } from './player'
 import book from './book'
-import R from 'ramda'
 
 jest.mock('./expressions/rollDices')
 
 const { adventureGlobals } = global
-const {
-  adventureMd,
-  startMove,
-  moveToCantina,
-  moveToSpaceShip,
-  moveToBedroom
-} = adventureGlobals
+const { adventureMd, startMove, moveToCantina } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
+const [startScene, firstScene] = adventureBook
+const { actions, ...restOfFirstScene } = firstScene
+const playedStartScene: PlayedScene = {
+  ...startScene,
+  state: {}
+}
+const playedFirstScene: PlayedScene = {
+  ...restOfFirstScene,
+  state: {
+    currentSceneName: 'the_space_ship',
+    played: {
+      the_space_ship: 1
+    }
+  }
+}
 
 describe('player', () => {
   it('play book introduction if no moves', () => {
-    expect(player(adventureBook)).toMatchSnapshot()
-    expect(player(adventureBook)).toHaveLength(1)
+    const expected = [playedStartScene]
+    expect(player(adventureBook)).toEqual(expected)
   })
   it('play first scene on start move and add state.played with first_scene: 1', () => {
     const moves = [startMove]
-    expect(player(adventureBook, moves)).toMatchSnapshot()
+    const expected = [playedStartScene, playedFirstScene]
+    expect(player(adventureBook, moves)).toEqual(expected)
   })
   it('play cantina scene on cantina target', () => {
     const moves = [startMove, moveToCantina]
-    expect(player(adventureBook, moves)).toMatchSnapshot()
+    const { name } = player(adventureBook, moves).pop()
+    expect(name).toBe('cantina')
   })
-
-  it('add menu with 2 links at the end of content', () => {
+  it('add menu with 2 links at the end of cantina content', () => {
     const moves = [startMove, moveToCantina]
-    const { sceneContent } = R.last(player(adventureBook, moves))
-    const { type, content } = R.last(sceneContent)
+    const { sceneContent } = player(adventureBook, moves).pop()
+    const { type, content } = sceneContent.pop()
     expect(type).toBe('menu')
     expect(content).toHaveLength(2)
   })
-
   it('increment cantina scene played on second cantina move', () => {
     const moves = [startMove, moveToCantina, moveToCantina]
-    expect(player(adventureBook, moves)).toMatchSnapshot()
-  })
-  it('increment the spaceship scene played spaceship move', () => {
-    const moves = [startMove, moveToCantina, moveToCantina, moveToSpaceShip]
-    expect(player(adventureBook, moves)).toMatchSnapshot()
-  })
-  it('describe a droid object in state on bedroom move', () => {
-    const moves = [startMove, moveToBedroom]
-    expect(player(adventureBook, moves)).toMatchSnapshot()
+    const { state } = player(adventureBook, moves).pop()
+    const { played } = state
+    const { cantina } = played
+    expect(cantina).toBe(2)
   })
 })

@@ -9,7 +9,7 @@ import { BookScene } from '..'
 
 export interface State {
   currentSceneName?: string | undefined
-  played?: object
+  played?: { [sceneName: string]: number }
   path?: object
   testResult?: boolean
 }
