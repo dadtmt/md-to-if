@@ -1,7 +1,6 @@
 import SimpleMarkdown, { SingleASTNode } from 'simple-markdown'
 
-// String -> [String]
-export const matchBraces = (source: string): RegExpExecArray | null =>
+const matchBraces = (source: string): RegExpExecArray | null =>
   /^\{([\s\S]*?)\}/.exec(source)
 
 // String -> [String]

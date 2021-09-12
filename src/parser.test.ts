@@ -1,22 +1,9 @@
 import './test/types.d'
-import parser, {
-  matchBraces,
-  matchBracketPipe,
-  matchPipeBracket
-} from './parser'
+import parser, { matchBracketPipe, matchPipeBracket } from './parser'
+import { ASTNode } from 'simple-markdown'
 
 const { adventureGlobals } = global
 const { adventureMd } = adventureGlobals
-
-describe('matchBraces', () => {
-  it('match braces', () => {
-    const source = `{ show value } after
-bla
-bla
-bla later some {show other} bla`
-    expect(matchBraces(source)).toMatchSnapshot()
-  })
-})
 
 describe('matchBracketPipe', () => {
   it('match bracket and a pipe', () => {
@@ -35,6 +22,22 @@ describe('matchPipeBracket', () => {
 })
 
 describe('parser', () => {
+  it('parses {} into command node', () => {
+    const someCommandMd = `some content { some command } other content`
+    const expected: ASTNode = {
+      type: 'command',
+      content: [
+        {
+          type: 'text',
+          content: ' some command '
+        }
+      ]
+    }
+    const [mainContent] = parser(someCommandMd)
+    const { content } = mainContent
+    const secondNode = content[1]
+    expect(secondNode).toEqual(expected)
+  })
   it('parse markdown', () => {
     expect(parser(adventureMd)).toMatchSnapshot()
   })
