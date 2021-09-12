@@ -3,19 +3,24 @@ import { snakeCase } from 'change-case'
 import { ActionScene, BookScene } from '.'
 import { SingleASTNode } from 'simple-markdown'
 
+interface SplittedContent {
+  heading: SingleASTNode
+  contentAndActions: SingleASTNode[]
+  sourceLeft: SingleASTNode[]
+}
+
 // @ts-expect-error
-export const getSceneLabel: (content: SingleASTNode) => string = R.pipe(
+const getSceneLabel: (content: SingleASTNode) => string = R.pipe(
   R.propOr([], 'content'),
   R.head,
   R.propOr('unnamed', 'content')
 )
 
-export const getSceneName: (content: SingleASTNode) => string = R.pipe(
+const getSceneName: (content: SingleASTNode) => string = R.pipe(
   getSceneLabel,
   snakeCase
 )
 
-// int -> [SingleASTNode] -> [[SingleASTNode],[SingleASTNode]]
 const splitByHeading: (
   level: number
 ) => (content: SingleASTNode[]) => SingleASTNode[][] = (level) =>
@@ -60,8 +65,7 @@ const splitActions: (
   ])
 }
 
-// [SingleASTNode] -> { content: [SingleASTNode], actions: [Scene] }
-export const splitContentAndActions: (level: number) => (
+const splitContentAndActions: (level: number) => (
   contentAndActions: SingleASTNode[]
 ) => {
   content: SingleASTNode[]
@@ -69,12 +73,6 @@ export const splitContentAndActions: (level: number) => (
 } = (level) => (contentAndActions) => {
   const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
   return { content, actions: splitActions(level, untreatedActions) }
-}
-
-interface SplittedContent {
-  heading: SingleASTNode
-  contentAndActions: SingleASTNode[]
-  sourceLeft: SingleASTNode[]
 }
 
 const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
@@ -98,8 +96,7 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
   }
 }
 
-// int -> [SingleASTNode] -> { scene: Scene, content: [SingleASTNode] }
-export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
+const splitByScene: (level: number) => (content: SingleASTNode[]) => {
   scene: BookScene
   sourceLeft: SingleASTNode[]
 } = (level) =>
@@ -109,7 +106,6 @@ export const splitByScene: (level: number) => (content: SingleASTNode[]) => {
     splitContentToSceneAndSourceLeft
   )
 
-// [SingleASTNode], [Scene] -> [Scene]
 const book: (source: SingleASTNode[], scenes?: BookScene[]) => BookScene[] = (
   source,
   scenes = []
