@@ -18,7 +18,7 @@ describe('parser', () => {
     const secondNode = content[1]
     expect(secondNode).toEqual(expected)
   })
-  it('parses [ content if true | content if false] into trueCaseContent and falseCaseContent nodes', () => {
+  it('parses [ content if true || content if false] into trueCaseContent and falseCaseContent nodes', () => {
     const trueFalseContentMd = `some content [ true content || false content ] some content`
     const expected: [ASTNode, ASTNode] = [
       {
