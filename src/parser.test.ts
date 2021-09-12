@@ -1,9 +1,5 @@
-import './test/types.d'
 import parser from './parser'
 import { ASTNode } from 'simple-markdown'
-
-const { adventureGlobals } = global
-const { adventureMd } = adventureGlobals
 
 describe('parser', () => {
   it('parses {} into command node', () => {
@@ -49,8 +45,5 @@ describe('parser', () => {
     const trueContentNode = content[1]
     const falseContentNode = content[2]
     expect([trueContentNode, falseContentNode]).toEqual(expected)
-  })
-  it('parse markdown', () => {
-    expect(parser(adventureMd)).toMatchSnapshot()
   })
 })
