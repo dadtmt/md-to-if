@@ -5,21 +5,9 @@ import book from '../book'
 import { ActionScene } from '..'
 
 const { adventureGlobals } = global
-const { adventureMd } = adventureGlobals
+const { adventureMd, moveToCantina, moveToCantinaDrink, moveToUnknown } =
+  adventureGlobals
 const adventureBook = book(parser(adventureMd))
-
-const moveToCantina = {
-  type: 'anchor',
-  target: '/cantina'
-}
-const moveToUnknown = {
-  type: 'anchor',
-  target: '/unknown'
-}
-const moveToCantinaDrink = {
-  type: 'anchor',
-  target: '/cantina/drink'
-}
 
 const cantinaScene = adventureBook[2]
 const { actions } = cantinaScene as ActionScene

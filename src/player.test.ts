@@ -7,23 +7,14 @@ import R from 'ramda'
 jest.mock('./expressions/rollDices')
 
 const { adventureGlobals } = global
-const { adventureMd } = adventureGlobals
+const {
+  adventureMd,
+  startMove,
+  moveToCantina,
+  moveToSpaceShip,
+  moveToBedroom
+} = adventureGlobals
 const adventureBook = book(parser(adventureMd))
-const startMove = {
-  type: 'start'
-}
-const moveToCantina = {
-  type: 'anchor',
-  target: '/cantina'
-}
-const moveToSpaceShip = {
-  type: 'anchor',
-  target: '/the_space_ship'
-}
-const moveToBedroom = {
-  type: 'anchor',
-  target: '/bedroom'
-}
 
 describe('player', () => {
   it('play book introduction if no moves', () => {

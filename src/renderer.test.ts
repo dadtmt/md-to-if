@@ -11,16 +11,14 @@ import parser from './parser'
 import renderer, { MoveHandler } from './renderer'
 import player from './player'
 
-const startMove = {
-  type: 'start'
-}
-
-const moveToCantina = {
-  type: 'anchor',
-  target: '/cantina'
-}
 const { adventureGlobals } = global
-const { adventureMd } = adventureGlobals
+const {
+  adventureMd,
+  startMove,
+  moveToCantina,
+  moveToCantinaDrink,
+  moveToCantinaEat
+} = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 
 const moveHandler: MoveHandler = jest.fn()
@@ -63,13 +61,7 @@ test('It render link to action', async () => {
     renderer(moveHandler)(player(adventureBook, [startMove, moveToCantina]))
   )
   fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
-  expect(moveHandler).toHaveBeenCalledWith({
-    type: 'anchor',
-    target: '/cantina/drink'
-  })
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
   fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
-  expect(moveHandler).toHaveBeenCalledWith({
-    type: 'anchor',
-    target: '/cantina/eat'
-  })
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
 })
