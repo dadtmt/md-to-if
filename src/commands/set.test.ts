@@ -1,4 +1,4 @@
-import { applyCommand } from '.'
+import { applyCommand } from './helpers'
 
 describe('applyCommand set', () => {
   it('returns [empty text content node, state with property setted] for instruction set', () => {

@@ -1,4 +1,4 @@
-import { applyCommand } from '.'
+import { applyCommand } from './helpers'
 
 describe('applyCommand', () => {
   it('returns [node text with current scene play count, unmodified state] for instruction show playedCount', () => {

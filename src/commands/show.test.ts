@@ -1,4 +1,4 @@
-import { applyCommand } from '.'
+import { applyCommand } from './helpers'
 
 describe('applyCommand show', () => {
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
