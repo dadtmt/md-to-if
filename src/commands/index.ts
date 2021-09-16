@@ -8,6 +8,10 @@ import {
   ConditionalFunction
 } from '../parseSceneContent'
 import { applyCommand } from './helpers'
+import set from './set'
+import describe from './describe'
+import test from './testCommand'
+import show from './show'
 
 export interface Command {
   instruction: string
@@ -31,6 +35,9 @@ export type TestCommandAndGetContent = [TestCommand, CommandToContent]
 
 const parseCommandContent: (state: State) => TestAndComputeContentAndState = (
   state
-) => [R.propEq('type', 'command'), applyCommand(state)]
+) => [
+  R.propEq('type', 'command'),
+  applyCommand(state, [set, test, describe], [show(state)])
+]
 
 export default parseCommandContent

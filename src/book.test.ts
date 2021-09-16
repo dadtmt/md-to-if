@@ -28,7 +28,7 @@ action 1 1 content
 action 2 content
 `
 
-describe.only('book', () => {
+describe('book', () => {
   const someBook = book(parser(someMd))
   const [startScene, firstcene, sceneWithActions] = someBook
   it('splits the start scene', () => {

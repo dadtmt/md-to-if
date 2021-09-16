@@ -1,10 +1,6 @@
 import * as R from 'ramda'
 import { right, left, fold } from 'fp-ts/lib/Either'
 
-import show from './../show'
-import set from './../set'
-import describe from './../describe'
-import test from './../testCommand'
 import { State } from '../../moves'
 import { SingleASTNode } from 'simple-markdown'
 import { ComputeContentAndState } from '../../parseSceneContent'
@@ -24,8 +20,10 @@ const emptyTextNodeByDefault: TestCommandAndGetContent = [
   R.always(right({ content: '', type: 'text' }))
 ]
 
-const getCommandResultContent: (state: State) => CommandToContent = (state) =>
-  R.cond([show(state), emptyTextNodeByDefault])
+const getCommandResultContent: (
+  commandToContentResolvers: TestCommandAndGetContent[]
+) => CommandToContent = (commandToContentResolvers) =>
+  R.cond([...commandToContentResolvers, emptyTextNodeByDefault])
 
 const doNoUpdateStateByDefault: TestCommandAndUpdateState = [
   R.T,
@@ -37,16 +35,22 @@ const makeError: TestCommandAndUpdateState = [
   () => () => left('wanted Error')
 ]
 
-const applyCommandToState: CommandUpdateState = R.cond([
-  set,
-  test,
-  describe,
-  makeError,
-  doNoUpdateStateByDefault
-])
+const applyCommandToState: (
+  commandResolvers: TestCommandAndUpdateState[]
+) => CommandUpdateState = (commandResolvers: TestCommandAndUpdateState[]) =>
+  R.cond([...commandResolvers, makeError, doNoUpdateStateByDefault])
 
-const applyCommand: (state: State) => ComputeContentAndState =
-  (state) => (content) => {
+const applyCommand: (
+  state: State,
+  commandResolvers?: TestCommandAndUpdateState[],
+  commandToContentResolvers?: TestCommandAndGetContent[]
+) => ComputeContentAndState =
+  (
+    state,
+    commandResolvers?: TestCommandAndUpdateState[],
+    commandToContentResolvers?: TestCommandAndGetContent[]
+  ) =>
+  (content) => {
     const command = getCommand(getContentAsContents(content))
 
     return fold<string, State, [SingleASTNode, State]>(
@@ -55,10 +59,10 @@ const applyCommand: (state: State) => ComputeContentAndState =
         fold<string, SingleASTNode, SingleASTNode>(
           (message: string) => errorNode(message, content),
           R.identity
-        )(getCommandResultContent(state)(command)),
+        )(getCommandResultContent(commandToContentResolvers ?? [])(command)),
         updatedState
       ]
-    )(applyCommandToState(command)(state))
+    )(applyCommandToState(commandResolvers ?? [])(command)(state))
   }
 
 export default applyCommand

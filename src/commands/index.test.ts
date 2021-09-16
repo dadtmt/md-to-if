@@ -1,4 +1,6 @@
 import { applyCommand } from './helpers'
+import show from './show'
+import testCommand from './testCommand'
 
 describe('applyCommand', () => {
   it('returns [node text with current scene play count, unmodified state] for instruction show playedCount', () => {
@@ -29,7 +31,7 @@ describe('applyCommand', () => {
       state
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
 
   it('returns [text content node with value, unmodified state] for instruction show', () => {
@@ -67,7 +69,7 @@ describe('applyCommand', () => {
       }
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
 
   it('returns [empty text node content, state with testResult: true] for instruction test playedCount equals 1 true ', () => {
@@ -98,7 +100,7 @@ describe('applyCommand', () => {
       { ...state, testResult: true }
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [testCommand])(content)).toEqual(expected)
   })
 
   it('returns [error not valid operator node content, unmodified state] for instruction test playedCount maybe 1 true ', () => {
@@ -121,7 +123,7 @@ describe('applyCommand', () => {
       currentSceneName
     }
 
-    expect(applyCommand(state)(content)).toMatchSnapshot()
+    expect(applyCommand(state, [testCommand])(content)).toMatchSnapshot()
   })
 
   it('returns [error operator supports only number node content, unmodified state] for instruction test playedCount lte string true ', () => {
@@ -144,7 +146,7 @@ describe('applyCommand', () => {
       currentSceneName
     }
 
-    expect(applyCommand(state)(content)).toMatchSnapshot()
+    expect(applyCommand(state, [testCommand])(content)).toMatchSnapshot()
   })
 
   it('returns [empty text node content, state with testResult: false] for instruction test playedCount equals 2 false ', () => {
@@ -175,7 +177,7 @@ describe('applyCommand', () => {
       { ...state, testResult: false }
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [testCommand])(content)).toEqual(expected)
   })
 
   it('returns [error node content, unmodified state]', () => {

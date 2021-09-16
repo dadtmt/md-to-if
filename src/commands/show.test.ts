@@ -1,4 +1,5 @@
 import { applyCommand } from './helpers'
+import show from './show'
 
 describe('applyCommand show', () => {
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
@@ -29,7 +30,7 @@ describe('applyCommand show', () => {
       state
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
 
   it('returns [error about missing args, unmodified state] for instruction show ', () => {
@@ -52,6 +53,6 @@ describe('applyCommand show', () => {
       currentSceneName
     }
 
-    expect(applyCommand(state)(content)).toMatchSnapshot()
+    expect(applyCommand(state, [], [show(state)])(content)).toMatchSnapshot()
   })
 })

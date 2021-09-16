@@ -1,4 +1,5 @@
 import { applyCommand } from './helpers'
+import set from './set'
 
 describe('applyCommand set', () => {
   it('returns [empty text content node, state with property setted] for instruction set', () => {
@@ -35,7 +36,7 @@ describe('applyCommand set', () => {
       }
     ]
 
-    expect(applyCommand(state)(content)).toEqual(expected)
+    expect(applyCommand(state, [set])(content)).toEqual(expected)
   })
   it('returns [error node content with missing path message, unmodified state]', () => {
     const content = {
@@ -49,7 +50,7 @@ describe('applyCommand set', () => {
     }
     const state = { currentSceneName: 'current scene' }
 
-    expect(applyCommand(state)(content)).toMatchSnapshot()
+    expect(applyCommand(state, [set])(content)).toMatchSnapshot()
   })
   it('returns [error node content with expression error message, unmodified state]', () => {
     const content = {
@@ -63,6 +64,6 @@ describe('applyCommand set', () => {
     }
     const state = { currentSceneName: 'current scene' }
 
-    expect(applyCommand(state)(content)).toMatchSnapshot()
+    expect(applyCommand(state, [set])(content)).toMatchSnapshot()
   })
 })
