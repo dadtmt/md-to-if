@@ -17,6 +17,7 @@ import parseExpression, {
   Expression,
   ExpressionValidResult
 } from '../expressions'
+import getCommand from './helpers/getCommand'
 
 export interface Command {
   instruction: string
@@ -56,28 +57,8 @@ export const resolveExpression: (
 ) => (expression: Expression) => ExpressionValidResult = (state) =>
   R.pipe(parseExpression(state), decodeExpression)
 
-const getContentAsString: (content: SingleASTNode) => string = R.pipe(
-  R.prop<string>('content'),
-  R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
-)
-
 const getContentAsContents: (content: SingleASTNode) => SingleASTNode[] =
   R.prop<string>('content')
-
-const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
-  getContentAsString,
-  R.trim,
-  R.split(' ')
-)
-
-export const getCommand: (contentBody: SingleASTNode[]) => Command = ([
-  commandLine,
-  ...data
-]) => {
-  const [instruction, ...args] = getCommandLine(commandLine)
-
-  return { instruction, args, data }
-}
 
 const emptyTextNodeByDefault: TestCommandAndGetContent = [
   R.T,
