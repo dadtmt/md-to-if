@@ -17,7 +17,7 @@ import parseExpression, {
   Expression,
   ExpressionValidResult
 } from '../expressions'
-import getCommand from './helpers/getCommand'
+import { getCommand } from './helpers'
 
 export interface Command {
   instruction: string
@@ -36,16 +36,6 @@ type CommandToContent = (command: Command) => Either<string, SingleASTNode>
 export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
 
 export type TestCommandAndGetContent = [TestCommand, CommandToContent]
-
-const removeVal: (parts: string[][]) => string[][] = ([
-  leftPart,
-  rightPart
-]) => [leftPart, rightPart.slice(1)]
-
-export const splitArgsByVal: (args: string[]) => string[][] = R.pipe(
-  R.splitWhen(R.equals('val')),
-  removeVal
-)
 
 const decodeExpression: (
   parsedExpression: ParsedExpression

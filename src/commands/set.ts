@@ -1,7 +1,8 @@
 import * as R from 'ramda'
 
 import parseExpression, { ExpressionValidResult } from '../expressions'
-import { TestCommandAndUpdateState, splitArgsByVal } from '.'
+import { TestCommandAndUpdateState } from '.'
+import { splitArgsByVal } from './helpers'
 import { State } from '../moves'
 import { right, left } from 'fp-ts/lib/Either'
 import foldError from '../utils/foldError'

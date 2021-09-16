@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 
-import { TestCommandAndUpdateState, Command, splitArgsByVal } from '.'
+import { TestCommandAndUpdateState, Command } from '.'
+import { splitArgsByVal } from './helpers'
 import { State } from '../moves'
 import { right, Either, left } from 'fp-ts/lib/Either'
 import { isNumber } from '../typeGuards'
