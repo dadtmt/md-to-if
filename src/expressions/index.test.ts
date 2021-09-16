@@ -1,4 +1,21 @@
-import { resolveExpression } from '../commands'
+import { isRight } from 'fp-ts/lib/Either'
+import R from 'ramda'
+import parseExpression, {
+  ParsedExpression,
+  ExpressionValidResult,
+  Expression
+} from '.'
+import { State } from '../moves'
+
+const decodeExpression: (
+  parsedExpression: ParsedExpression
+) => ExpressionValidResult = (parsedExpression) =>
+  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
+
+const resolveExpression: (
+  state: State
+) => (expression: Expression) => ExpressionValidResult = (state) =>
+  R.pipe(parseExpression(state), decodeExpression)
 
 describe('parseExpression', () => {
   it('returns value between 1 and 6 for ["roll", "D6"]', () => {

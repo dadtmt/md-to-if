@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { Either, right, left, isRight, fold } from 'fp-ts/lib/Either'
+import { Either, right, left, fold } from 'fp-ts/lib/Either'
 
 import show from './show'
 import set from './set'
@@ -12,11 +12,6 @@ import {
   ComputeContentAndState,
   ConditionalFunction
 } from '../parseSceneContent'
-import parseExpression, {
-  ParsedExpression,
-  Expression,
-  ExpressionValidResult
-} from '../expressions'
 import { getCommand } from './helpers'
 
 export interface Command {
@@ -36,16 +31,6 @@ type CommandToContent = (command: Command) => Either<string, SingleASTNode>
 export type TestCommandAndUpdateState = [TestCommand, CommandUpdateState]
 
 export type TestCommandAndGetContent = [TestCommand, CommandToContent]
-
-const decodeExpression: (
-  parsedExpression: ParsedExpression
-) => ExpressionValidResult = (parsedExpression) =>
-  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
-
-export const resolveExpression: (
-  state: State
-) => (expression: Expression) => ExpressionValidResult = (state) =>
-  R.pipe(parseExpression(state), decodeExpression)
 
 const getContentAsContents: (content: SingleASTNode) => SingleASTNode[] =
   R.prop<string>('content')
