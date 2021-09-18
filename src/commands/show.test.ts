@@ -2,6 +2,43 @@ import { applyCommand, errorNode } from './helpers'
 import show from './show'
 
 describe('applyCommand show', () => {
+  it('returns [text content node with value, unmodified state] for instruction show', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = {
+      content: [
+        {
+          content: ' show container prop ',
+          type: 'text'
+        }
+      ],
+      type: 'command'
+    }
+
+    const state = {
+      played: {
+        currentSceneName: 3
+      },
+      currentSceneName,
+      container: { prop: 'value' }
+    }
+
+    const expected = [
+      {
+        content: 'value',
+        type: 'text'
+      },
+      {
+        played: {
+          currentSceneName: 3
+        },
+        currentSceneName,
+        container: { prop: 'value' }
+      }
+    ]
+
+    expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
+  })
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
