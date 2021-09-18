@@ -1,4 +1,4 @@
-import { applyCommand } from './helpers'
+import { applyCommand, errorNode } from './helpers'
 import set from './set'
 
 describe('applyCommand set', () => {
@@ -49,8 +49,12 @@ describe('applyCommand set', () => {
       type: 'command'
     }
     const state = { currentSceneName: 'current scene' }
+    const expected = [
+      errorNode('path is required to set a value -- path val value', content),
+      state
+    ]
 
-    expect(applyCommand(state, [set])(content)).toMatchSnapshot()
+    expect(applyCommand(state, [set])(content)).toEqual(expected)
   })
   it('returns [error node content with expression error message, unmodified state]', () => {
     const content = {
@@ -63,7 +67,8 @@ describe('applyCommand set', () => {
       type: 'command'
     }
     const state = { currentSceneName: 'current scene' }
+    const expected = [errorNode('Error parsing an expression', content), state]
 
-    expect(applyCommand(state, [set])(content)).toMatchSnapshot()
+    expect(applyCommand(state, [set])(content)).toEqual(expected)
   })
 })
