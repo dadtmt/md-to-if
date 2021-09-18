@@ -1,6 +1,6 @@
-import { getDescription } from './describe'
+import getDescription from './getDescription'
 
-jest.mock('../expressions/rollDices')
+jest.mock('../../expressions/rollDices')
 
 describe('getDescription', () => {
   it('returns object description from the table', () => {
@@ -19,8 +19,14 @@ describe('getDescription', () => {
         ]
       }
     ]
-
-    expect(getDescription({})(data)).toMatchSnapshot()
+    const expected = {
+      _tag: 'Right',
+      right: {
+        prop1: 'val1',
+        prop2: 'val2'
+      }
+    }
+    expect(getDescription({})(data)).toEqual(expected)
   })
   it('handles expressions', () => {
     const data = [
@@ -41,7 +47,16 @@ describe('getDescription', () => {
       }
     ]
 
-    expect(getDescription({})(data)).toMatchSnapshot()
+    const expected = {
+      _tag: 'Right',
+      right: {
+        numberProp: 12,
+        prop1: 'val1',
+        prop2: 42
+      }
+    }
+
+    expect(getDescription({})(data)).toEqual(expected)
   })
 
   it('returns error message of the first wrong expression', () => {
@@ -62,7 +77,10 @@ describe('getDescription', () => {
         ]
       }
     ]
-
-    expect(getDescription({})(data)).toMatchSnapshot()
+    const expected = {
+      _tag: 'Left',
+      left: 'The dices are missing (ex: roll d6)'
+    }
+    expect(getDescription({})(data)).toEqual(expected)
   })
 })
