@@ -1,4 +1,4 @@
-import { applyCommand } from './helpers'
+import { applyCommand, errorNode } from './helpers'
 import show from './show'
 
 describe('applyCommand show', () => {
@@ -53,6 +53,11 @@ describe('applyCommand show', () => {
       currentSceneName
     }
 
-    expect(applyCommand(state, [], [show(state)])(content)).toMatchSnapshot()
+    const expected = [
+      errorNode('The path  is not a single value', content),
+      state
+    ]
+
+    expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
 })
