@@ -31,7 +31,7 @@ or what ? ]
 
 ### Drink
 
-You have a whisky or a milkhake
+You have a whisky or a milkshake
 
 #### Whisky
 
