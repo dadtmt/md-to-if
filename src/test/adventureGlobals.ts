@@ -45,7 +45,7 @@ export interface AdventureGlobals {
   moveToBedroom: Move
   moveToUnknown: Move
   moveToCantinaDrink: Move
-  moveToCantinaEat: Move,
+  moveToCantinaEat: Move
   moveToCantinaDrinkWhisky: Move
 }
 
