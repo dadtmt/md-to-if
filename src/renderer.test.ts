@@ -17,7 +17,8 @@ const {
   startMove,
   moveToCantina,
   moveToCantinaDrink,
-  moveToCantinaEat
+  moveToCantinaEat,
+  moveToCantinaDrinkWhisky
 } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 
@@ -64,4 +65,13 @@ test('It render link to action', async () => {
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
   fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
+})
+
+test('It render level 3 action', async () => {
+  render(
+    renderer(moveHandler)(
+      player(adventureBook, [startMove, moveToCantinaDrinkWhisky])
+    )
+  )
+  expect(screen.getByRole('heading', { level: 4 })).toHaveTextContent('Whisky')
 })
