@@ -29,6 +29,8 @@ You have { show bag pickles } with you
     Will you come back ? || Should not you go somewhere else ?
 or what ? ] 
 
+> The waiter takes your order.
+
 ### Drink
 
 You have a whisky or a milkshake

@@ -90,7 +90,10 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
     scene: {
       name: getSceneName(heading),
       sceneContent: [heading, ...content],
-      actions
+      actions,
+      quoteMenu: content.find(
+        ({ type }: SingleASTNode) => type === 'blockQuote'
+      )
     },
     sourceLeft
   }
