@@ -71,13 +71,6 @@ describe('book', () => {
     }
     expect(firstcene).toEqual(expected)
   })
-  it('splits actions into action scenes', () => {
-    expect(actions[0].actions[0].actions).toHaveLength(0)
-    expect(actions[1].actions).toHaveLength(0)
-    expect(actions[0].name).toBe('action_1')
-    expect(actions[1].name).toBe('action_2')
-    expect(actions[0].actions[0].name).toBe('action_1_1')
-  })
 
   const [action1, action2] = actions
   const {
@@ -89,7 +82,8 @@ describe('book', () => {
   const {
     actionLabel: action2Label,
     actions: action2Actions,
-    name: action2Name
+    name: action2Name,
+    quoteMenu: action2QuoteMenu
   } = action2
 
   const [action11] = action1Actions
@@ -124,5 +118,9 @@ describe('book', () => {
 
   it('split the blockquote into the scene menu quote', () => {
     expect(quoteMenu).toBeDefined()
+  })
+
+  it('action 2 has the scene quoteMenu', () => {
+    expect(action2QuoteMenu).toEqual(quoteMenu)
   })
 })
