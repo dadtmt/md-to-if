@@ -31,8 +31,12 @@ const splitByHeading: (
     })
   )
 
-const getQuoteMenu = (content: SingleASTNode[]): SingleASTNode | undefined =>
-  content.find(({ type }: SingleASTNode) => type === 'blockQuote')
+const getQuoteMenu = (
+  content: SingleASTNode[],
+  parentQuoteMenu?: SingleASTNode | undefined
+): SingleASTNode | undefined =>
+  content.find(({ type }: SingleASTNode) => type === 'blockQuote') ??
+  parentQuoteMenu
 
 const splitActions: (
   level: number,
@@ -58,7 +62,7 @@ const splitActions: (
         actionLabel: getSceneLabel(headOfContent),
         sceneContent: [headOfContent, ...actionContent],
         actions: [],
-        quoteMenu: parentQuoteMenu
+        quoteMenu: getQuoteMenu(actionContent, parentQuoteMenu)
       }
     ]
   }
@@ -73,7 +77,8 @@ const splitActions: (
       name: getSceneName(headOfContent),
       sceneContent: [headOfContent, ...content],
       actions,
-      actionLabel: getSceneLabel(headOfContent)
+      actionLabel: getSceneLabel(headOfContent),
+      quoteMenu: getQuoteMenu(content, parentQuoteMenu)
     }
   ])
 }

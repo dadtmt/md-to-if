@@ -21,6 +21,8 @@ sceen with actions
 
 action 1 content
 
+> the action 1 menu quote
+
 #### Action 1 1
 
 action 1 1 content
@@ -76,7 +78,8 @@ describe('book', () => {
   const {
     actionLabel: action1Label,
     actions: action1Actions,
-    name: action1Name
+    name: action1Name,
+    quoteMenu: action1QuoteMenu
   } = action1
 
   const {
@@ -122,5 +125,9 @@ describe('book', () => {
 
   it('action 2 has the scene quoteMenu', () => {
     expect(action2QuoteMenu).toEqual(quoteMenu)
+  })
+
+  it('action 1 has not the scene quoteMenu', () => {
+    expect(action1QuoteMenu).not.toEqual(quoteMenu)
   })
 })
