@@ -31,24 +31,15 @@ const splitByHeading: (
     })
   )
 
-const getQuoteMenu = (
-  content: SingleASTNode[],
-  parentQuoteMenu?: SingleASTNode | undefined
-): SingleASTNode | undefined =>
-  content.find(({ type }: SingleASTNode) => type === 'blockQuote') ??
-  parentQuoteMenu
+const getQuoteMenu = (content: SingleASTNode[]): SingleASTNode | undefined =>
+  content.find(({ type }: SingleASTNode) => type === 'blockQuote')
 
-const splitActions: (
+const splitActions = (
   level: number,
-  untratedActions: SingleASTNode[],
-  parentQuoteMenu: SingleASTNode | undefined,
-  actionList?: ActionScene[]
-) => ActionScene[] = (
-  level,
-  untreatedActions,
-  parentQuoteMenu,
-  actionList = []
-) => {
+  parentSceneName: string,
+  untreatedActions: SingleASTNode[],
+  actionList: ActionScene[] = []
+): ActionScene[] => {
   const [headOfContent, ...tailOfContent] = untreatedActions
   if (R.isEmpty(untreatedActions)) {
     return [...actionList]
@@ -62,40 +53,37 @@ const splitActions: (
         actionLabel: getSceneLabel(headOfContent),
         sceneContent: [headOfContent, ...actionContent],
         actions: [],
-        quoteMenu: getQuoteMenu(actionContent, parentQuoteMenu)
+        quoteMenu: getQuoteMenu(actionContent)
       }
     ]
   }
   const { content, actions } = splitContentAndActions(
     level + 1,
-    parentQuoteMenu
+    parentSceneName
   )(actionContent)
 
-  return splitActions(level, restOfContent, parentQuoteMenu, [
+  return splitActions(level, parentSceneName, restOfContent, [
     ...actionList,
     {
       name: getSceneName(headOfContent),
       sceneContent: [headOfContent, ...content],
       actions,
       actionLabel: getSceneLabel(headOfContent),
-      quoteMenu: getQuoteMenu(content, parentQuoteMenu)
+      quoteMenu: getQuoteMenu(content)
     }
   ])
 }
 
-const splitContentAndActions: (
-  level: number,
-  parentQuoteMenu: SingleASTNode | undefined
-) => (contentAndActions: SingleASTNode[]) => {
-  content: SingleASTNode[]
-  actions: ActionScene[]
-} = (level, parentQuoteMenu) => (contentAndActions) => {
-  const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
-  return {
-    content,
-    actions: splitActions(level, untreatedActions, parentQuoteMenu)
+const splitContentAndActions =
+  (level: number, parentSceneName: string) =>
+  (contentAndActions: SingleASTNode[]) => {
+    const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
+    const actions = splitActions(level, parentSceneName, untreatedActions)
+    return {
+      content: [...content],
+      actions
+    }
   }
-}
 
 const sortSplittedContent: (content: SingleASTNode[]) => any = R.zipObj([
   'heading',
@@ -107,14 +95,15 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
   scene: BookScene
   sourceLeft: SingleASTNode[]
 } = ({ heading, contentAndActions, sourceLeft }) => {
+  const name = getSceneName(heading)
   const quoteMenu = getQuoteMenu(contentAndActions)
   const { content, actions } = splitContentAndActions(
     3,
-    quoteMenu
+    name
   )(contentAndActions)
   return {
     scene: {
-      name: getSceneName(heading),
+      name,
       sceneContent: [heading, ...content],
       actions,
       quoteMenu

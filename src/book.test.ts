@@ -1,7 +1,6 @@
 import './test/types.d'
 import parser from './parser'
 import book from './book'
-import type { BookScene } from '.'
 
 const someMd = `# Story
 
@@ -11,7 +10,7 @@ a story
 
 first scene content
 
-## Scene with actions
+## Scene with a menu
 
 sceen with actions
 
@@ -34,45 +33,17 @@ action 2 content
 
 describe('book', () => {
   const someBook = book(parser(someMd))
-  const [startScene, firstcene, sceneWithActions] = someBook
-  const { actions, quoteMenu } = sceneWithActions
-
+  const [startScene, firstScene, sceneWithActions] = someBook
+  const { name: startSceneName } = startScene
   it('splits the start scene', () => {
-    const expected: BookScene = {
-      name: 'story',
-      actions: [],
-      sceneContent: [
-        {
-          type: 'heading',
-          level: 1,
-          content: [{ type: 'text', content: 'Story' }]
-        },
-        {
-          type: 'paragraph',
-          content: [{ type: 'text', content: 'a story' }]
-        }
-      ]
-    }
-    expect(startScene).toEqual(expected)
+    expect(startSceneName).toBe('story')
   })
+  const { name: firstSceneName } = firstScene
   it('splits the first scene', () => {
-    const expected: BookScene = {
-      name: 'the_first_scene',
-      actions: [],
-      sceneContent: [
-        {
-          type: 'heading',
-          level: 2,
-          content: [{ type: 'text', content: 'The first scene' }]
-        },
-        {
-          type: 'paragraph',
-          content: [{ type: 'text', content: 'first scene content' }]
-        }
-      ]
-    }
-    expect(firstcene).toEqual(expected)
+    expect(firstSceneName).toBe('the_first_scene')
   })
+
+  const { actions, quoteMenu } = sceneWithActions
 
   const [action1, action2] = actions
   const {
@@ -123,11 +94,11 @@ describe('book', () => {
     expect(quoteMenu).toBeDefined()
   })
 
-  it('action 2 has the scene quoteMenu', () => {
-    expect(action2QuoteMenu).toEqual(quoteMenu)
+  it('action 2 has no quoteMenu', () => {
+    expect(action2QuoteMenu).not.toBeDefined()
   })
 
-  it('action 1 has not the scene quoteMenu', () => {
-    expect(action1QuoteMenu).not.toEqual(quoteMenu)
+  it('action 1 has a quoteMenu', () => {
+    expect(action1QuoteMenu).toBeDefined()
   })
 })
