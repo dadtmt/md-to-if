@@ -16,7 +16,8 @@ export interface BookScene extends Scene {
 }
 
 export interface ActionScene extends BookScene {
-  actionLabel: string
+  label: string
+  path: string
 }
 
 exports.book = book

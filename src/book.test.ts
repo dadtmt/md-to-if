@@ -43,50 +43,58 @@ describe('book', () => {
     expect(firstSceneName).toBe('the_first_scene')
   })
 
-  const { menu } = sceneWithActions
+  const { menu, name: sceneWithActionsName } = sceneWithActions
   const { actions, quoteMenu } = menu
 
   const [action1, action2] = actions
   const {
-    actionLabel: action1Label,
+    label: action1Label,
     name: action1Name,
-    menu: { actions: action1Actions, quoteMenu: action1QuoteMenu }
+    menu: { actions: action1Actions, quoteMenu: action1QuoteMenu },
+    path: action1Path
   } = action1
 
   const {
-    actionLabel: action2Label,
+    label: action2Label,
     name: action2Name,
-    menu: { actions: action2Actions, quoteMenu: action2QuoteMenu }
+    menu: { actions: action2Actions, quoteMenu: action2QuoteMenu },
+    path: action2Path
   } = action2
 
   const [action11] = action1Actions
 
   const {
-    actionLabel: action11Label,
+    label: action11Label,
     name: action11Name,
-    menu: { actions: action11Actions }
+    menu: { actions: action11Actions },
+    path: action11Path
   } = action11
 
   it('the scene has 2 actions', () => {
     expect(actions).toHaveLength(2)
   })
 
-  it('the first action has action 1 label and one child action', () => {
+  it('the first action has action 1 label, one child action and a path', () => {
     expect(action1Label).toBe('Action 1')
     expect(action1Actions).toHaveLength(1)
     expect(action1Name).toBe('action_1')
+    expect(action1Path).toBe(`/${sceneWithActionsName}/${action1Name}`)
   })
 
   it('the second action has action 2 label and no child action', () => {
     expect(action2Label).toBe('Action 2')
     expect(action2Actions).toHaveLength(0)
     expect(action2Name).toBe('action_2')
+    expect(action2Path).toBe(`/${sceneWithActionsName}/${action2Name}`)
   })
 
-  it('the first child action of action 1 has a action 1_1 label and no child action', () => {
+  it('the first child action of action 1 has a action 1_1 label, no child action and a path', () => {
     expect(action11Label).toBe('Action 1 1')
     expect(action11Actions).toHaveLength(0)
     expect(action11Name).toBe('action_1_1')
+    expect(action11Path).toBe(
+      `/${sceneWithActionsName}/${action1Name}/${action11Name}`
+    )
   })
 
   it('split the blockquote into the scene menu quote', () => {

@@ -36,7 +36,7 @@ const getQuoteMenu = (content: SingleASTNode[]): SingleASTNode | undefined =>
 
 const splitActions = (
   level: number,
-  parentSceneName: string,
+  parentScenePath: string,
   untreatedActions: SingleASTNode[],
   actionList: ActionScene[] = []
 ): ActionScene[] => {
@@ -46,31 +46,35 @@ const splitActions = (
   }
   const [actionContent, restOfContent] = splitByHeading(level)(tailOfContent)
   if (R.isEmpty(restOfContent)) {
+    const name = getSceneName(headOfContent)
     return [
       ...actionList,
       {
-        name: getSceneName(headOfContent),
-        actionLabel: getSceneLabel(headOfContent),
+        name,
+        label: getSceneLabel(headOfContent),
         sceneContent: [headOfContent, ...actionContent],
-        menu: { actions: [], quoteMenu: getQuoteMenu(actionContent) }
+        menu: { actions: [], quoteMenu: getQuoteMenu(actionContent) },
+        path: `${parentScenePath}/${name}`
       }
     ]
   }
+  const name = getSceneName(headOfContent)
+  const path = `${parentScenePath}/${name}`
   const { content, actions } = splitContentAndActions(
     level + 1,
-    parentSceneName
+    path
   )(actionContent)
-
-  return splitActions(level, parentSceneName, restOfContent, [
+  return splitActions(level, parentScenePath, restOfContent, [
     ...actionList,
     {
-      name: getSceneName(headOfContent),
+      name,
       sceneContent: [headOfContent, ...content],
-      actionLabel: getSceneLabel(headOfContent),
+      label: getSceneLabel(headOfContent),
       menu: {
         actions,
         quoteMenu: getQuoteMenu(content)
-      }
+      },
+      path
     }
   ])
 }
@@ -100,7 +104,7 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
   const quoteMenu = getQuoteMenu(contentAndActions)
   const { content, actions } = splitContentAndActions(
     3,
-    name
+    `/${name}`
   )(contentAndActions)
   return {
     scene: {
