@@ -3,7 +3,7 @@ import { Move } from '../../player'
 
 const notFoundScene: (move: Move) => BookScene = (move) => {
   return {
-    actions: [],
+    menu: { actions: [] },
     name: 'unknown',
     sceneContent: [
       {
@@ -39,7 +39,9 @@ const getSceneByPath =
       scenes.find(({ name }) => {
         return firstSceneName.localeCompare(name) === 0
       }) ?? notFoundScene(move)
-    const { actions } = pathScene
+    const {
+      menu: { actions }
+    } = pathScene
     return restOfSceneNames.length > 0 && actions.length > 0
       ? getSceneByPath(move)(actions, restOfSceneNames)
       : pathScene

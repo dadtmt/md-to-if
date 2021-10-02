@@ -43,29 +43,28 @@ describe('book', () => {
     expect(firstSceneName).toBe('the_first_scene')
   })
 
-  const { actions, quoteMenu } = sceneWithActions
+  const { menu } = sceneWithActions
+  const { actions, quoteMenu } = menu
 
   const [action1, action2] = actions
   const {
     actionLabel: action1Label,
-    actions: action1Actions,
     name: action1Name,
-    quoteMenu: action1QuoteMenu
+    menu: { actions: action1Actions, quoteMenu: action1QuoteMenu }
   } = action1
 
   const {
     actionLabel: action2Label,
-    actions: action2Actions,
     name: action2Name,
-    quoteMenu: action2QuoteMenu
+    menu: { actions: action2Actions, quoteMenu: action2QuoteMenu }
   } = action2
 
   const [action11] = action1Actions
 
   const {
     actionLabel: action11Label,
-    actions: action11Actions,
-    name: action11Name
+    name: action11Name,
+    menu: { actions: action11Actions }
   } = action11
 
   it('the scene has 2 actions', () => {

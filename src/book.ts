@@ -52,8 +52,7 @@ const splitActions = (
         name: getSceneName(headOfContent),
         actionLabel: getSceneLabel(headOfContent),
         sceneContent: [headOfContent, ...actionContent],
-        actions: [],
-        quoteMenu: getQuoteMenu(actionContent)
+        menu: { actions: [], quoteMenu: getQuoteMenu(actionContent) }
       }
     ]
   }
@@ -67,9 +66,11 @@ const splitActions = (
     {
       name: getSceneName(headOfContent),
       sceneContent: [headOfContent, ...content],
-      actions,
       actionLabel: getSceneLabel(headOfContent),
-      quoteMenu: getQuoteMenu(content)
+      menu: {
+        actions,
+        quoteMenu: getQuoteMenu(content)
+      }
     }
   ])
 }
@@ -105,8 +106,7 @@ const splitContentToSceneAndSourceLeft: (splittedContent: SplittedContent) => {
     scene: {
       name,
       sceneContent: [heading, ...content],
-      actions,
-      quoteMenu
+      menu: { actions, quoteMenu }
     },
     sourceLeft
   }

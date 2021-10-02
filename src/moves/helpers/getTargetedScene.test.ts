@@ -10,7 +10,9 @@ const { adventureMd, moveToCantina, moveToCantinaDrink, moveToUnknown } =
 const adventureBook = book(parser(adventureMd))
 
 const cantinaScene = adventureBook[2]
-const { actions } = cantinaScene as ActionScene
+const {
+  menu: { actions }
+} = cantinaScene as ActionScene
 const [drinkActionScene] = actions
 
 describe('getTargetedScene', () => {
@@ -25,7 +27,7 @@ describe('getTargetedScene', () => {
   it('get the unknown scene', () => {
     const expected: BookScene = {
       name: 'unknown',
-      actions: [],
+      menu: { actions: [] },
       sceneContent: [
         {
           type: 'heading',

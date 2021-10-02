@@ -9,7 +9,7 @@ const { adventureGlobals } = global
 const { adventureMd, startMove, moveToCantina } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 const [startScene, firstScene] = adventureBook
-const { actions, ...restOfFirstScene } = firstScene
+const { menu, ...restOfFirstScene } = firstScene
 const playedStartScene: PlayedScene = {
   ...startScene,
   state: {}

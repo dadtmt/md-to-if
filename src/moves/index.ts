@@ -27,7 +27,13 @@ const applyMove: (
 
 // MovedScene -> PlayedScene
 const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
-  const { sceneContent, state, actions, name, ...restOfScene } = movedScene
+  const {
+    sceneContent,
+    state,
+    menu: { actions },
+    name,
+    ...restOfScene
+  } = movedScene
 
   const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,

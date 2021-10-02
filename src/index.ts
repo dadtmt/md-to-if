@@ -9,8 +9,10 @@ export interface Scene {
 }
 
 export interface BookScene extends Scene {
-  actions: ActionScene[]
-  quoteMenu?: SingleASTNode
+  menu: {
+    actions: ActionScene[]
+    quoteMenu?: SingleASTNode
+  }
 }
 
 export interface ActionScene extends BookScene {
