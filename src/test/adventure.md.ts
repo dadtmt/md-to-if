@@ -30,10 +30,13 @@ You have { show bag pickles } with you
 or what ? ] 
 
 > The waiter takes your order.
+> *
 
 ### Drink
 
-You have a whisky or a milkshake
+He shakes the drinks
+
+> Will you have a whisky or a milkshake ?
 
 #### Whisky
 
@@ -45,7 +48,7 @@ Delicious strawberry one
 
 ### Eat
 
-Some eggs
+You get some eggs.
 
 ## Bedroom
 

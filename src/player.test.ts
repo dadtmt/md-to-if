@@ -9,7 +9,7 @@ const { adventureGlobals } = global
 const { adventureMd, startMove, moveToCantina } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 const [startScene, firstScene] = adventureBook
-const { menu, ...restOfFirstScene } = firstScene
+const { dialog, ...restOfFirstScene } = firstScene
 const playedStartScene: PlayedScene = {
   ...startScene,
   state: {}
@@ -39,12 +39,11 @@ describe('player', () => {
     const { name } = player(adventureBook, moves).pop()
     expect(name).toBe('cantina')
   })
-  it('add menu with 2 links at the end of cantina content', () => {
+  it('add a dialog node at the end of cantina content', () => {
     const moves = [startMove, moveToCantina]
     const { sceneContent } = player(adventureBook, moves).pop()
-    const { type, content } = sceneContent.pop()
-    expect(type).toBe('menu')
-    expect(content).toHaveLength(2)
+    const { type } = sceneContent.pop()
+    expect(type).toBe('dialog')
   })
   it('increment cantina scene played on second cantina move', () => {
     const moves = [startMove, moveToCantina, moveToCantina]

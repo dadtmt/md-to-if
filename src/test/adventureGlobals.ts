@@ -37,6 +37,11 @@ const moveToCantinaDrinkWhisky = {
   target: '/cantina/drink/whisky'
 }
 
+const moveToCantinaDrinkMilkshake = {
+  type: 'anchor',
+  target: '/cantina/drink/milkshake'
+}
+
 export interface AdventureGlobals {
   adventureMd: string
   startMove: Move
@@ -47,6 +52,7 @@ export interface AdventureGlobals {
   moveToCantinaDrink: Move
   moveToCantinaEat: Move
   moveToCantinaDrinkWhisky: Move
+  moveToCantinaDrinkMilkshake: Move
 }
 
 const adventureGlobals: AdventureGlobals = {
@@ -58,6 +64,7 @@ const adventureGlobals: AdventureGlobals = {
   moveToCantinaDrink,
   moveToCantinaEat,
   moveToCantinaDrinkWhisky,
+  moveToCantinaDrinkMilkshake,
   moveToUnknown
 }
 

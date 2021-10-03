@@ -1,17 +1,19 @@
 import * as R from 'ramda'
-
+import { SingleASTNode } from 'simple-markdown'
 import goto from './goto'
 import start from './start'
 
 import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
-import { BookScene } from '..'
+import { BookScene, Dialog } from '..'
+import { dialogNode } from '../node'
 
 export interface State {
   currentSceneName?: string | undefined
   played?: { [sceneName: string]: number }
   path?: object
   testResult?: boolean
+  mainDialog?: Dialog
 }
 
 export interface MovedScene extends BookScene {
@@ -25,49 +27,50 @@ const applyMove: (
 ) => (move: Move) => MovedScene = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
+const addDialogNode = (
+  dialog: Dialog,
+  sceneContent: SingleASTNode[],
+  mainDialog?: Dialog
+): SingleASTNode[] => {
+  const { isDefault } = dialog
+  const contentWithNotDefaultDialog = !isDefault
+    ? [...sceneContent, dialogNode(dialog)]
+    : sceneContent
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  return isDefault && mainDialog
+    ? [...contentWithNotDefaultDialog, dialogNode(mainDialog)]
+    : contentWithNotDefaultDialog
+}
+
+const addMainDialogToState = (dialog: Dialog, state: State): State => {
+  const { isMain } = dialog
+  return isMain ? { ...state, mainDialog: dialog } : state
+}
+
 // MovedScene -> PlayedScene
 const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
-  const {
-    sceneContent,
-    state,
-    menu: { actions },
-    name,
-    ...restOfScene
-  } = movedScene
+  const { sceneContent, state, dialog, name, ...restOfScene } = movedScene
 
   const [parsedSceneContent, parsedState] = parseSceneContent({
     sceneContent,
     state
   })
+
+  const { mainDialog } = parsedState
   return {
-    sceneContent:
-      actions.length > 0
-        ? [
-            ...parsedSceneContent,
-            {
-              type: 'menu',
-              content: actions.map(({ actionLabel, name: actionName }) => ({
-                type: 'link',
-                target: `/${name}/${actionName}`,
-                content: [{ type: 'text', content: actionLabel }]
-              }))
-            }
-          ]
-        : parsedSceneContent,
-    state: parsedState,
+    sceneContent: addDialogNode(dialog, parsedSceneContent, mainDialog),
+    state: addMainDialogToState(dialog, parsedState),
     name,
     ...restOfScene
   }
 }
 
-// [PlayedScene] -> PlayedScene -> [PlayedScene]
 const accPlayedScenes: (
   playedScenes: PlayedScene[]
 ) => (playedScene: PlayedScene) => PlayedScene[] =
   (playedScenes) => (playedScene) =>
     [...playedScenes, playedScene]
 
-// [Scene], [PlayedScene] -> Move -> [PlayedScene]
 const playMove: (
   scenes: BookScene[],
   playedScenes: PlayedScene[]
@@ -78,7 +81,6 @@ const playMove: (
     accPlayedScenes(playedScenes)
   )
 
-// [Move], [Scene], [PlayedScene] -> [PlayedScene]
 const playMoves: (
   moves: Move[],
   scenes: BookScene[],

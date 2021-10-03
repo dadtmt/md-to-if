@@ -18,7 +18,8 @@ const {
   moveToCantina,
   moveToCantinaDrink,
   moveToCantinaEat,
-  moveToCantinaDrinkWhisky
+  moveToCantinaDrinkWhisky,
+  moveToCantinaDrinkMilkshake
 } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 
@@ -57,21 +58,64 @@ test('Click the goto cantina button calls moveHandler with a move to cantina', a
   expect(moveHandler).toHaveBeenCalledWith(moveToCantina)
 })
 
-test('It render link to action', async () => {
+test('renders the menu quote and links to action in Cantina scene', async () => {
   render(
     renderer(moveHandler)(player(adventureBook, [startMove, moveToCantina]))
   )
+  expect(screen.getByText(/The waiter takes your order/i)).toBeDefined()
   fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
   fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
 })
 
-test('It render level 3 action', async () => {
+test('renders the scene cantina/drink with its menu', async () => {
   render(
     renderer(moveHandler)(
-      player(adventureBook, [startMove, moveToCantinaDrinkWhisky])
+      player(adventureBook, [startMove, moveToCantina, moveToCantinaDrink])
+    )
+  )
+  expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Drink')
+  expect(
+    screen.getByText(/Will you have a whisky or a milkshake ?/i)
+  ).toBeDefined()
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/drink/whisky' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrinkWhisky)
+  fireEvent.click(
+    screen.getByRole('link', { name: '/cantina/drink/milkshake' })
+  )
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrinkMilkshake)
+})
+
+test('renders the scene cantina/drink/whisky with the same menu as cantina scene', async () => {
+  render(
+    renderer(moveHandler)(
+      player(adventureBook, [
+        startMove,
+        moveToCantina,
+        moveToCantinaDrink,
+        moveToCantinaDrinkWhisky
+      ])
     )
   )
   expect(screen.getByRole('heading', { level: 4 })).toHaveTextContent('Whisky')
+  expect(screen.getByText(/The waiter takes your order/i)).toBeDefined()
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
+})
+
+test('renders the scene cantina/eat with the same menu as cantina scene', async () => {
+  render(
+    renderer(moveHandler)(
+      player(adventureBook, [startMove, moveToCantina, moveToCantinaEat])
+    )
+  )
+  expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('Eat')
+  expect(screen.getByText(/The waiter takes your order/i)).toBeDefined()
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
+  fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
+  expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
 })

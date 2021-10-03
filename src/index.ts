@@ -8,11 +8,15 @@ export interface Scene {
   sceneContent: SingleASTNode[]
 }
 
+export interface Dialog {
+  actions: ActionScene[]
+  quote: SingleASTNode
+  isMain: boolean
+  isDefault: boolean
+}
+
 export interface BookScene extends Scene {
-  menu: {
-    actions: ActionScene[]
-    quoteMenu?: SingleASTNode
-  }
+  dialog: Dialog
 }
 
 export interface ActionScene extends BookScene {

@@ -3,6 +3,7 @@ import parser from '../../parser'
 import getTargetedScene from './getTargetedScene'
 import book from '../../book'
 import { ActionScene, BookScene } from '../..'
+import defaultDialog from '../../sceneBookParser/defaultDialog'
 
 const { adventureGlobals } = global
 const { adventureMd, moveToCantina, moveToCantinaDrink, moveToUnknown } =
@@ -11,7 +12,7 @@ const adventureBook = book(parser(adventureMd))
 
 const cantinaScene = adventureBook[2]
 const {
-  menu: { actions }
+  dialog: { actions }
 } = cantinaScene as ActionScene
 const [drinkActionScene] = actions
 
@@ -27,7 +28,7 @@ describe('getTargetedScene', () => {
   it('get the unknown scene', () => {
     const expected: BookScene = {
       name: 'unknown',
-      menu: { actions: [] },
+      dialog: defaultDialog(),
       sceneContent: [
         {
           type: 'heading',
