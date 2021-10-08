@@ -54,13 +54,13 @@ You get some eggs.
 
 Crazy major droid shoots you 
 
-{ describe droid |CC       |CT  |F  |E  |
-                 |---------|----|---|---|
-                 |roll D6  |45  |24 |41 | }
+{ describe droid |CC|CT  |F  |E  |
+                 |--|----|---|---|
+                 |5 |45  |24 |41 | }
 
 You roll a dice it gives { show roll d10 }
 
-The droid try to shoot you
+> The droid try to shoot you
 
 ### The Droid shoots
 

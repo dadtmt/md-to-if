@@ -11,6 +11,8 @@ import parser from './parser'
 import renderer, { MoveHandler } from './renderer'
 import player from './player'
 
+jest.mock('./expressions/rollDices')
+
 const { adventureGlobals } = global
 const {
   adventureMd,
@@ -19,7 +21,8 @@ const {
   moveToCantinaDrink,
   moveToCantinaEat,
   moveToCantinaDrinkWhisky,
-  moveToCantinaDrinkMilkshake
+  moveToCantinaDrinkMilkshake,
+  moveToBedroom
 } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 
@@ -118,4 +121,15 @@ test('renders the scene cantina/eat with the same menu as cantina scene', async 
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)
   fireEvent.click(screen.getByRole('link', { name: '/cantina/eat' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaEat)
+})
+
+test('renders the scene Bedroom', async () => {
+  render(
+    renderer(moveHandler)(
+      player(adventureBook, [startMove, moveToBedroom])
+    )
+  )
+  expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Bedroom')
+  expect(screen.getByText(/You roll a dice it gives 42/i)).toBeDefined()
+  
 })
