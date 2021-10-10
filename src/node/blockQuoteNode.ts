@@ -1,6 +1,7 @@
 import { SingleASTNode } from 'simple-markdown'
+import { BlockQuoteNode } from '..'
 
-const blockquoteNode = (content: SingleASTNode[]): SingleASTNode => ({
+const blockquoteNode = (content: SingleASTNode[]): BlockQuoteNode => ({
   type: 'blockQuote',
   content: [
     {

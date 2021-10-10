@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { SingleASTNode } from 'simple-markdown'
 import { ActionScene, Dialog } from '..'
-import { blockquoteNode } from '../node'
+import { blockQuoteNode } from '../node'
 import defaultDialog from './defaultDialog'
 
 const parseDialog = (
@@ -25,7 +25,7 @@ const parseDialog = (
       {
         actions,
         isMain: mainMenuOption.length > 0,
-        quote: blockquoteNode(contentBeforeOption),
+        quote: blockQuoteNode(contentBeforeOption),
         isDefault: false
       }
     ]

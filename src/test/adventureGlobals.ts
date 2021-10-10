@@ -17,6 +17,11 @@ const moveToBedroom = {
   target: '/bedroom'
 }
 
+const moveToBedroomTheDroidShoots = {
+  type: 'anchor',
+  target: '/bedroom/the_droid_shoots'
+}
+
 const moveToUnknown = {
   type: 'anchor',
   target: '/unknown'
@@ -53,6 +58,7 @@ export interface AdventureGlobals {
   moveToCantinaEat: Move
   moveToCantinaDrinkWhisky: Move
   moveToCantinaDrinkMilkshake: Move
+  moveToBedroomTheDroidShoots: Move
 }
 
 const adventureGlobals: AdventureGlobals = {
@@ -65,7 +71,8 @@ const adventureGlobals: AdventureGlobals = {
   moveToCantinaEat,
   moveToCantinaDrinkWhisky,
   moveToCantinaDrinkMilkshake,
-  moveToUnknown
+  moveToUnknown,
+  moveToBedroomTheDroidShoots
 }
 
 export default adventureGlobals

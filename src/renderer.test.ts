@@ -22,7 +22,8 @@ const {
   moveToCantinaEat,
   moveToCantinaDrinkWhisky,
   moveToCantinaDrinkMilkshake,
-  moveToBedroom
+  moveToBedroom,
+  moveToBedroomTheDroidShoots
 } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
 
@@ -125,11 +126,25 @@ test('renders the scene cantina/eat with the same menu as cantina scene', async 
 
 test('renders the scene Bedroom', async () => {
   render(
-    renderer(moveHandler)(
-      player(adventureBook, [startMove, moveToBedroom])
-    )
+    renderer(moveHandler)(player(adventureBook, [startMove, moveToBedroom]))
   )
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Bedroom')
   expect(screen.getByText(/You roll a dice it gives 42/i)).toBeDefined()
-  
+  expect(screen.getByText(/Droid has 45 CT/i)).toBeDefined()
 })
+
+// test('renders the action scene The Droid Shoots', async () => {
+//   render(
+//     renderer(moveHandler)(
+//       player(adventureBook, [
+//         startMove,
+//         moveToBedroom,
+//         moveToBedroomTheDroidShoots
+//       ])
+//     )
+//   )
+//   expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+//     'The Droid shoots'
+//   )
+//   expect(screen.queryByText(/test roll d100 lte val droid CT/i)).toBeNull()
+// })

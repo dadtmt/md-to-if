@@ -8,9 +8,14 @@ export interface Scene {
   sceneContent: SingleASTNode[]
 }
 
+export interface BlockQuoteNode extends SingleASTNode {
+  type: 'blockQuote'
+  content: SingleASTNode[]
+}
+
 export interface Dialog {
   actions: ActionScene[]
-  quote: SingleASTNode
+  quote: BlockQuoteNode
   isMain: boolean
   isDefault: boolean
 }

@@ -6,7 +6,7 @@ import start from './start'
 import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
 import { BookScene, Dialog } from '..'
-import { dialogNode } from '../node'
+import { blockQuoteNode, dialogNode } from '../node'
 
 export interface State {
   currentSceneName?: string | undefined
@@ -27,19 +27,40 @@ const applyMove: (
 ) => (move: Move) => MovedScene = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
 
+const pickDialog = (dialog: Dialog, mainDialog?: Dialog): Dialog => {
+  const { isDefault } = dialog
+  return isDefault && mainDialog !== undefined ? mainDialog : dialog
+}
+
 const addDialogNode = (
   dialog: Dialog,
   sceneContent: SingleASTNode[],
+  state: State,
   mainDialog?: Dialog
-): SingleASTNode[] => {
-  const { isDefault } = dialog
+): [SingleASTNode[], State] => {
+  const pickedDialog = pickDialog(dialog, mainDialog)
+  const {
+    isDefault,
+    quote: { content: quoteContent }
+  } = pickedDialog
+  const [parsedQuoteContent, parsedState] = parseSceneContent({
+    sceneContent: quoteContent,
+    state
+  })
   const contentWithNotDefaultDialog = !isDefault
-    ? [...sceneContent, dialogNode(dialog)]
+    ? [
+        ...sceneContent,
+        dialogNode({
+          ...pickedDialog,
+          quote: blockQuoteNode(parsedQuoteContent)
+        })
+      ]
     : sceneContent
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  return isDefault && mainDialog
-    ? [...contentWithNotDefaultDialog, dialogNode(mainDialog)]
-    : contentWithNotDefaultDialog
+
+  return [
+    contentWithNotDefaultDialog,
+    addMainDialogToState(dialog, parsedState)
+  ]
 }
 
 const addMainDialogToState = (dialog: Dialog, state: State): State => {
@@ -55,11 +76,16 @@ const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
     sceneContent,
     state
   })
-
   const { mainDialog } = parsedState
+  const [parsedSceneContentWithDialog, parsedStateWithDialog] = addDialogNode(
+    dialog,
+    parsedSceneContent,
+    parsedState,
+    mainDialog
+  )
   return {
-    sceneContent: addDialogNode(dialog, parsedSceneContent, mainDialog),
-    state: addMainDialogToState(dialog, parsedState),
+    sceneContent: parsedSceneContentWithDialog,
+    state: parsedStateWithDialog,
     name,
     ...restOfScene
   }
