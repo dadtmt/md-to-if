@@ -133,7 +133,7 @@ test('renders the scene Bedroom', async () => {
   expect(screen.getByText(/Droid has 45 CT/i)).toBeDefined()
 })
 
-// test('renders the action scene The Droid Shoots', async () => {
+// test.only('renders the action scene The Droid Shoots', async () => {
 //   render(
 //     renderer(moveHandler)(
 //       player(adventureBook, [

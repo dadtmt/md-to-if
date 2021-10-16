@@ -1,8 +1,19 @@
-import blockQuoteNode from './blockQuoteNode'
 import caseContentNode from './caseContentNode'
 import dialogNode from './dialogNode'
 import textNode from './textNode'
-import nodeWithListContent from './nodeWithListContent'
+import { SingleASTNode } from 'simple-markdown'
+import blockQuoteNode from './blockQuoteNode'
+
+interface NodeWithListContent extends SingleASTNode {
+  content: SingleASTNode[]
+}
+
+const nodeWithListContent =
+  (type: string) =>
+  (content: SingleASTNode[]): NodeWithListContent => ({
+    type,
+    content
+  })
 
 const newLineNode = { type: 'newline' }
 const emptyTextNode = textNode('')

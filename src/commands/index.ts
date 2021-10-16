@@ -6,7 +6,7 @@ import { SingleASTNode } from 'simple-markdown'
 import {
   TestAndComputeContentAndState,
   ConditionalFunction
-} from '../parseSceneContent'
+} from '../parseSceneContent/parseContent'
 import { applyCommand } from './helpers'
 import set from './set'
 import describe from './describe'

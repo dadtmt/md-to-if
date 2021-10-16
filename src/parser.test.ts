@@ -1,5 +1,11 @@
 import parser from './parser'
-import { caseContentNode, commandNode, newLineNode, textNode } from './node'
+import {
+  blockQuoteNode,
+  caseContentNode,
+  commandNode,
+  newLineNode,
+  textNode
+} from './node'
 
 describe('parser', () => {
   it('parses {} into command node', () => {
@@ -29,6 +35,18 @@ describe('parser', () => {
       caseContentNode([textNode(' you are shot ')], true),
       caseContentNode([textNode(' You luckyly escape ')], false),
       newLineNode
+    ]
+    expect(parser(contentMd)).toEqual(expected)
+  })
+  it('parses a test command and according cases in a blockquote', () => {
+    const contentMd = `> { test roll d100 lte val droid F }[ you are shot || You luckyly escape ]`
+    const expected = [
+      blockQuoteNode([
+        commandNode([textNode(' test roll d100 lte val droid F ')]),
+        caseContentNode([textNode(' you are shot ')], true),
+        caseContentNode([textNode(' You luckyly escape ')], false),
+        newLineNode
+      ])
     ]
     expect(parser(contentMd)).toEqual(expected)
   })

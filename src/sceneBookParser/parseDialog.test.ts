@@ -1,7 +1,7 @@
 import { SingleASTNode } from 'simple-markdown'
 import { ActionScene, Dialog } from '..'
 import parseDialog from './parseDialog'
-import { blockQuoteNode, textNode } from '../node'
+import { blockQuoteNode, paragraphNode, textNode } from '../node'
 import defaultDialog from './defaultDialog'
 
 describe('parseDialog', () => {
@@ -19,7 +19,9 @@ describe('parseDialog', () => {
   const quoteText = { type: 'text', content: 'the quote' }
 
   it('returns a main dialog for a quote with a star and the content without the blockquote', () => {
-    const quoteWithStar = blockQuoteNode([quoteText, textNode('*')])
+    const quoteWithStar = blockQuoteNode([
+      paragraphNode([quoteText, textNode('*')])
+    ])
     const expectedDialog: Dialog = {
       isMain: true,
       actions: someActions,
@@ -44,7 +46,7 @@ describe('parseDialog', () => {
     }
 
     const [content, dialog] = parseDialog(
-      [...someContent, blockQuoteNode([quoteText])],
+      [...someContent, blockQuoteNode([paragraphNode([quoteText])])],
       someActions
     )
     expect(content).toEqual(someContent)

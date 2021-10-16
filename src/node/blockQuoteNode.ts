@@ -3,12 +3,7 @@ import { BlockQuoteNode } from '..'
 
 const blockQuoteNode = (content: SingleASTNode[]): BlockQuoteNode => ({
   type: 'blockQuote',
-  content: [
-    {
-      type: 'paragraph',
-      content
-    }
-  ]
+  content
 })
 
 export default blockQuoteNode

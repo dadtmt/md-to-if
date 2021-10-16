@@ -27,7 +27,11 @@ const getTestResult: (state: State, match: boolean) => ComputeContentAndState =
 // State, Boolean -> Content -> [Content, State]
 const getCaseContent: (state: State, match: boolean) => ComputeContentAndState =
   (state, match) => {
-    return R.pipe(R.assoc('contentToMerge', true), getTestResult(state, match))
+    return R.pipe(
+      R.assoc('type', 'paragraph'),
+      R.assoc('contentToMerge', true),
+      getTestResult(state, match)
+    )
   }
 
 const parseCaseContent: (state: State) => TestAndComputeContentAndState[] = (

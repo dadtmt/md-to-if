@@ -68,8 +68,8 @@ describe('parseContent', () => {
   })
   it('parsing trueCaseContent returns [true case content to merged, state without testResult] for state testResult true ', () => {
     const currentSceneName = 'currentSceneName'
-
-    const content = caseContentNode([textNode(' true case content ')], true)
+    const trueTextNode = textNode(' true case content ')
+    const content = caseContentNode([trueTextNode], true)
 
     const state = {
       played: {
@@ -81,7 +81,7 @@ describe('parseContent', () => {
 
     const expected = [
       {
-        ...content,
+        ...paragraphNode([trueTextNode]),
         contentToMerge: true
       },
       { played: state.played, currentSceneName }
@@ -103,7 +103,7 @@ describe('parseContent', () => {
     }
 
     const expected = [
-      { ...caseContentNode([emptyTextNode], true), contentToMerge: true },
+      { ...paragraphNode([emptyTextNode]), contentToMerge: true },
       state
     ]
 
@@ -111,8 +111,8 @@ describe('parseContent', () => {
   })
   it('parsing falseCaseContent returns [false case content to merged, state without testResult] for state testResult false ', () => {
     const currentSceneName = 'currentSceneName'
-
-    const content = caseContentNode([textNode('false case content')], false)
+    const falseTextNode = textNode('false case content')
+    const content = caseContentNode([falseTextNode], false)
 
     const state = {
       played: {
@@ -123,10 +123,7 @@ describe('parseContent', () => {
     }
 
     const expected = [
-      {
-        ...content,
-        contentToMerge: true
-      },
+      { ...paragraphNode([falseTextNode]), contentToMerge: true },
       { played: state.played, currentSceneName }
     ]
 
@@ -147,7 +144,7 @@ describe('parseContent', () => {
 
     const expected = [
       {
-        ...caseContentNode([emptyTextNode], false),
+        ...paragraphNode([emptyTextNode]),
         contentToMerge: true
       },
       state
@@ -155,7 +152,51 @@ describe('parseContent', () => {
 
     expect(parseContent(state)(content)).toEqual(expected)
   })
-  it('parsing a paragraph with a failing test returns [paragraph with false content, unmodified state] test true ', () => {
+  it('parsing a paragraph with a succesful test returns [paragraph with true content, unmodified state]', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const startParagraphNode = textNode('Start paragraph')
+    const someContentNode = textNode('some content')
+    const endParagraphNode = textNode('end paragraph')
+
+    const testCommandNode = commandNode([
+      textNode(' test playedCount equals val 1 ')
+    ])
+    const trueCaseTextNode = textNode('true case content')
+    const trueCaseNode = caseContentNode([trueCaseTextNode], true)
+    const falseCaseTextNode = textNode('false case content')
+    const falseCaseNode = caseContentNode([falseCaseTextNode], false)
+    const content = paragraphNode([
+      startParagraphNode,
+      testCommandNode,
+      someContentNode,
+      trueCaseNode,
+      falseCaseNode,
+      endParagraphNode
+    ])
+
+    const state = {
+      played: {
+        currentSceneName: 1
+      },
+      currentSceneName
+    }
+
+    const expected = [
+      paragraphNode([
+        startParagraphNode,
+        emptyTextNode,
+        someContentNode,
+        trueCaseTextNode,
+        emptyTextNode,
+        endParagraphNode
+      ]),
+      state
+    ]
+
+    expect(parseContent(state)(content)).toEqual(expected)
+  })
+  it('parsing a paragraph with a failing test returns [paragraph with false content, unmodified state]', () => {
     const currentSceneName = 'currentSceneName'
 
     const startParagraphNode = textNode('Start paragraph')
@@ -193,7 +234,7 @@ describe('parseContent', () => {
         falseCaseTextNode,
         endParagraphNode
       ]),
-      { played: state.played, currentSceneName }
+      state
     ]
 
     expect(parseContent(state)(content)).toEqual(expected)
