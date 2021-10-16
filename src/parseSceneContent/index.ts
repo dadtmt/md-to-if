@@ -1,89 +1,9 @@
-import * as R from 'ramda'
-
-import parseCommandContent from '../commands'
-import parseCaseContent from './caseContent'
 import { State } from '../moves'
 import { SingleASTNode } from 'simple-markdown'
-
-type ContentAndState = [SingleASTNode, State]
+import parseContent from './parseContent'
 
 type ManyContentAndState = [SingleASTNode[], State]
 
-export type ConditionalFunction<T> = (arg: T) => boolean
-
-type TestContent = ConditionalFunction<SingleASTNode>
-
-export type ComputeContentAndState = (content: SingleASTNode) => ContentAndState
-
-export type TestAndComputeContentAndState = [
-  TestContent,
-  ComputeContentAndState
-]
-
-// [a] -> a -> [a]
-const appendTo = R.flip(R.append)
-
-// [Content] -> Content -> Content
-export const mergeContent: (
-  parsedContent: SingleASTNode[]
-) => (content: SingleASTNode) => SingleASTNode = (parsedContent) =>
-  R.ifElse(
-    R.prop('contentToMerge'),
-    // @ts-expect-error
-    R.pipe(R.prop('content'), R.concat(parsedContent)),
-    appendTo(parsedContent)
-  )
-
-// [Content, State] , [Content, State] -> [Content, State]
-const parseArrayContent: (
-  contentAndState: ContentAndState,
-  parsedContentAndState?: ContentAndState
-) => ContentAndState = (
-  [content, state],
-  parsedContentAndState = [{ type: '', content: [] }, state]
-) => {
-  const [headChildContent, ...restOfChildContent] = content.content
-
-  if (headChildContent !== undefined) {
-    const [parsedContent, parsedState] = parsedContentAndState
-    const [parsedHeadChildContent, newParsedState] =
-      parseContent(parsedState)(headChildContent)
-
-    return parseArrayContent(
-      [{ ...content, content: restOfChildContent }, newParsedState],
-      [
-        {
-          ...content,
-          content: mergeContent(parsedContent.content)(parsedHeadChildContent)
-        },
-        newParsedState
-      ]
-    )
-  }
-
-  return parsedContentAndState
-}
-
-const appendState: (state: State) => ComputeContentAndState =
-  (state) => (content) =>
-    [content, state]
-
-const appendStateByDefault: (state: State) => TestAndComputeContentAndState = (
-  state
-) => [R.T, appendState(state)]
-
-// State | [] -> Content -> [Content, State]
-export const parseContent: (state: State) => ComputeContentAndState = (state) =>
-  R.pipe(
-    R.cond([
-      parseCommandContent(state),
-      ...parseCaseContent(state),
-      appendStateByDefault(state)
-    ]),
-    R.when(R.pipe(R.head, R.propIs(Array, 'content')), parseArrayContent)
-  )
-
-//  { [Content], State } -> [[Content], State]
 const parseSceneContent: (
   contentToParse: {
     sceneContent: SingleASTNode[]

@@ -1,6 +1,9 @@
 import * as R from 'ramda'
 import { State } from '../moves'
-import { TestAndComputeContentAndState, ComputeContentAndState } from '.'
+import {
+  TestAndComputeContentAndState,
+  ComputeContentAndState
+} from './parseContent'
 
 const getTestResult: (state: State, match: boolean) => ComputeContentAndState =
   (state, match) => (content) => {
