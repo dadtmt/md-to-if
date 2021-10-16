@@ -4,6 +4,7 @@ import dialogNode from './dialogNode'
 import textNode from './textNode'
 import nodeWithListContent from './nodeWithListContent'
 
+const newLineNode = { type: 'newline' }
 const emptyTextNode = textNode('')
 
 const commandNode = nodeWithListContent('command')
@@ -15,6 +16,7 @@ export {
   commandNode,
   dialogNode,
   emptyTextNode,
+  newLineNode,
   paragraphNode,
   textNode
 }
