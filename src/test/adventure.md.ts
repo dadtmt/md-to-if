@@ -71,4 +71,6 @@ Droid has { show droid CT } CT
 A laser beam straight in your direction
 
 > { test roll d100 lte val droid CT }[ you are shot || You luckyly escape ]
+
+### sdqs
 `

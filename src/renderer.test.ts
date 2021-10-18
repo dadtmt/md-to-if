@@ -133,18 +133,18 @@ test('renders the scene Bedroom', async () => {
   expect(screen.getByText(/Droid has 45 CT/i)).toBeDefined()
 })
 
-// test.only('renders the action scene The Droid Shoots', async () => {
-//   render(
-//     renderer(moveHandler)(
-//       player(adventureBook, [
-//         startMove,
-//         moveToBedroom,
-//         moveToBedroomTheDroidShoots
-//       ])
-//     )
-//   )
-//   expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-//     'The Droid shoots'
-//   )
-//   expect(screen.queryByText(/test roll d100 lte val droid CT/i)).toBeNull()
-// })
+test('renders the action scene The Droid Shoots', async () => {
+  render(
+    renderer(moveHandler)(
+      player(adventureBook, [
+        startMove,
+        moveToBedroom,
+        moveToBedroomTheDroidShoots
+      ])
+    )
+  )
+  expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+    'The Droid shoots'
+  )
+  expect(screen.queryByText(/test roll d100 lte val droid CT/i)).toBeNull()
+})

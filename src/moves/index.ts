@@ -1,12 +1,11 @@
 import * as R from 'ramda'
-import { SingleASTNode } from 'simple-markdown'
 import goto from './goto'
 import start from './start'
 
 import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
 import { BookScene, Dialog } from '..'
-import { blockQuoteNode, dialogNode } from '../node'
+import addDialogNode from './helpers/addDialogNode'
 
 export interface State {
   currentSceneName?: string | undefined
@@ -26,47 +25,6 @@ const applyMove: (
   playedScenes: PlayedScene[]
 ) => (move: Move) => MovedScene = (scenes, playedScenes) =>
   R.cond([start(scenes), goto(scenes, playedScenes)])
-
-const pickDialog = (dialog: Dialog, mainDialog?: Dialog): Dialog => {
-  const { isDefault } = dialog
-  return isDefault && mainDialog !== undefined ? mainDialog : dialog
-}
-
-const addDialogNode = (
-  dialog: Dialog,
-  sceneContent: SingleASTNode[],
-  state: State,
-  mainDialog?: Dialog
-): [SingleASTNode[], State] => {
-  const pickedDialog = pickDialog(dialog, mainDialog)
-  const {
-    isDefault,
-    quote: { content: quoteContent }
-  } = pickedDialog
-  const [parsedQuoteContent, parsedState] = parseSceneContent({
-    sceneContent: quoteContent,
-    state
-  })
-  const contentWithNotDefaultDialog = !isDefault
-    ? [
-        ...sceneContent,
-        dialogNode({
-          ...pickedDialog,
-          quote: blockQuoteNode(parsedQuoteContent)
-        })
-      ]
-    : sceneContent
-
-  return [
-    contentWithNotDefaultDialog,
-    addMainDialogToState(dialog, parsedState)
-  ]
-}
-
-const addMainDialogToState = (dialog: Dialog, state: State): State => {
-  const { isMain } = dialog
-  return isMain ? { ...state, mainDialog: dialog } : state
-}
 
 // MovedScene -> PlayedScene
 const playScene: (movedScene: MovedScene) => PlayedScene = (movedScene) => {
