@@ -26,7 +26,6 @@ const {
   moveToBedroomTheDroidShoots
 } = adventureGlobals
 const adventureBook = book(parser(adventureMd))
-
 const moveHandler: MoveHandler = jest.fn()
 
 test('Render title and start button while playing intro (no moves)', () => {
@@ -147,4 +146,7 @@ test('renders the action scene The Droid Shoots', async () => {
     'The Droid shoots'
   )
   expect(screen.queryByText(/test roll d100 lte val droid CT/i)).toBeNull()
+  expect(screen.getByText(/You are shot/i)).toBeDefined()
+  expect(screen.queryByText(/You luckyly escape/i)).toBeNull()
+  expect(screen.getByText(/Ouch that hurts/i)).toBeDefined()
 })

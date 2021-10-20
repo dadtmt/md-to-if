@@ -12,7 +12,6 @@ const DialogRenderer = (
   { key }: State
 ): ReactElement => {
   const [blockQuote, ...actionLinks] = content as SingleASTNode[]
-  // console.log(blockQuote.content[0].type)
   return (
     <div key={key}>
       {output(blockQuote)}

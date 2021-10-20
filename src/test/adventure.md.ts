@@ -72,5 +72,11 @@ A laser beam straight in your direction
 
 > { test roll d100 lte val droid CT }[ you are shot || You luckyly escape ]
 
-### sdqs
+#### Ouch that hurts
+
+The beam makes a hole on your chest
+
+#### Quicker than a laser
+
+You jumps under the bed
 `

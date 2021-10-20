@@ -2,6 +2,7 @@ import './test/types.d'
 import parser from './parser'
 import book from './book'
 import defaultDialog from './sceneBookParser/defaultDialog'
+import getTargetedScene from './moves/helpers/getTargetedScene'
 
 const someMd = `# Story
 
@@ -31,6 +32,22 @@ action 1 1 content
 ### Action 2
 
 action 2 content
+
+### Action 3
+
+> action 3 quote
+
+#### Action 3 1
+
+content
+
+#### Action 3 2
+
+content
+
+#### Action 3 3
+
+content
 
 ## Scene with a not main menu
 
@@ -84,11 +101,11 @@ describe('book', () => {
       expect(quote).toBeDefined()
     })
 
-    it('the scene dialog has 2 actions', () => {
-      expect(actions).toHaveLength(2)
+    it('the scene dialog has 3 actions', () => {
+      expect(actions).toHaveLength(3)
     })
 
-    const [action1, action2] = actions
+    const [action1, action2, action3] = actions
 
     describe('The first action is a scene with a dialog with one action', () => {
       const {
@@ -152,6 +169,24 @@ describe('book', () => {
         expect(dialog).toEqual(defaultDialog())
       })
     })
+
+    describe('The third action is a scene with 3 child actions', () => {
+      const { label, name, dialog, path } = action3
+
+      it('the label is Action 3', () => {
+        expect(label).toBe('Action 3')
+      })
+      it('the action name is action_3', () => {
+        expect(name).toBe('action_3')
+      })
+      it('the action path is a concatenation of /, all the parent scene names and the scene name', () => {
+        expect(path).toBe(`/${mainSceneName}/${name}`)
+      })
+      it('got 3 children actions', () => {
+        const { actions } = dialog
+        expect(actions).toHaveLength(3)
+      })
+    })
   })
 
   describe('The scene with a not main menu is a scene whith a dialog that will not be repeated through the child action scenes', () => {
@@ -187,5 +222,20 @@ describe('book', () => {
         expect(isMain).toBe(true)
       })
     })
+  })
+})
+
+describe('make an adventure book', () => {
+  const { adventureGlobals } = global
+  const { adventureMd, moveToBedroomTheDroidShoots } = adventureGlobals
+  it('the droid shoots scene has a 2 actions children dialog ', () => {
+    const adventureBook = book(parser(adventureMd))
+    const droidShootScene = getTargetedScene(moveToBedroomTheDroidShoots)(
+      adventureBook
+    )
+    expect(droidShootScene).toBeDefined()
+    const { dialog } = droidShootScene
+    const { actions } = dialog
+    expect(actions).toHaveLength(2)
   })
 })

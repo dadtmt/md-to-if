@@ -8,6 +8,7 @@ const parseDialog = (
   content: SingleASTNode[],
   actions: ActionScene[]
 ): [SingleASTNode[], Dialog] => {
+  // console.log('actions', actions)
   const [contentBeforeQuote, contentWithQuote] = R.splitWhen(
     R.propEq('type', 'blockQuote')
   )(content)

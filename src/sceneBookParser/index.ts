@@ -38,25 +38,11 @@ const splitActions = (
   untreatedActions: SingleASTNode[],
   actionList: ActionScene[] = []
 ): ActionScene[] => {
-  const [headOfContent, ...tailOfContent] = untreatedActions
   if (R.isEmpty(untreatedActions)) {
-    return [...actionList]
+    return actionList
   }
+  const [headOfContent, ...tailOfContent] = untreatedActions
   const [actionContent, restOfContent] = splitByHeading(level)(tailOfContent)
-  if (R.isEmpty(restOfContent)) {
-    const name = getSceneName(headOfContent)
-    const [contentWithoutDialog, dialog] = parseDialog(actionContent, [])
-    return [
-      ...actionList,
-      {
-        name,
-        label: getSceneLabel(headOfContent),
-        sceneContent: [headOfContent, ...contentWithoutDialog],
-        dialog,
-        path: `${parentScenePath}/${name}`
-      }
-    ]
-  }
   const name = getSceneName(headOfContent)
   const path = `${parentScenePath}/${name}`
   const { content, actions } = splitContentAndActions(
@@ -82,7 +68,7 @@ const splitContentAndActions =
     const [content, untreatedActions] = splitByHeading(level)(contentAndActions)
     const actions = splitActions(level, parentSceneName, untreatedActions)
     return {
-      content: [...content],
+      content,
       actions
     }
   }
