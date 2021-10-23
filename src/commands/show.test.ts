@@ -1,3 +1,5 @@
+import { State } from '../moves'
+import { commandNode, textNode } from '../node'
 import { applyCommand, errorNode } from './helpers'
 import show from './show'
 
@@ -5,89 +7,48 @@ describe('applyCommand show', () => {
   it('returns [text content node with value, unmodified state] for instruction show', () => {
     const currentSceneName = 'currentSceneName'
 
-    const content = {
-      content: [
-        {
-          content: ' show container prop ',
-          type: 'text'
-        }
-      ],
-      type: 'command'
-    }
+    const content = commandNode([textNode(' show container prop ')])
 
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 3
       },
       currentSceneName,
-      container: { prop: 'value' }
+      store: { container: { prop: 'value' } }
     }
 
-    const expected = [
-      {
-        content: 'value',
-        type: 'text'
-      },
-      {
-        played: {
-          currentSceneName: 3
-        },
-        currentSceneName,
-        container: { prop: 'value' }
-      }
-    ]
+    const expected = [textNode('value'), state]
 
     expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
   it('returns [output current scene played count from state, state] for instruction show playedCount', () => {
     const currentSceneName = 'currentSceneName'
 
-    const content = {
-      content: [
-        {
-          content: ' show playedCount ',
-          type: 'text'
-        }
-      ],
-      type: 'command'
-    }
+    const content = commandNode([textNode(' show playedCount ')])
 
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 3
       },
       currentSceneName
     }
 
-    const expected = [
-      {
-        content: '3',
-        type: 'text'
-      },
-      state
-    ]
+    const expected = [textNode('3'), state]
 
     expect(applyCommand(state, [], [show(state)])(content)).toEqual(expected)
   })
 
-  it('returns [error about missing args, unmodified state] for instruction show ', () => {
+  it('returns [error about The path  is not a single value, unmodified state] for instruction show store ', () => {
     const currentSceneName = 'currentSceneName'
 
-    const content = {
-      content: [
-        {
-          content: ' show ',
-          type: 'text'
-        }
-      ],
-      type: 'command'
-    }
+    const content = commandNode([textNode(' show ')])
 
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 3
       },
-      currentSceneName
+      currentSceneName,
+      store: {}
     }
 
     const expected = [

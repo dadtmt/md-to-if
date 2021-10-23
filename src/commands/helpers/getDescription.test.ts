@@ -1,3 +1,4 @@
+import { tableNode, textNode } from '../../node'
 import getDescription from './getDescription'
 
 jest.mock('../../expressions/rollDices')
@@ -5,19 +6,10 @@ jest.mock('../../expressions/rollDices')
 describe('getDescription', () => {
   it('returns object description from the table', () => {
     const data = [
-      {
-        type: 'table',
-        header: [
-          [{ type: 'text', content: 'prop1' }],
-          [{ type: 'text', content: 'prop2' }]
-        ],
-        cells: [
-          [
-            [{ type: 'text', content: 'val1' }],
-            [{ type: 'text', content: 'val2' }]
-          ]
-        ]
-      }
+      tableNode(
+        [[textNode('prop1')], [textNode('prop2')]],
+        [[[textNode('val1')], [textNode('val2')]]]
+      )
     ]
     const expected = {
       _tag: 'Right',
@@ -30,21 +22,10 @@ describe('getDescription', () => {
   })
   it('handles expressions', () => {
     const data = [
-      {
-        type: 'table',
-        header: [
-          [{ type: 'text', content: 'prop1' }],
-          [{ type: 'text', content: 'prop2' }],
-          [{ type: 'text', content: 'numberProp' }]
-        ],
-        cells: [
-          [
-            [{ type: 'text', content: 'val1' }],
-            [{ type: 'text', content: 'roll D6' }],
-            [{ type: 'text', content: '12' }]
-          ]
-        ]
-      }
+      tableNode(
+        [[textNode('prop1')], [textNode('prop2')], [textNode('numberProp')]],
+        [[[textNode('val1')], [textNode('roll D6')], [textNode('12')]]]
+      )
     ]
 
     const expected = {

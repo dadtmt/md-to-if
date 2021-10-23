@@ -5,6 +5,7 @@ import parseExpression, { ExpressionValidResult } from '../../expressions'
 import { State } from '../../moves'
 import foldError from '../../utils/foldError'
 import { toArrayOfStrings } from '../../utils/typeCheck'
+import { Description } from '../describe'
 
 const getContentList: (
   state: State
@@ -36,25 +37,26 @@ const getContentList: (
 
 const getDescription: (
   state: State
-) => (data: SingleASTNode[]) => Either<string, object> = (state) => (data) => {
-  const headerDataLens = R.lensPath([0, 'header'])
-  const cellsDataLens = R.lensPath([0, 'cells', 0])
-  const mayBeHeaderContent = R.pipe(
-    R.view(headerDataLens),
-    getContentList(state)
-  )(data)
-  const mayBeCellsContent = R.pipe(
-    R.view(cellsDataLens),
-    getContentList(state)
-  )(data)
+) => (data: SingleASTNode[]) => Either<string, Description> =
+  (state) => (data) => {
+    const headerDataLens = R.lensPath([0, 'header'])
+    const cellsDataLens = R.lensPath([0, 'cells', 0])
+    const mayBeHeaderContent = R.pipe(
+      R.view(headerDataLens),
+      getContentList(state)
+    )(data)
+    const mayBeCellsContent = R.pipe(
+      R.view(cellsDataLens),
+      getContentList(state)
+    )(data)
 
-  return foldError<ExpressionValidResult[], object>(
-    (headerContent: ExpressionValidResult[]) =>
-      foldError<ExpressionValidResult[], object>(
-        (cellsContent: ExpressionValidResult[]) =>
-          right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
-      )(mayBeCellsContent)
-  )(mayBeHeaderContent)
-}
+    return foldError<ExpressionValidResult[], Description>(
+      (headerContent: ExpressionValidResult[]) =>
+        foldError<ExpressionValidResult[], Description>(
+          (cellsContent: ExpressionValidResult[]) =>
+            right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
+        )(mayBeCellsContent)
+    )(mayBeHeaderContent)
+  }
 
 export default getDescription

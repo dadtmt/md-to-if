@@ -60,7 +60,7 @@ describe('parseContent', () => {
           currentSceneName: 3
         },
         currentSceneName,
-        container: { prop: 'value' }
+        store: { container: { prop: 'value' } }
       }
     ]
 

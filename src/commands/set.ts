@@ -17,7 +17,7 @@ const set: TestCommandAndUpdateState = [
         : foldError((expressionValidResult: ExpressionValidResult) =>
             R.pipe(
               R.assocPath<ExpressionValidResult, State>(
-                path,
+                ['store', ...path],
                 expressionValidResult
               ),
               right

@@ -1,40 +1,23 @@
-import { isRight } from 'fp-ts/lib/Either'
-import R from 'ramda'
-import parseExpression, {
-  ParsedExpression,
-  ExpressionValidResult,
-  Expression
-} from '.'
-import { State } from '../moves'
-
-const decodeExpression: (
-  parsedExpression: ParsedExpression
-) => ExpressionValidResult = (parsedExpression) =>
-  isRight(parsedExpression) ? parsedExpression.right : parsedExpression.left
-
-const resolveExpression: (
-  state: State
-) => (expression: Expression) => ExpressionValidResult = (state) =>
-  R.pipe(parseExpression(state), decodeExpression)
+import resolve from './resolve'
 
 describe('parseExpression', () => {
   it('returns value between 1 and 6 for ["roll", "D6"]', () => {
     const expression = ['roll', 'd6']
     const state = {}
-    const rolled = resolveExpression(state)(expression)
+    const rolled = resolve(state)(expression)
     expect(rolled).toBeGreaterThanOrEqual(1)
     expect(rolled).toBeLessThanOrEqual(6)
   })
   it('returns error missing dices for ["roll"]', () => {
     const expression = ['roll']
     const state = {}
-    const rolled = resolveExpression(state)(expression)
+    const rolled = resolve(state)(expression)
     expect(rolled).toEqual('The dices are missing (ex: roll d6)')
   })
   it('returns error D6 is not a valid dices input, try d6 for ["roll", "D6"]', () => {
     const expression = ['roll', 'D6']
     const state = {}
-    const rolled = resolveExpression(state)(expression)
+    const rolled = resolve(state)(expression)
     expect(rolled).toEqual('D6 is not a valid dices input, try d6')
   })
   it('returns current scene played count for ["playedCount"]', () => {
@@ -46,21 +29,28 @@ describe('parseExpression', () => {
       }
     }
 
-    expect(resolveExpression(state)(expression)).toEqual(5)
+    expect(resolve(state)(expression)).toEqual(5)
   })
   it('returns value for ["path","to","the"]', () => {
     const expression = ['path', 'to', 'the']
     const state = {
-      path: { to: { the: 'value' } }
+      store: { path: { to: { the: 'value' } } }
     }
-    expect(resolveExpression(state)(expression)).toEqual('value')
+    expect(resolve(state)(expression)).toEqual('value')
+  })
+  it('returns value for ["droidShot"]', () => {
+    const expression = ['droidShot']
+    const state = {
+      store: { droidShot: true }
+    }
+    expect(resolve(state)(expression)).toEqual(true)
   })
   it('returns error not a single value for ["path","to","the"]', () => {
     const expression = ['path', 'to', 'the']
     const state = {
-      path: { to: { the: { some: 'value' } } }
+      store: { path: { to: { the: { some: 'value' } } } }
     }
-    expect(resolveExpression(state)(expression)).toEqual(
+    expect(resolve(state)(expression)).toEqual(
       'The path path/to/the is not a single value'
     )
   })
@@ -68,12 +58,17 @@ describe('parseExpression', () => {
     const expression = ['not', 'handled', 'expression']
     const state = {}
     const expected = 'not'
-    expect(resolveExpression(state)(expression)).toEqual(expected)
+    expect(resolve(state)(expression)).toEqual(expected)
   })
   it('returns number 55 for ["55"]', () => {
     const expression = ['55']
     const state = {}
     const expected = 55
-    expect(resolveExpression(state)(expression)).toEqual(expected)
+    expect(resolve(state)(expression)).toEqual(expected)
+  })
+  it('returns boolean true for ["true"]', () => {
+    const expression = ['true']
+    const state = {}
+    expect(resolve(state)(expression)).toEqual(true)
   })
 })

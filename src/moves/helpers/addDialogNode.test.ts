@@ -1,3 +1,4 @@
+import { State } from '..'
 import { Dialog } from '../..'
 import {
   blockQuoteNode,
@@ -26,13 +27,15 @@ describe('addDialogNode', () => {
       isDefault: false
     }
     const someContent = [textNode('some content')]
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 1
       },
       currentSceneName: 'some scene',
-      droid: {
-        CT: 45
+      store: {
+        droid: {
+          CT: 45
+        }
       }
     }
 

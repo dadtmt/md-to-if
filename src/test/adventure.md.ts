@@ -21,7 +21,7 @@ You pick up a sandwich an put it in your bag { set bag sandwich val 1 }
 
 You find some pickles { set bag pickles val roll d10 }
 
-You have { show bag sandwich } with you
+You have { show bag sandwich } sandwichs with you
 
 You have { show bag pickles } with you
 
@@ -62,15 +62,15 @@ You roll a dice it gives { show roll d10 }
 
 Droid has { show droid CT } CT
 
-{ test roll d100 lte val droid F }[ you are shot || You luckyly escape ]
-
 > The droid try to shoot you
 
 ### The Droid shoots
 
 A laser beam straight in your direction
 
-> { test roll d100 lte val droid CT }[ you are shot || You luckyly escape ]
+{ set droidShot val eval roll d100 lte val droid CT }
+
+> { test droidShot equals val true }[ you are shot || You luckyly escape ]
 
 #### Ouch that hurts
 

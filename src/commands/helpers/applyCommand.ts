@@ -3,7 +3,7 @@ import { right, left, fold } from 'fp-ts/lib/Either'
 
 import { State } from '../../moves'
 import { SingleASTNode } from 'simple-markdown'
-import { ComputeContentAndState } from '../../parseSceneContent'
+import { ComputeContentAndState } from '../../parseSceneContent/parseContent'
 import { errorNode, getCommand } from './../helpers'
 import {
   TestCommandAndGetContent,

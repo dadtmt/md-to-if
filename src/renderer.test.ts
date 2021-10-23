@@ -65,6 +65,7 @@ test('renders the menu quote and links to action in Cantina scene', async () => 
   render(
     renderer(moveHandler)(player(adventureBook, [startMove, moveToCantina]))
   )
+  expect(screen.getByText(/You have 1 sandwichs with you/i)).toBeDefined()
   expect(screen.getByText(/The waiter takes your order/i)).toBeDefined()
   fireEvent.click(screen.getByRole('link', { name: '/cantina/drink' }))
   expect(moveHandler).toHaveBeenCalledWith(moveToCantinaDrink)

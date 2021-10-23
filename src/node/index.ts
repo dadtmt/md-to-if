@@ -3,6 +3,7 @@ import dialogNode from './dialogNode'
 import textNode from './textNode'
 import { SingleASTNode } from 'simple-markdown'
 import blockQuoteNode from './blockQuoteNode'
+import tableNode from './tableNode'
 
 interface NodeWithListContent extends SingleASTNode {
   content: SingleASTNode[]
@@ -29,5 +30,6 @@ export {
   emptyTextNode,
   newLineNode,
   paragraphNode,
+  tableNode,
   textNode
 }

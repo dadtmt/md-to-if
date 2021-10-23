@@ -6,13 +6,18 @@ import parseSceneContent from '../parseSceneContent'
 import { Move, PlayedScene } from '../player'
 import { BookScene, Dialog } from '..'
 import addDialogNode from './helpers/addDialogNode'
+import { ExpressionValidResult } from '../expressions'
+
+interface Store {
+  [key: string]: Store | ExpressionValidResult
+}
 
 export interface State {
   currentSceneName?: string | undefined
   played?: { [sceneName: string]: number }
-  path?: object
   testResult?: boolean
   mainDialog?: Dialog
+  store?: Store
 }
 
 export interface MovedScene extends BookScene {

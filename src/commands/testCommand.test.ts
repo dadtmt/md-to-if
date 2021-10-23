@@ -1,3 +1,4 @@
+import { State } from '../moves'
 import { commandNode, emptyTextNode, textNode } from '../node'
 import { applyCommand, errorNode } from './helpers'
 import testCommand from './testCommand'
@@ -78,13 +79,34 @@ describe('apply testCommand', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = commandNode([textNode(' test roll d100 lte val droid CT ')])
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 1
       },
       currentSceneName,
-      droid: {
-        CT: 45
+      store: {
+        droid: {
+          CT: 45
+        }
+      }
+    }
+
+    const expected = [emptyTextNode, { ...state, testResult: true }]
+
+    expect(applyCommand(state, [testCommand])(content)).toEqual(expected)
+  })
+
+  it('returns [empty text node content, state with testResult: true] for instruction test roll d100 lte val droid CT ', () => {
+    const currentSceneName = 'currentSceneName'
+
+    const content = commandNode([textNode('  test droidShot equals val true ')])
+    const state: State = {
+      played: {
+        currentSceneName: 1
+      },
+      currentSceneName,
+      store: {
+        droidShot: true
       }
     }
 
@@ -97,13 +119,15 @@ describe('apply testCommand', () => {
     const currentSceneName = 'currentSceneName'
 
     const content = commandNode([textNode(' test roll d100 lte val droid CC ')])
-    const state = {
+    const state: State = {
       played: {
         currentSceneName: 1
       },
       currentSceneName,
-      droid: {
-        CC: 30
+      store: {
+        droid: {
+          CC: 30
+        }
       }
     }
 
