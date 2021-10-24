@@ -1,5 +1,5 @@
 import { State } from '..'
-import { Dialog } from '../..'
+import { ActionScene, Dialog } from '../..'
 import {
   blockQuoteNode,
   caseContentNode,
@@ -14,7 +14,9 @@ import addDialogNode from './addDialogNode'
 jest.mock('../../expressions/rollDices')
 
 describe('addDialogNode', () => {
-  it.only('add a dialog node with a parsed quote', () => {
+  const someContent = [textNode('some content')]
+
+  it('add a dialog node with a parsed quote', () => {
     const dialogWithTest: Dialog = {
       quote: blockQuoteNode([
         commandNode([textNode(' test roll d100 lte val droid CT ')]),
@@ -26,7 +28,6 @@ describe('addDialogNode', () => {
       isMain: false,
       isDefault: false
     }
-    const someContent = [textNode('some content')]
     const state: State = {
       played: {
         currentSceneName: 1
@@ -61,5 +62,62 @@ describe('addDialogNode', () => {
       state
     ]
     expect(addDialogNode(dialogWithTest, someContent, state)).toEqual(expected)
+  })
+  it('filters the actions with a false eval', () => {
+    const pickable = [textNode(' true equals val true')]
+    const notPickable = [textNode(' true equals val false')]
+
+    const pickableActionScene: ActionScene = {
+      pickable,
+      label: 'pickableActionScene',
+      path: '/pickableActionScene',
+      dialog: undefined,
+      name: 'pickableActionScene',
+      sceneContent: []
+    }
+
+    const notPickableActionScene: ActionScene = {
+      pickable: notPickable,
+      label: 'notPickableActionScene',
+      path: '/notPickableActionScene',
+      dialog: undefined,
+      name: 'notPickableActionScene',
+      sceneContent: []
+    }
+
+    const pickableActionSceneByDefault: ActionScene = {
+      pickable: [],
+      label: 'pickableActionSceneByDefault',
+      path: '/pickableActionSceneByDefault',
+      dialog: undefined,
+      name: 'pickableActionSceneByDefault',
+      sceneContent: []
+    }
+
+    const dialogWithAnotPickableAction = {
+      isMain: false,
+      actions: [
+        pickableActionScene,
+        notPickableActionScene,
+        pickableActionSceneByDefault
+      ],
+      quote: blockQuoteNode([textNode('a quote')]),
+      isDefault: false
+    }
+
+    const expected = [
+      [
+        ...someContent,
+        dialogNode({
+          ...dialogWithAnotPickableAction,
+          actions: [pickableActionScene, pickableActionSceneByDefault]
+        })
+      ],
+      {}
+    ]
+
+    expect(
+      addDialogNode(dialogWithAnotPickableAction, someContent, {})
+    ).toEqual(expected)
   })
 })

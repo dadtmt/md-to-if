@@ -74,9 +74,13 @@ A laser beam straight in your direction
 
 #### Ouch that hurts
 
+<-- droidShot equals val true -->
+
 The beam makes a hole on your chest
 
 #### Quicker than a laser
+
+<-- droidShot equals val false -->
 
 You jumps under the bed
 `

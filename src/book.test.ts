@@ -3,6 +3,7 @@ import parser from './parser'
 import book from './book'
 import defaultDialog from './sceneBookParser/defaultDialog'
 import getTargetedScene from './moves/helpers/getTargetedScene'
+import { textNode } from './node'
 
 const someMd = `# Story
 
@@ -34,6 +35,8 @@ action 1 1 content
 action 2 content
 
 ### Action 3
+
+<-- eval something --> 
 
 > action 3 quote
 
@@ -171,7 +174,7 @@ describe('book', () => {
     })
 
     describe('The third action is a scene with 3 child actions', () => {
-      const { label, name, dialog, path } = action3
+      const { label, name, dialog, path, pickable } = action3
 
       it('the label is Action 3', () => {
         expect(label).toBe('Action 3')
@@ -185,6 +188,9 @@ describe('book', () => {
       it('got 3 children actions', () => {
         const { actions } = dialog
         expect(actions).toHaveLength(3)
+      })
+      it('has a pickable node', () => {
+        expect(pickable).toEqual([textNode(' eval something ')])
       })
     })
   })

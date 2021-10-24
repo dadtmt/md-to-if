@@ -27,6 +27,7 @@ export interface BookScene extends Scene {
 export interface ActionScene extends BookScene {
   label: string
   path: string
+  pickable: SingleASTNode[]
 }
 
 exports.book = book

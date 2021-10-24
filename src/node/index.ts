@@ -21,6 +21,7 @@ const emptyTextNode = textNode('')
 
 const commandNode = nodeWithListContent('command')
 const paragraphNode = nodeWithListContent('paragraph')
+const pickableNode = nodeWithListContent('pickable')
 
 export {
   blockQuoteNode,
@@ -30,6 +31,7 @@ export {
   emptyTextNode,
   newLineNode,
   paragraphNode,
+  pickableNode,
   tableNode,
   textNode
 }

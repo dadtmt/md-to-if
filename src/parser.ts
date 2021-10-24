@@ -9,6 +9,9 @@ const matchBracketPipe = (source: string): RegExpExecArray | null =>
 const matchPipeBracket = (source: string): RegExpExecArray | null =>
   /^\|([\s\S]*?)\]/.exec(source)
 
+const matchPickable = (source: string): RegExpExecArray | null =>
+  /^<--(.*)-->/.exec(source)
+
 const parse: (capture: any, parse: any, state: any) => any = (
   capture,
   parse,
@@ -33,11 +36,18 @@ const falseCaseContent = {
   parse
 }
 
+const pickable = {
+  order: 0,
+  match: matchPickable,
+  parse
+}
+
 const parser: (source: string) => SingleASTNode[] = SimpleMarkdown.parserFor({
   ...SimpleMarkdown.defaultRules,
   command,
   trueCaseContent,
-  falseCaseContent
+  falseCaseContent,
+  pickable
 })
 
 export default parser

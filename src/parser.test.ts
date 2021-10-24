@@ -5,6 +5,7 @@ import {
   commandNode,
   newLineNode,
   paragraphNode,
+  pickableNode,
   textNode
 } from './node'
 
@@ -75,5 +76,12 @@ describe('parser', () => {
       blockQuoteNode([paragraphNode([textNode(aquote), textNode('*')])])
     ]
     expect(parser(contentMd)).toEqual(expected)
+  })
+  it('parses <-- eval pickable --> to a pickable node', () => {
+    const md = `<-- eval pickable -->`
+    expect(parser(md)).toEqual([
+      pickableNode([textNode(' eval pickable ')]),
+      newLineNode
+    ])
   })
 })

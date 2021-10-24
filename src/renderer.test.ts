@@ -146,8 +146,8 @@ test('renders the action scene The Droid Shoots', async () => {
   expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
     'The Droid shoots'
   )
-  expect(screen.queryByText(/test roll d100 lte val droid CT/i)).toBeNull()
   expect(screen.getByText(/You are shot/i)).toBeDefined()
   expect(screen.queryByText(/You luckyly escape/i)).toBeNull()
   expect(screen.getByText(/Ouch that hurts/i)).toBeDefined()
+  expect(screen.queryByText(/Quicker than a laser/i)).toBeNull()
 })

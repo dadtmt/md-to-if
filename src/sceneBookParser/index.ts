@@ -3,6 +3,7 @@ import { snakeCase } from 'change-case'
 import { ActionScene, BookScene } from '..'
 import { SingleASTNode } from 'simple-markdown'
 import parseDialog from './parseDialog'
+import parsePickable from './parsePickable'
 
 interface SplittedContent {
   heading: SingleASTNode
@@ -49,7 +50,11 @@ const splitActions = (
     level + 1,
     path
   )(actionContent)
-  const [contentWithoutDialog, dialog] = parseDialog(content, actions)
+  const [contentWithoutPickable, pickable] = parsePickable(content)
+  const [contentWithoutDialog, dialog] = parseDialog(
+    contentWithoutPickable,
+    actions
+  )
   return splitActions(level, parentScenePath, restOfContent, [
     ...actionList,
     {
@@ -57,7 +62,8 @@ const splitActions = (
       sceneContent: [headOfContent, ...contentWithoutDialog],
       label: getSceneLabel(headOfContent),
       dialog,
-      path
+      path,
+      pickable
     }
   ])
 }
