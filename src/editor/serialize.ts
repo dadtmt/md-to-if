@@ -1,4 +1,5 @@
 import { serialize } from 'remark-slate'
+import { BlockType } from 'remark-slate/dist/serialize'
 
 export type Chunk = Parameters<typeof serialize>[0]
 
@@ -28,7 +29,23 @@ const options = {
   }
 }
 
-const serializeToMdIF = (node: Chunk): string | undefined =>
-  serialize(node, options)
+function isBlockType(x: any): x is BlockType {
+  return x.type !== undefined
+}
+
+const serializeToMdIF = (node: Chunk): string | undefined => {
+  if (isBlockType(node)) {
+    const { type, children } = node
+    if (type === 'command') {
+      const serializedCommandChildren = children.reduce(
+        (acc, child) => `${acc}${serialize(child, options) ?? ''}`,
+        ''
+      )
+      return `{${serializedCommandChildren}}`
+    }
+  }
+
+  return serialize(node, options)
+}
 
 export default serializeToMdIF
