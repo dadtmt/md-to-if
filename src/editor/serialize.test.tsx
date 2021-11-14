@@ -6,6 +6,9 @@ import serialize, { Chunk } from './serialize'
 import jsxEditor from '../test/jsxEditor'
 
 describe('serialize', () => {
+  const storyTitleMd = `# Story title
+Description 
+`
   it('serializes story title and description', () => {
     const input = (
       <editor>
@@ -21,16 +24,14 @@ describe('serialize', () => {
           return serialize(v as Chunk)
         })
         .join('')
-    ).toBe(`# Story title
-Description 
-`)
+    ).toBe(storyTitleMd)
   })
 
   it('serializes a command', () => {
     const input = (
-      <hp>
+      <editor>
         <hcommand>show something</hcommand>
-      </hp>
+      </editor>
     ) as any as PlateEditor
     expect(
       input.children
