@@ -45,6 +45,8 @@ const voidChildren = [{ text: '' }]
 
 const jsxEditor = createHyperscript({
   elements: {
+    book: { type: 'book' },
+    scene: { type: 'scene' },
     hcommand: { type: 'command' },
     ha: { type: ELEMENT_LINK },
     hblockquote: { type: ELEMENT_BLOCKQUOTE },
