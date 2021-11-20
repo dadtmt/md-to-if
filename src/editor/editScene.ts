@@ -1,3 +1,5 @@
+import { Descendant } from 'slate'
+
 export interface EditScene {
   type: 'scene'
   name: string
@@ -5,6 +7,7 @@ export interface EditScene {
   dialog?: {
     actions: EditScene[]
   }
+  children: Descendant[]
 }
 
 const editScene = (
