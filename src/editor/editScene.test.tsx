@@ -5,7 +5,8 @@ import { Descendant } from 'slate'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsxEditor from '../test/jsxEditor'
 import { book } from '../test/editorTree'
-import editScene, { EditScene } from './editScene'
+import editScene from './editScene'
+import { EditScene } from '.'
 
 describe('editScene', () => {
   describe('when edit a first level scene ', () => {

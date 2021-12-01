@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsxEditor from './jsxEditor'
-import { EditScene } from '../editor/editScene'
+import { EditScene } from '../editor'
 
 export const book = (
   <book>

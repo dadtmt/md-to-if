@@ -1,4 +1,4 @@
-import { EditScene } from './editScene'
+import { EditScene } from '.'
 
 const getSceneByPath = (
   scenes: EditScene[],
