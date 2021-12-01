@@ -23,8 +23,8 @@ describe('BookEditor', () => {
   describe('A book editor with a story', () => {
     it('render editor with a story title and story description', () => {
       render(<BookEditor book={book.children} />)
-      screen.getByText('Story Title')
-      screen.getByText('Description')
+      screen.getByText(/Story title/i)
+      screen.getByText(/Description/i)
     })
   })
 })
