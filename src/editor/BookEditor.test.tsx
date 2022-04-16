@@ -7,6 +7,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { book } from '../test/editorTree'
 import BookEditor from './BookEditor'
+import 'jest-styled-components'
 
 describe('BookEditor', () => {
   it('displays an editor', () => {
@@ -16,7 +17,9 @@ describe('BookEditor', () => {
   describe('An empty book editor', () => {
     it('render editor with a story title and story description', () => {
       render(<BookEditor />)
-      screen.getByText(/Type the story title/i)
+      expect(screen.getByRole('textbox')).toHaveTextContent(
+        /Type the story title/i
+      )
       screen.getByText(/Type the story description/i)
     })
   })
@@ -25,6 +28,15 @@ describe('BookEditor', () => {
       render(<BookEditor book={book.children} />)
       screen.getByText(/Story title/i)
       screen.getByText(/Description/i)
+    })
+  })
+  describe('A book editor with a selected path', () => {
+    it('render editor with the scene title and content', () => {
+      render(
+        <BookEditor book={book.children} path={['first_scene', 'action1']} />
+      )
+      screen.getByText('Action 1')
+      screen.getByText(/Action 1 text/i)
     })
   })
 })
