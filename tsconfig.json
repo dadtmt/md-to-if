@@ -15,7 +15,8 @@
 		// Ensure that .d.ts files are created by tsc
 		"declaration": true,
 		"outDir": "lib",
-		"jsx": "react"
+		"jsx": "react",
+		"skipLibCheck": true
 	},
 	"include": [
 		"src"
