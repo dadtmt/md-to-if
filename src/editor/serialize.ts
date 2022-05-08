@@ -1,5 +1,4 @@
-import { serialize } from 'remark-slate'
-import { BlockType } from 'remark-slate/dist/serialize'
+import { serialize, BlockType } from 'remark-slate'
 
 export type Chunk = Parameters<typeof serialize>[0]
 

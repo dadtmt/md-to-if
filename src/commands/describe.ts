@@ -9,9 +9,13 @@ export interface Description {
   [key: string]: string | number
 }
 
-const getDescriptionKey: (args: string[]) => string = R.pipe(
+const getDescriptionKey: (args: string[]) => string = R.pipe<
+  [string[]],
+  string,
+  string
+>(
   R.head,
-  R.when(R.isNil, R.always('Need a key for this description'))
+  R.when<string, string>(R.isNil, R.always('Need a key for this description'))
 )
 
 const updateStateWithDescription: CommandUpdateState =
