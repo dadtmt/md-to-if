@@ -17,21 +17,17 @@ const rollDices: TestAndParseExpression = [
   R.pipe(R.head, R.equals('roll')),
   (expression) => {
     const input = getInput(expression)
-    return R.ifElse(
-      R.isNil,
-      R.always(left('The dices are missing (ex: roll d6)')),
-      R.pipe(
-        roll,
-        getResult,
-        R.ifElse(
-          R.isNil,
-          R.always(
-            left(`${input ?? 'no input'} is not a valid dices input, try d6`)
-          ),
-          right
-        )
+    return R.pipe(
+      roll,
+      getResult,
+      R.ifElse(
+        R.isNil,
+        R.always(
+          left(`${input ?? 'no input'} is not a valid dices input, try d6`)
+        ),
+        right
       )
-    )(input)
+    )(input ?? '')
   }
 ]
 

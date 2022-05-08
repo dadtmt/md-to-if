@@ -12,7 +12,7 @@ describe('parseExpression', () => {
     const expression = ['roll']
     const state = {}
     const rolled = resolve(state)(expression)
-    expect(rolled).toEqual('The dices are missing (ex: roll d6)')
+    expect(rolled).toEqual('no input is not a valid dices input, try d6')
   })
   it('returns error D6 is not a valid dices input, try d6 for ["roll", "D6"]', () => {
     const expression = ['roll', 'D6']
