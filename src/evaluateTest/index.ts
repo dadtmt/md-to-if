@@ -40,7 +40,7 @@ const operandsMustBeNumber: RelationToTestFunction =
       : right(relation(leftOperand, rightOperand))
 
 const getTestFunction: (operator: string) => TestFunction = (operator) =>
-  R.cond<string, TestFunction>([
+  R.cond<any[], TestFunction>([
     [R.equals('equals'), () => alwaysRight(R.equals)],
     [R.equals('lte'), () => operandsMustBeNumber(R.lte)],
     [R.T, () => alwaysLeft(`Operator ${operator} is not valid`)]
