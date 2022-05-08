@@ -54,7 +54,12 @@ const getDescription: (
       (headerContent: ExpressionValidResult[]) =>
         foldError<ExpressionValidResult[], Description>(
           (cellsContent: ExpressionValidResult[]) =>
-            right(R.zipObj(toArrayOfStrings(headerContent), cellsContent))
+            right(
+              R.zipObj(
+                toArrayOfStrings(headerContent),
+                cellsContent
+              ) as Description
+            )
         )(mayBeCellsContent)
     )(mayBeHeaderContent)
   }
