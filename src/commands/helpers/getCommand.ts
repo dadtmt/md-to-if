@@ -2,9 +2,16 @@ import R from 'ramda'
 import type { SingleASTNode } from 'simple-markdown'
 import type { Command } from '..'
 
-const getContentAsString: (content: SingleASTNode) => string = R.pipe(
+const getContentAsString: (content: SingleASTNode) => string = R.pipe<
+  [SingleASTNode],
+  string,
+  string
+>(
   R.prop<string>('content'),
-  R.when(R.pipe(R.type, R.equals('String'), R.not), R.always(''))
+  R.when<string, string>(
+    R.pipe(R.type, R.equals('String'), R.not),
+    R.always('')
+  )
 )
 
 const getCommandLine: (content: SingleASTNode) => string[] = R.pipe(
