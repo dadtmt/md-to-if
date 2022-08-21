@@ -110,6 +110,7 @@ const sceneBookParse: (level: number) => (content: SingleASTNode[]) => {
   sourceLeft: SingleASTNode[]
 } = (level) =>
   R.pipe(
+    // @ts-expect-error
     R.converge(R.prepend, [R.head, R.pipe(R.tail, splitByHeading(level))]),
     sortSplittedContent,
     splitContentToSceneAndSourceLeft

@@ -37,13 +37,14 @@ const serializeToMdIF = (node: Chunk): string | undefined => {
     const { type, children } = node
     if (type === 'command') {
       const serializedCommandChildren = children.reduce(
+        // @ts-expect-error
         (acc, child) => `${acc}${serialize(child, options) ?? ''}`,
         ''
       )
       return `{${serializedCommandChildren}}`
     }
   }
-
+  // @ts-expect-error
   return serialize(node, options)
 }
 

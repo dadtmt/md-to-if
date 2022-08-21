@@ -28,8 +28,7 @@ const getTestResult: (state: State, match: boolean) => ComputeContentAndState =
 const getCaseContent: (state: State, match: boolean) => ComputeContentAndState =
   (state, match) => {
     return R.pipe(
-      R.assoc('type', 'paragraph'),
-      R.assoc('contentToMerge', true),
+      R.mergeLeft({ type: 'paragraph', contentToMerge: true }),
       getTestResult(state, match)
     )
   }

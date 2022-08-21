@@ -7,9 +7,10 @@ const mergeContent = (
   parsedContent: SingleASTNode[]
 ): ((content: SingleASTNode) => SingleASTNode) =>
   R.ifElse(
-    R.prop('contentToMerge'),
+    R.propOr(false, 'contentToMerge'),
     // @ts-expect-error
     R.pipe(R.prop('content'), R.concat(parsedContent)),
+    // @ts-expect-error
     appendTo(parsedContent)
   )
 
